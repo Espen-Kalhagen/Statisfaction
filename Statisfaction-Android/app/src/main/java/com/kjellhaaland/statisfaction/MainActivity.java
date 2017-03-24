@@ -2,6 +2,7 @@ package com.kjellhaaland.statisfaction;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -24,19 +25,27 @@ public class MainActivity extends AppCompatActivity {
         container = (WebView) findViewById(R.id.application_container);
 
         // Configure app
-        this.configure();
+        this.configureContainer();
 
     }
+
     /**
-     * Configures the container
-     *
+     * Configures the app
      */
-    private void configure()
+    private void configureApp()
     {
+        // Prevents the device of sleeping
+        this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         // Prompts the user about locking the app to the screen
         this.startLockTask();
+    }
 
+    /**
+     * Configures the container
+     */
+    private void configureContainer()
+    {
         // Loads the desired url into the webview
         container.loadUrl(URL_STARTUP);
 
@@ -50,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
                 return false ;
             }
         });
-
     }
 
     //TODO: Load URL_STARTUP from server
