@@ -42,7 +42,7 @@ namespace WebApplicationBasic
             {
                 app.UseDeveloperExceptionPage();
                 app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions {
-                    HotModuleReplacement = true
+                   HotModuleReplacement = true
                 });
             }
             else
@@ -60,7 +60,7 @@ namespace WebApplicationBasic
 
                 routes.MapSpaFallbackRoute(
                     name: "spa-fallback",
-                    defaults: new { controller = "Home", action = "Index" });
+                    defaults: new { controller = "Statistics", action = "Index" });
             });
         }
     }
