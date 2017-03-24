@@ -7,7 +7,7 @@
         {
             "taskName": "build",
             "args": [
-                "${workspaceRoot}\\SpaTest.csproj"
+                "${workspaceRoot}\\Statisfaction.csproj"
             ],
             "isBuildCommand": true,
             "problemMatcher": "$msCompile"
