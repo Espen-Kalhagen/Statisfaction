@@ -1,30 +1,30 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { UniversalModule } from 'angular2-universal';
-import { AppComponent } from './components/app/app.component'
-import { NavMenuComponent } from './components/navmenu/navmenu.component';
-import { StatisticsComponent } from './components/statistics/statistics.component';
-import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
-import { CounterComponent } from './components/counter/counter.component';
+
+import { StoreUnitModule } from '../store-unit/store-unit.module';
+import {ClientModule} from '../client/client.module'
+
+import { AppComponent } from './components/app/app.component';
+
+const routes: Routes =
+[
+    { path: '', redirectTo: 'statistics', pathMatch: 'full' },
+    { path: '**', redirectTo: 'Statistics' },
+    {path: 'store-unit', component: StoreUnitModule},
+    {path: 'statistics', component : ClientModule}
+]
 
 @NgModule({
-    bootstrap: [ AppComponent ],
+    bootstrap: [AppComponent],
     declarations: [
-        AppComponent,
-        NavMenuComponent,
-        CounterComponent,
-        FetchDataComponent,
-        StatisticsComponent
+        AppComponent
     ],
     imports: [
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.
-        RouterModule.forRoot([
-            { path: '', redirectTo: 'statistics', pathMatch: 'full' },
-            { path: 'statistics', component: StatisticsComponent },
-            { path: 'counter', component: CounterComponent },
-            { path: 'fetch-data', component: FetchDataComponent },
-            { path: '**', redirectTo: 'Statistics' }
-        ])
+        RouterModule.forRoot(routes),
+        StoreUnitModule,
+        ClientModule
     ]
 })
 export class AppModule {
