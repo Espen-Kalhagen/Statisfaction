@@ -9,26 +9,30 @@ import { NavMenuComponent} from './components/navmenu/navmenu.component';
 
 
 const routes: Routes =
+[
+    { path: '', redirectTo: 'client', pathMatch: 'full' },
+    { path: 'client', component:ClientComponent, children:
     [
-        { path: '', redirectTo: 'statistics', pathMatch: 'full' },
-        { path: 'statistics', component: StatisticsComponent },
-        { path: 'counter', component: CounterComponent },
-        { path: 'fetch-data', component: FetchDataComponent },
-        { path: 'client', component: ClientComponent},
-        { path: '**', redirectTo: 'Statistics' }
-    ]
+        {path: 'statistics', component: StatisticsComponent},
+        {path: 'fetch-data', component: FetchDataComponent},
+        {path: 'counter', component: CounterComponent}
+    ]},
+    { path: '**', redirectTo: 'client' }
+]
 
 @NgModule({
+    bootstrap: [ClientComponent],
     declarations: [
+        ClientComponent,
         NavMenuComponent,
         CounterComponent,
         FetchDataComponent,
-        StatisticsComponent,
-        ClientComponent
+        StatisticsComponent
     ],
     imports: [
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.
         RouterModule.forChild(routes),
+        RouterModule.forRoot(routes)
     ]
 })
 export class ClientModule {

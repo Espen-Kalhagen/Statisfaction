@@ -6,6 +6,7 @@ import { StoreUnitModule } from '../store-unit/store-unit.module';
 import {ClientModule} from '../client/client.module'
 
 import { AppComponent } from './components/app/app.component';
+import { StatisticsComponent } from '../client/components/statistics/statistics.component';
 
 const routes: Routes =
 [
