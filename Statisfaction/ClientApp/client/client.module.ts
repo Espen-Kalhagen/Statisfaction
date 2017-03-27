@@ -18,7 +18,6 @@ const routes: Routes =
         { path: '**', redirectTo: 'Statistics' }
     ]
 
-
 @NgModule({
     declarations: [
         NavMenuComponent,
