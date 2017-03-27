@@ -1,24 +1,19 @@
-<h1>Weather forecast</h1>
+<h1>Customer responces</h1>
 
-<p>This component demonstrates fetching data from the server.</p>
+<p>This component demonstrates fetching messages sent with RabbitMQ from the server.</p>
 
-<p *ngIf="!forecasts"><em>Loading...</em></p>
+<p *ngIf="!Reponses"><em>No data</em></p>
 
-<table class='table' *ngIf="forecasts">
+<table class='table' *ngIf="Reponses">
     <thead>
         <tr>
-            <th>Date</th>
-            <th>Temp. (C)</th>
-            <th>Temp. (F)</th>
-            <th>Summary</th>
+            <th>Responses</th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let forecast of forecasts">
-            <td>{{ forecast.dateFormatted }}</td>
-            <td>{{ forecast.temperatureC }}</td>
-            <td>{{ forecast.temperatureF }}</td>
-            <td>{{ forecast.summary }}</td>
+        <tr *ngFor="let Reponse of Reponses">
+            <td>{{ Reponse.content }}</td>
+
         </tr>
     </tbody>
 </table>

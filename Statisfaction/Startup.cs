@@ -59,12 +59,15 @@ namespace WebApplicationBasic
                 }
                 app.UseDeveloperExceptionPage();
                 app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions {
-                   HotModuleReplacement = true
+
+                  HotModuleReplacement = true
+
                 });
 
+            //I allways debug!
          //   }
          //   else
-         //   {
+          //  {
                 //app.UseExceptionHandler("/Home/Error");
          //   }
 

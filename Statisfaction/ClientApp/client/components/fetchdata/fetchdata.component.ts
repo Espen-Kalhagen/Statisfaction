@@ -6,18 +6,16 @@ import { Http } from '@angular/http';
     templateUrl: './fetchdata.component.html'
 })
 export class FetchDataComponent {
-    public forecasts: WeatherForecast[];
+    public Reponses: CustomerResponces[];
 
     constructor(http: Http) {
-        http.get('/api/SampleData/WeatherForecasts').subscribe(result => {
-            this.forecasts = result.json() as WeatherForecast[];
+        http.get('/api/SampleData/CustomerResponses').subscribe(result => {
+            this.Reponses = result.json() as CustomerResponces[];
         });
     }
 }
 
-interface WeatherForecast {
-    dateFormatted: string;
-    temperatureC: number;
-    temperatureF: number;
-    summary: string;
+interface CustomerResponces {
+    id: string;
+    content: string;
 }
