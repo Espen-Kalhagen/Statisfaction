@@ -4,10 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Statisfaction.Data;
+using Models;
 
 namespace WebApplicationBasic
 {
@@ -29,6 +32,10 @@ namespace WebApplicationBasic
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
+
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Filename=./Responce.db"));
+
+
             services.AddMvc();
         }
 
@@ -38,17 +45,28 @@ namespace WebApplicationBasic
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            if (env.IsDevelopment())
-            {
+           // if (env.IsDevelopment())
+           // {
+                using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+                {
+                    var db = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
+
+                    db.Database.EnsureDeleted();
+                    db.Database.EnsureCreated();
+                    
+
+                    db.SaveChanges();
+                }
                 app.UseDeveloperExceptionPage();
                 app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions {
                    HotModuleReplacement = true
                 });
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
+
+         //   }
+         //   else
+         //   {
+                //app.UseExceptionHandler("/Home/Error");
+         //   }
 
             app.UseStaticFiles();
 
