@@ -16,3 +16,7 @@ export class SmileyWidgetComponent
         this.selection = option;
     }
 }
+
+
+
+
