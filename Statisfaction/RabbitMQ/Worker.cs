@@ -3,7 +3,7 @@ using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
 using System.Threading;
-using Statisfaction.Data;
+using Data;
 using Models;
 using Microsoft.EntityFrameworkCore;
 
