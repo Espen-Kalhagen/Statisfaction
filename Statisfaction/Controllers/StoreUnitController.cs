@@ -4,7 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+<<<<<<< HEAD
 using Data;
+=======
+using Statisfaction.Data;
+>>>>>>> Made rabbitMQ worker start a new thread, removed bower STAT-28
 
 namespace Controllers
 {
