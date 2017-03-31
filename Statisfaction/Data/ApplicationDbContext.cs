@@ -24,5 +24,6 @@ namespace Data
         }
 
         public DbSet<Responce> Reponces { get; set; }
+        public DbSet<StoreUnit> StoreUnits { get; set; }
     }
 }
