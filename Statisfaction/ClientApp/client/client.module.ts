@@ -5,7 +5,8 @@ import { ClientComponent } from './components/client/client.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { StatisticsComponent } from './components/statistics/statistics.component';
-import { NavMenuComponent} from './components/navmenu/navmenu.component';
+import { NavMenuComponent } from './components/navmenu/navmenu.component';
+import { AnalyticsComponent } from "./components/analytics/analytics.component";
 
 
 const routes: Routes =
@@ -15,7 +16,8 @@ const routes: Routes =
     [
         {path: 'statistics', component: StatisticsComponent},
         {path: 'fetch-data', component: FetchDataComponent},
-        {path: 'counter', component: CounterComponent}
+        {path: 'counter', component: CounterComponent},
+        {path: 'analytics', component: AnalyticsComponent }
     ]},
     { path: '**', redirectTo: 'client' }
 ]
@@ -27,7 +29,8 @@ const routes: Routes =
         NavMenuComponent,
         CounterComponent,
         FetchDataComponent,
-        StatisticsComponent
+        StatisticsComponent,
+        AnalyticsComponent
     ],
     imports: [
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.
