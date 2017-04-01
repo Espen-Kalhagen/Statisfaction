@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Controllers
 {
-    [Authorize]
+    
     public class StatisticsController : Controller
     {
         public IActionResult Index()

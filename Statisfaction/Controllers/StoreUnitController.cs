@@ -1,3 +1,7 @@
+/**
+    This controller serves a webpage to start a new MQ reader.
+ */
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
