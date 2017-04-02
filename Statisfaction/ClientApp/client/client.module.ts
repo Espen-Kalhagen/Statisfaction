@@ -11,7 +11,6 @@ import { AnalyticsComponent } from "./components/analytics/analytics.component";
 
 const routes: Routes =
 [
-    { path: '', redirectTo: 'client', pathMatch: 'full' },
     { path: 'client', component:ClientComponent, children:
     [
         {path: 'statistics', component: StatisticsComponent},
@@ -19,7 +18,6 @@ const routes: Routes =
         {path: 'counter', component: CounterComponent},
         {path: 'analytics', component: AnalyticsComponent }
     ]},
-    { path: '**', redirectTo: 'client' }
 ]
 
 @NgModule({

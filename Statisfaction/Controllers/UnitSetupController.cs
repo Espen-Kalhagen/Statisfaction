@@ -24,7 +24,8 @@ namespace api.UnitSetup
             this.db = db;
             this.um = um;
         }
-        // POST api/values
+
+        [Route("registerNewUnit")]
         [HttpPost]
         public IActionResult Post([FromBody]RegistrationData data)
         {
@@ -46,7 +47,37 @@ namespace api.UnitSetup
             unit.Confirmed = true;
             db.SaveChanges();
             //activation was successfull
-            return Json(unit);
+
+            return Json(new StoreUnitViewModel(unit));
+        }
+        [Route("checkRegistration")]
+        [HttpPost]
+        public IActionResult Post([FromBody]ActivationData data)
+        {
+
+            var unitQ = from i in db.StoreUnits.Include(p => p.Owner)
+                        where i.id == data.Unitid
+                        select i;
+
+            StoreUnit unit = null;
+            try
+            {
+                unit = unitQ.ToList().First();
+            }
+            catch
+            {
+                return NotFound();
+            }
+
+            if (unit.Confirmed)
+            {
+                return StatusCode(409); //409 conflict
+            }
+            unit.Confirmed = true;
+            db.SaveChanges();
+            //activation was successfull
+
+            return Json(new StoreUnitViewModel(unit));
         }
 
     }
@@ -54,5 +85,11 @@ namespace api.UnitSetup
     {
         public int pin { get; set; }
     }
+    public class ActivationData
+    {
+        public int Unitid { get; set; }
+        public string ownerID { get; set; }
+    }
+    
 }
 
