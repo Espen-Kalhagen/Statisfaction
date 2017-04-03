@@ -69,11 +69,6 @@ namespace api.UnitSetup
                 return NotFound();
             }
 
-            if (unit.Confirmed)
-            {
-                return StatusCode(409); //409 conflict
-            }
-            unit.Confirmed = true;
             db.SaveChanges();
             //activation was successfull
 

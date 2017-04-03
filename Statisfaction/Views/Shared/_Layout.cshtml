@@ -36,13 +36,14 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a href="/statistics">Statistics</a></li>
                     <li><a href="/store-unit">Store Unit site</a></li>
+                    <li><a href="/home/addUnit">Register new store unit</a></li>
                     <li><a asp-area="" asp-controller="StoreUnit" asp-action="Read">Start a RabbitMQ queue reader</a></li>
                 </ul>
               <!-- Login partila view -->
+            @await Html.PartialAsync("_LoginPartial")
             </div>
         </div>
     </div>
-
 
 
 

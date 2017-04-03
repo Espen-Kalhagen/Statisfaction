@@ -11,7 +11,7 @@ namespace Controllers
     public class SampleDataController : Controller
     {
 
-        ApplicationDbContext db;
+        Data.ApplicationDbContext db;
 
         public SampleDataController(ApplicationDbContext db){
             this.db = db;

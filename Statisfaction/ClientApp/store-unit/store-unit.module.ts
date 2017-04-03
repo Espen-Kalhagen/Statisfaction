@@ -17,6 +17,7 @@ const routes: Routes =
 [
     {path: 'store-unit', component: StoreUnitComponent},
     {path: 'register-unit', component: RegisterUnitComponent }
+
 ]
 
 @NgModule({

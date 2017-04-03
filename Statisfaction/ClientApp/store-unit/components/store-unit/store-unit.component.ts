@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CookieService } from 'ng2-cookies';
 import { RouterModule, Router } from "@angular/router";
 import { Http, RequestOptions, Headers } from '@angular/http';
+import { Observable } from "rxjs/Rx";
 
 @Component({
     selector: 'store-unit',
@@ -12,6 +13,8 @@ import { Http, RequestOptions, Headers } from '@angular/http';
 
 export class StoreUnitComponent 
 {
+
+    CookieContet: string;
 
     public constructor(
         private router: Router,
@@ -25,16 +28,22 @@ export class StoreUnitComponent
             this.router.navigate(['/register-unit'])
             return;
         }
+        console.log("FOUND COOKIE: " + this.cookie.get('StoreUnitCookie'));
+        this.CookieContet = this.cookie.get('StoreUnitCookie');
+        let CookieObject = JSON.parse(this.CookieContet);
         let data = new RegistrationCheckData(
-         JSON.parse(this.cookie.get('StoreUnitCookie')).id,
-         JSON.parse(this.cookie.get('StoreUnitCookie')).ownerID
+            CookieObject.id,
+            CookieObject.ownerID
         )
         let body = JSON.stringify(data);
         let options = new RequestOptions();
         options.headers = new Headers({ 'Content-Type': 'application/json' });
-        let error=null;
-        this.http.post('api/UnitSetup/checkRegistration', body, options).subscribe(res => this.handleCheck(res));
-        alert("Please register the store unit first");
+        this.http.post('api/UnitSetup/checkRegistration', body, options).catch(err => {
+            alert("There was an error in the registration, please log out and in and restart the process");
+            this.router.navigate(['/register-unit']);
+            this.cookie.delete('StoreUnitCookie');
+            return Observable.throw(err); // observable needs to be returned or exception raised
+        }).subscribe(res => this.handleCheck(res));
         
 
 
@@ -44,10 +53,8 @@ export class StoreUnitComponent
         console.log(response._body);
 
         console.log('activation check returned ' + JSON.parse(response._body).confirmed);
-        if (JSON.parse(response._body).exists){
+        if (!JSON.parse(response._body).confirmed){
             this.router.navigate(['/register-unit'])
-        }else{
-            this.router.navigate([''])
         }
         
     }

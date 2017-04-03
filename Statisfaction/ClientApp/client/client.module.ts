@@ -11,13 +11,17 @@ import { AnalyticsComponent } from "./components/analytics/analytics.component";
 
 const routes: Routes =
 [
-    { path: 'client', component:ClientComponent, children:
-    [
-        {path: 'statistics', component: StatisticsComponent},
-        {path: 'fetch-data', component: FetchDataComponent},
-        {path: 'counter', component: CounterComponent},
-        {path: 'analytics', component: AnalyticsComponent }
-    ]},
+        { path: '', redirectTo: 'client', pathMatch: 'full' },
+        {
+            path: 'client', component: ClientComponent, children:
+            [
+                { path: 'statistics', component: StatisticsComponent },
+                { path: 'fetch-data', component: FetchDataComponent },
+                { path: 'counter', component: CounterComponent },
+                { path: 'analytics', component: AnalyticsComponent }
+            ]
+        },
+        { path: '**', redirectTo: 'client' }
 ]
 
 @NgModule({

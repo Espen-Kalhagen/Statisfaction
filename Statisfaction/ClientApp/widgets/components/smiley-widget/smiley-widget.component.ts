@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 declare var Stomp: any;
 declare var $: any;
@@ -17,6 +17,7 @@ declare var send_wrapper: any;
 
 export class SmileyWidgetComponent 
 {
+    @Input() CookieContet: string;
     rabbitRunning:boolean = false;
     title:string = "Widget name";
     selection:string; 
@@ -33,7 +34,7 @@ export class SmileyWidgetComponent
             start_rabbit();
             this.rabbitRunning=true;
         }else{
-        send_wrapper(smileyNr);
+            send_wrapper(smileyNr + " | " + this.CookieContet );
         }
 
     }

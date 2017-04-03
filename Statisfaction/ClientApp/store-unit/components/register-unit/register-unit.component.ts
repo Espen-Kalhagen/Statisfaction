@@ -28,7 +28,7 @@ export class RegisterUnitComponent {
         options.headers = new Headers({ 'Content-Type': 'application/json' });
 
         this.http.post('api/UnitSetup/registerNewUnit', body, options).catch(err => {
-            alert('Please register the unit first');
+            alert("There was an error in the registration, please log out and in and restart the process");
             return Observable.throw(err); // observable needs to be returned or exception raised
         }).subscribe(res => this.handleActivation(res));
 

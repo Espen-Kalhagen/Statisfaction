@@ -90,9 +90,20 @@ namespace WebApplicationBasic
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
 
+                routes.MapRoute(
+                    name: "spa-store-unit",
+                    template: "store-unit",
+                    defaults: new { controller = "Statistics", action = "StoreUnit" });
+
+                routes.MapRoute(
+                    name: "spa-register-unit",
+                    template: "register-unit",
+                    defaults: new { controller = "Statistics", action = "StoreUnit" });
+
                 routes.MapSpaFallbackRoute(
                     name: "spa-fallback",
                     defaults: new { controller = "Statistics", action = "Index" });
+
             });
         }
     }

@@ -10,9 +10,15 @@ namespace Controllers
     
     public class StatisticsController : Controller
     {
+        [Authorize]
         public IActionResult Index()
         {
             return View();
+        }
+
+        public IActionResult StoreUnit()
+        {
+            return PartialView("Index");
         }
 
         public IActionResult Error()
