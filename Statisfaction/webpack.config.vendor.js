@@ -33,6 +33,8 @@ module.exports = (env) => {
                 'event-source-polyfill',
                 'jquery',
                 'zone.js',
+                'ng2-charts',
+                'chart.js'
             ]
         },
         output: {
@@ -84,5 +86,5 @@ module.exports = (env) => {
         ]
     });
 
-    return [clientBundleConfig, serverBundleConfig];
+    return [clientBundleConfig/*, serverBundleConfig*/];
 }
