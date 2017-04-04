@@ -5,7 +5,6 @@ import { ClientComponent } from './components/client/client.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { StatisticsComponent } from './components/statistics/statistics.component';
-<<<<<<< HEAD
 import { NavMenuComponent} from './components/navmenu/navmenu.component';
 import { ChartComponent} from './components/chart/chart.component';
 import { ChartsModule } from 'ng2-charts';
