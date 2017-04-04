@@ -3,15 +3,22 @@ using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
 using System.Threading;
-using Statisfaction.Data;
+using Data;
 using Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace RabbitMQTasks
 {
     class Worker
     {
-        public Worker(ApplicationDbContext db)
+        //Must use this for db to not get disposed after request finishes
+        DbContextOptions<ApplicationDbContext> db;
+        public Worker(DbContextOptions<ApplicationDbContext> db)
         {
+            this.db = db;
+        }
+
+        public void StartRead(){
             var factory = new ConnectionFactory() { HostName = "localhost" };
             using (var connection = factory.CreateConnection())
             using (var channel = connection.CreateModel())
@@ -32,9 +39,11 @@ namespace RabbitMQTasks
                     var body = ea.Body;
                     var message = Encoding.UTF8.GetString(body);
                     Console.WriteLine(" [x] Received {0}", message);
-                    db.Reponces.Add(new Responce(){Content = message});
-                    db.SaveChanges();
-
+                    using (var context = new ApplicationDbContext(db))
+                    {
+                        context.Reponces.Add(new Responce() { Content = message });
+                        context.SaveChanges();
+                    }
                     //int dots = message.Split('.').Length - 1;
                     //Thread.Sleep(dots * 1000);
 
@@ -48,6 +57,7 @@ namespace RabbitMQTasks
 
                 Console.WriteLine(" Press [enter] to exit.");
                 Console.ReadLine();
+
             }
         }
     }

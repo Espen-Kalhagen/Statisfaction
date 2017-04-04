@@ -5,6 +5,7 @@ import { ClientComponent } from './components/client/client.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { StatisticsComponent } from './components/statistics/statistics.component';
+<<<<<<< HEAD
 import { NavMenuComponent} from './components/navmenu/navmenu.component';
 import { ChartComponent} from './components/chart/chart.component';
 import { ChartsModule } from 'ng2-charts';
@@ -21,6 +22,7 @@ const routes: Routes =
         {path: 'chart', component: ChartComponent}
     ]},
     { path: '**', redirectTo: 'client' }
+
 ]
 
 @NgModule({
@@ -33,7 +35,7 @@ const routes: Routes =
         StatisticsComponent,       
         ChartComponent,
     ],
-    imports: [
+    imports: [  
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.
         ChartsModule,
         RouterModule.forChild(routes),

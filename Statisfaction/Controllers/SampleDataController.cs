@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Statisfaction.Data;
+using Data;
 
-namespace WebApplicationBasic.Controllers
+namespace Controllers
 {
     [Route("api/[controller]")]
     public class SampleDataController : Controller
     {
 
-        ApplicationDbContext db;
+        Data.ApplicationDbContext db;
 
         public SampleDataController(ApplicationDbContext db){
             this.db = db;

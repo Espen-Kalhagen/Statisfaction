@@ -1,9 +1,29 @@
 
+@model Models.StoreUnit
 <h1> Add a unit</h1>
-<p> To register a new unit, create a name for it. This name will identify this unit when you look at it's statistics.</p>
-<p> Example: "Exit clothing department"</p>
-<br>
+<p> 
+  If you have ordered a new unit and not added it to your account, this is where you do this. 
+</p>
+ <p> 
+   If you want to rename a unit, remove it and add it here afterwards. 
+ </p>
+<p>  
+  To register a new unit, create a name and location for it. This name will identify this unit when you look at it's statistics.
+  After adding the unit here you need to start it up and enter the pin that shows up after pressing submit 
+</p>
+
 <form method="post">
-      Unit name: <input type="text" name="UnitName">
-        <input type="submit" value="Submit">
+          <div asp-validation-summary="All" class="text-danger"></div>
+
+          <label asp-for="UnitName" > </label>
+          <p> Example: "Clothing"</p>
+          <span asp-validation-for="UnitName" class="text-danger"></span>
+          <input class="form-control" asp-for="UnitName">
+          <br>
+          <label asp-for="Placement" > </label>
+          <p> Example: "Exit clothing department"</p>
+          <span asp-validation-for="Placement" class="text-danger"></span>
+          <input class="form-control" asp-for="Placement">
+          <br>
+          <input type="submit" class="btn btn-primary" value="Submit">
 </form>

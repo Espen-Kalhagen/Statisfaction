@@ -8,18 +8,22 @@ import { WidgetModule} from '../widgets/widgets.module';
 
 // Components
 import { StoreUnitComponent } from './components/store-unit/store-unit.component';
+import { RegisterUnitComponent } from "./components/register-unit/register-unit.component";
 
 
 
 
 const routes: Routes =
 [
-    {path: 'store-unit', component: StoreUnitComponent}
+    {path: 'store-unit', component: StoreUnitComponent},
+    {path: 'register-unit', component: RegisterUnitComponent }
+
 ]
 
 @NgModule({
     declarations: [
         StoreUnitComponent,
+        RegisterUnitComponent,
     ],
     imports: [
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.
