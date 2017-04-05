@@ -2,18 +2,20 @@
 
 <p>This component demonstrates fetching messages sent with RabbitMQ from the server.</p>
 
-<p *ngIf="!Reponses"><em>No data</em></p>
+<p *ngIf="!responses"><em>No data</em></p>
 
-<table class='table' *ngIf="Reponses">
+<table class='table' *ngIf="keys">
     <thead>
         <tr>
             <th>Responses</th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let Reponse of Reponses">
-            <td>{{ Reponse.content }}</td>
-
+        <tr *ngFor="let resp of responses">
+            <td>{{ resp.ownerID }}</td>
         </tr>
     </tbody>
 </table>
+
+
+<p>{{responses}}</p>

@@ -10,17 +10,20 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Models;
 using Data;
-
+using Services;
+using MongoDB.Driver;
 
 namespace Controllers
 {
+
     public class StoreUnitController : Controller
     {
         //Must use this for db to not get disposed after request finishes
-        DbContextOptions<ApplicationDbContext> db;
+        
+        IMongoService mongoService ;
 
-        public StoreUnitController(DbContextOptions<ApplicationDbContext> db){
-            this.db = db;
+        public StoreUnitController(IMongoService mongoService){
+            this.mongoService = mongoService;
         }
         //Inputing data in the form will produce a rabbitMQ message
         public IActionResult Index()
@@ -33,7 +36,7 @@ namespace Controllers
         //probably a good idea to find a more elegant way to start a new worker
         public IActionResult Read()
         {
-            var worker = new RabbitMQTasks.Worker(db);
+            var worker = new RabbitMQTasks.Worker(mongoService);
             System.Threading.Thread myThread;
             myThread = new System.Threading.Thread(new
                 System.Threading.ThreadStart(worker.StartRead)); 

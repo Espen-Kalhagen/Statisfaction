@@ -5,25 +5,33 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Data;
 
+using Services;
+using MongoDB.Driver;
+using MongoDB.Bson;
+
 namespace Controllers
 {
     [Route("api/[controller]")]
     public class SampleDataController : Controller
     {
 
-        Data.ApplicationDbContext db;
+        IMongoDatabase db ;
 
-        public SampleDataController(ApplicationDbContext db){
-            this.db = db;
+        public SampleDataController(IMongoService mongoService){
+            this.db = mongoService.GetMongo();
         }
 
         [HttpGet("[action]")]
-        public IEnumerable<Models.Responce> CustomerResponses()
+        public JsonResult CustomerResponses()
         {
 
-            var reps = db.Reponces.AsQueryable().ToList();
+            var collection = db.GetCollection<BsonDocument>("responses");
 
-            return reps;
+            var responses = collection.Find(new BsonDocument()).ToList().ToJson();
+
+            Console.WriteLine(responses);
+
+            return new JsonResult(responses);
         }
 
 

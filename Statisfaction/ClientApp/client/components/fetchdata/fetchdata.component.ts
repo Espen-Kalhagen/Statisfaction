@@ -6,16 +6,20 @@ import { Http } from '@angular/http';
     templateUrl: './fetchdata.component.html'
 })
 export class FetchDataComponent {
-    public Reponses: CustomerResponces[];
+    public responses: CustomerResponses[];
 
     constructor(http: Http) {
         http.get('/api/SampleData/CustomerResponses').subscribe(result => {
-            this.Reponses = result.json() as CustomerResponces[];
+            this.responses = result.json() as CustomerResponses[];
+
+            console.log(this.responses);
         });
+
     }
 }
 
-interface CustomerResponces {
-    id: string;
-    content: string;
+interface CustomerResponses {
+    _id: string;
+    ownerID: string;
+    responses:string;
 }

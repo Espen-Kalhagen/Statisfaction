@@ -6,16 +6,22 @@ using System.Threading;
 using Data;
 using Models;
 using Microsoft.EntityFrameworkCore;
+using MongoDB.Bson;
+using MongoDB.Driver;
+using Services;
 
 namespace RabbitMQTasks
 {
     class Worker
     {
-        //Must use this for db to not get disposed after request finishes
-        DbContextOptions<ApplicationDbContext> db;
-        public Worker(DbContextOptions<ApplicationDbContext> db)
+
+        IMongoDatabase db ;
+
+        public Worker(IMongoService mongoService)
         {
-            this.db = db;
+            this.db = mongoService.GetMongo();
+
+            Console.WriteLine("Starting worker!");
         }
 
         public void StartRead(){
@@ -39,18 +45,23 @@ namespace RabbitMQTasks
                     var body = ea.Body;
                     var message = Encoding.UTF8.GetString(body);
                     Console.WriteLine(" [x] Received {0}", message);
-                    using (var context = new ApplicationDbContext(db))
-                    {
-                        context.Reponces.Add(new Responce() { Content = message });
-                        context.SaveChanges();
-                    }
-                    //int dots = message.Split('.').Length - 1;
-                    //Thread.Sleep(dots * 1000);
+
+                    var collection = db.GetCollection<BsonDocument>("responses");
+
+                    BsonDocument doc = null;
+
+                    var status = BsonDocument.TryParse(message,out doc);
+                    
+                    Console.WriteLine("Status: " + status);
+
+                    if(doc != null)
+                        collection.InsertOne(doc);
 
                     Console.WriteLine(" [x] Done");
 
                     channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
                 };
+
                 channel.BasicConsume(queue: "testqueue",
                                      noAck: false,
                                      consumer: consumer);

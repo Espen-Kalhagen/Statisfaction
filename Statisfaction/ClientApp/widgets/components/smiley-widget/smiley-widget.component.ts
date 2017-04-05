@@ -22,19 +22,36 @@ export class SmileyWidgetComponent
     title:string = "Widget name";
     selection:string; 
 
-
-
-
     onSelect(option:string) : void
     {
         this.selection = option;
     }
+
     send(smileyNr){
         if (!this.rabbitRunning){
             start_rabbit();
             this.rabbitRunning=true;
         }else{
-            send_wrapper(smileyNr + " | " + this.CookieContet );
+            
+            // Retrieve the CookieData and parse it into a json-object 
+            // We do this to be able to extract the data we need to save
+            var cookieData = JSON.parse(this.CookieContet);
+
+            // Creates a response-message with the required information
+            var resp = 
+            {
+                "ownerID" : cookieData["ownerID"],
+                "responses" : 
+                [
+                    {"widgetID" : "1", "response" : smileyNr}
+                ]
+            };
+
+            // Turn the respons into a string (in order to send it)
+            var json = JSON.stringify(resp)
+            
+            // Send the data to the RabbitMQ Queue system
+            send_wrapper(json);
         }
 
     }

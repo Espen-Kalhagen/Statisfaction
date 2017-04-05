@@ -46,6 +46,10 @@ namespace WebApplicationBasic
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+
+            // Adds the custom mongo-service as as scoped service
+            services.AddScoped<IMongoService, MongoService>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
