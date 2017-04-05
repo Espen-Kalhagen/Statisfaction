@@ -9,7 +9,7 @@ namespace RabbitMQTasks
         public NewTask()
         {
             string[] args = {"A","b","C","D"};
-            var factory = new ConnectionFactory() { HostName = "localhost" };
+            var factory = new ConnectionFactory() { HostName = "rabbitmq.statisfaction.tech" };
             using (var connection = factory.CreateConnection())
             using (var channel = connection.CreateModel())
             {

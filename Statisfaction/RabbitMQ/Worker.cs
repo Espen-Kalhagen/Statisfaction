@@ -25,7 +25,7 @@ namespace RabbitMQTasks
         }
 
         public void StartRead(){
-            var factory = new ConnectionFactory() { HostName = "localhost" };
+            var factory = new ConnectionFactory() { HostName = "rabbitmq.statisfaction.tech", Password = "unituser", UserName = "unituser" };
             using (var connection = factory.CreateConnection())
             using (var channel = connection.CreateModel())
             {

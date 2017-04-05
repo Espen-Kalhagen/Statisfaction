@@ -14,9 +14,9 @@ function start_rabbit() {
 
         // Stomp.js set up a connection
     if (location.search == '?ws') {
-        client = Stomp.client('ws://' + window.location.hostname + ':15674/ws');
+        client = Stomp.client('ws://' + "rabbitmq.statisfaction.tech" + ':15674/ws');
     } else { //legacy support
-        var ws = new SockJS('http://' + window.location.hostname + ':15674/stomp');
+        var ws = new SockJS('http://' + "rabbitmq.statisfaction.tech" + ':15674/stomp');
         client = Stomp.over(ws);
     }
 
@@ -31,7 +31,7 @@ function start_rabbit() {
         console.log('error');
     };
     //Connect localhost with username guest, password guest and callback function on_connect
-    client.connect('guest', 'guest', on_connect, on_error, '/');
+    client.connect('unituser', 'unituser', on_connect, on_error, '/');
 }
 
 
