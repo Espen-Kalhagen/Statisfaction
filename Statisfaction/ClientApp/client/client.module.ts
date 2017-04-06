@@ -7,6 +7,9 @@ import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { StatisticsComponent } from './components/statistics/statistics.component';
 import { NavMenuComponent} from './components/navmenu/navmenu.component';
 import { ChartComponent} from './components/chart/chart.component';
+
+import { EditorModule } from '../editor/editor.module';
+
 import { ChartsModule } from 'ng2-charts';
 import { DataHandlerService } from './components/chart/data-handler.service';
 
@@ -17,7 +20,6 @@ const routes: Routes =
     [
         {path: 'statistics', component: StatisticsComponent},
         {path: 'fetch-data', component: FetchDataComponent},
-        {path: 'counter', component: CounterComponent},
         {path: 'chart', component: ChartComponent}
     ]},
     { path: '**', redirectTo: 'client' }
@@ -32,18 +34,19 @@ const routes: Routes =
         CounterComponent,
         FetchDataComponent,
         StatisticsComponent,       
-        ChartComponent,
+        ChartComponent
     ],
     imports: [  
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.
         ChartsModule,
-        RouterModule.forChild(routes),
-        RouterModule.forRoot(routes)
+        EditorModule,
+        RouterModule.forChild(routes)
     ],
     providers: [
         DataHandlerService
     ]
 })
+
 export class ClientModule {
 
 }
