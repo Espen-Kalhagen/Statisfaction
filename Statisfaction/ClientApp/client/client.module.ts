@@ -13,6 +13,8 @@ import { EditorModule } from '../editor/editor.module';
 import { ChartsModule } from 'ng2-charts';
 import { DataHandlerService } from './components/chart/data-handler.service';
 
+
+
 const routes: Routes =
 [
     { path: '', redirectTo: 'client', pathMatch: 'full' },
@@ -23,7 +25,6 @@ const routes: Routes =
         {path: 'chart', component: ChartComponent}
     ]},
     { path: '**', redirectTo: 'client' }
-
 ]
 
 @NgModule({
