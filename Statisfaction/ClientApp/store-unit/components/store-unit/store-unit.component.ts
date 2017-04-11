@@ -4,6 +4,8 @@ import { RouterModule, Router } from "@angular/router";
 import { Http, RequestOptions, Headers } from '@angular/http';
 import { Observable } from "rxjs/Rx";
 
+import { WSmileyModel } from '../../../models/smiley-widget.model';
+
 @Component({
     selector: 'store-unit',
     providers: [CookieService],
@@ -15,6 +17,8 @@ export class StoreUnitComponent
 {
 
     CookieContet: string;
+
+    model:WSmileyModel = new WSmileyModel("Widget title",[""],false)
 
     public constructor(
         private router: Router,

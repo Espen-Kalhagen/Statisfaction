@@ -1,0 +1,15 @@
+
+#preview
+{
+    pointer-events: none;
+}
+
+#preview-container
+{
+    padding: 20px;
+}
+
+.thumbnail
+{
+    padding: 20px;
+}

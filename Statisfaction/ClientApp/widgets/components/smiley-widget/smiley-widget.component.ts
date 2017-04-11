@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { WSmileyModel } from '../../../models/smiley-widget.model';
 
 declare var Stomp: any;
 declare var $: any;
@@ -19,7 +20,14 @@ export class SmileyWidgetComponent
 {
     @Input() CookieContet: string;
     rabbitRunning:boolean = false;
-    title:string = "Widget name";
+
+    @Input() model:WSmileyModel;
+
+    constructor()
+    {
+        
+    }
+
     selection:string; 
 
     onSelect(option:string) : void
@@ -57,6 +65,8 @@ export class SmileyWidgetComponent
     }
 
 }
+
+
 
 
 

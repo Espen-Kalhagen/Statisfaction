@@ -1,0 +1,33 @@
+<div id="top-section">
+
+    <div id="sortable-section" class="col-md-12">
+
+        <h4>Widgets:</h4>
+        <div id="sortable" class="col-md-11">
+            <div (click)="selectWidget(widget)" class="sortable-list-item col-md-1 thumbnail " *ngFor="let widget of surveydata.widgets">
+                <div>
+                    {{widget.type}}
+                </div>
+            </div>
+        </div>
+
+        <div id="add-btn-div" class="btn-group col-md-1">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Add widget <span class="caret"></span></button>
+            <ul id="dropdown-list" class="dropdown-menu">
+                <li *ngFor="let type of widgetTypes" (click)="addWidget(type)"><a>{{type}}</a></li>
+            </ul>
+        </div>
+        
+    </div>
+</div>
+
+<div id="widget-customizer">
+    <!-- Somehow load the configuration for each widget -->
+    <!-- Maybe in a predefined html-file? -->
+
+    <div *ngIf="selectedWidget != null">
+        <div *ngIf="selectedWidget.type === 'Smiley'">
+            <widget-smiley-editor [model]="selectedWidget"></widget-smiley-editor>
+        </div>
+    </div>
+</div>

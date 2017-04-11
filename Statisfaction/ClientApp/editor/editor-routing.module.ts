@@ -3,14 +3,17 @@ import { RouterModule, Routes }  from '@angular/router';
 
 import { EditorComponent } from './components/editor/editor.component';
 import { GeneralComponent } from './components/general/general.component';
-import { WidgetCustomizer } from './components/widget-customizer/widget-customizer.component';
+import { FinalizeComponent } from './components/finalize/finalize.component';
+
+import { CustomizeComponent } from './components/customize/customize.component';
 
 const routes: Routes = 
 [
     {path: 'editor', component: EditorComponent, children:
     [
       {path: 'general', component: GeneralComponent},
-      {path: 'customizer', component: WidgetCustomizer},
+      {path: 'customize', component: CustomizeComponent},
+      {path: 'finalize', component: FinalizeComponent}
     ]}
 ];
 

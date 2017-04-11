@@ -1,0 +1,12 @@
+
+#sortable
+{
+    display: inline-block;
+    vertical-align: top;
+}
+
+.sortable-list-item
+{
+    margin: 5px;
+    padding: 10px ;
+}

@@ -1,0 +1,44 @@
+<div id="editor" class="col-sm-6">
+        <h3>Editor</h3>
+    <div class="thumbnail">
+
+
+        <div class="form-group">
+            <label for="usr">Title</label>
+            <input type="text" class="form-control" id="title" required [(ngModel)]="model.title" name="title">
+        </div>
+
+    </div>
+
+    <div class="thumbnail">
+        <div>
+            <label><input type="checkbox" value="">Use subtitles for smileys </label>
+        </div>
+
+        <div class="form-group">
+
+            <label for="usr">Smiley 1 title </label>
+            <input type="text" class="form-control" id="usr">
+
+            <label for="usr">Smiley 2 title </label>
+            <input type="text" class="form-control" id="usr">
+
+            <label for="usr">Smiley 3 title </label>
+            <input type="text" class="form-control" id="usr">
+
+            <label for="usr">Smiley 4 title </label>
+            <input type="text" class="form-control" id="usr">
+        </div>
+    </div>
+</div>
+
+<div id="preview" class="col-sm-6 ">
+    
+    <h3>Preview</h3>
+
+    <div id="preview-container" class="thumbnail">
+
+        <widget-smiley [model]="model"></widget-smiley>
+
+    </div>
+</div>
