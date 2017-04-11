@@ -1,0 +1,22 @@
+
+
+<img src="{{surveyPart.LogoURL}}"  alt="Logo" width="500">
+  
+<div id="widget-container">
+
+ 
+   <div background-color [ngStyle]="{ 'background-color': surveyPart.BackgroundColor }">
+    <h1 id="title">{{surveyPart.Title}}</h1>
+
+    <div class="row">
+        <div class="col-md-{{colsize}}" *ngFor="let question of surveyPart.Questions">
+        <h2 id="titleQuestion">{{question.QuestionTitle}} </h2>
+      <button *ngFor="let answer of question.AnswerList" (click)="send( answer.ResponceID, question.QuestionID)" class ="Btn btn-lg btn-block" [ngStyle]="{ 'background-color': answer.ButtonColor }">
+         {{ answer.Content }}
+         <img src="{{answer.ContentIMG}}"  height="{{answer.IMGSize}}" onerror="this.style.display='none'">
+ 
+      </button>
+    </div>
+    </div>
+</div>
+
