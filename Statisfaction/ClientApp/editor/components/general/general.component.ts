@@ -4,7 +4,8 @@ import { SurveyConfigService } from '../survey-config.service';
 
 @Component({
     selector: 'general',
-    templateUrl: './general.component.html'
+    templateUrl: './general.component.html',
+    styleUrls: ['./general.component.css']
 })
 
 export class GeneralComponent 
@@ -16,5 +17,5 @@ export class GeneralComponent
     {
         this.name = config.surveyTitle ; 
     }
-
+    
 }

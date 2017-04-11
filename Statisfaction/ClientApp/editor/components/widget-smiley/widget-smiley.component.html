@@ -1,5 +1,5 @@
-<div id="editor" class="col-sm-6">
-        <h3>Editor</h3>
+<div id="editor" class="col-md-6">
+        <h3>Content</h3>
     <div class="thumbnail">
 
 
@@ -32,7 +32,7 @@
     </div>
 </div>
 
-<div id="preview" class="col-sm-6 ">
+<div id="preview" class="col-md-6 ">
     
     <h3>Preview</h3>
 
@@ -40,5 +40,13 @@
 
         <widget-smiley [model]="model"></widget-smiley>
 
+    </div>
+</div>
+
+<div class="col-md-6">
+    <h3>Settings</h3>
+
+     <div id="preview-container" class="thumbnail">
+        <button (click)="onDeleteWidget()" class="button btn-danger">Delete widget</button>
     </div>
 </div>

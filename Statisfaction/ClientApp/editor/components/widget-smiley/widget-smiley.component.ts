@@ -20,6 +20,11 @@ export class WidgetSmileyEditor
     {
         this.data = config;
     }
+
+    onDeleteWidget()
+    {
+        this.data.removeWidget(this.model);
+    }
 }
 
 

@@ -4,7 +4,7 @@ import { RouterModule, Router } from "@angular/router";
 import { Http, RequestOptions, Headers } from '@angular/http';
 import { Observable } from "rxjs/Rx";
 
-import { WSmileyModel } from '../../../models/smiley-widget.model';
+import { WSmileyModel } from '../../../models/models';
 
 @Component({
     selector: 'store-unit',

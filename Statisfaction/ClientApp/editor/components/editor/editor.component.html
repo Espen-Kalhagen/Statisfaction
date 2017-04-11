@@ -1,12 +1,18 @@
-
 <!-- Top panel showing stages of creating a new survey -->
-<div id="stages-panel">
-    <a [routerLink]="['general']">General</a>
-    <a [routerLink]="['customize']">Customize</a>
-    <a [routerLink]="['finalize']">Finalize</a>
+
+<div id="top-nav">
+    <ul class="nav nav-tabs">
+        <li [routerLinkActive]="['active']">
+            <a [routerLink]="['general']">Step 1 - General</a>
+        </li>
+        <li [routerLinkActive]="['active']">
+            <a [routerLink]="['customize']">Step 2 - Widgets</a>
+        </li>
+        <li [routerLinkActive]="['active']">
+            <a [routerLink]="['finalize']">Step 3 - Finalize</a>
+        </li>
+    </ul>
 </div>
-
-
 
 <router-outlet>
 

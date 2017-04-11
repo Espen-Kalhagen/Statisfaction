@@ -12,7 +12,12 @@ declare var $: any;
 
 export class CustomizeComponent implements AfterViewInit {
 
-    widgetTypes = ["Smiley", "Question"];
+    // Holds the
+    widgetTypes = 
+    [
+        new WidgetType("Smiley","/images/icons/widget_smiley.png"), 
+        new WidgetType("Question","/images/icons/widget_question.png")
+    ];
 
     selectedWidget: WidgetModel = null;
 
@@ -22,8 +27,8 @@ export class CustomizeComponent implements AfterViewInit {
         this.surveydata = config;
     }
 
-    addWidget(type: string) {
-        this.surveydata.addWidget(new WidgetModel(type, ""));
+    addWidget(widget:WidgetType) {
+        this.surveydata.addWidget(new WidgetModel(widget.type, "",widget.icon));
     }
 
     selectWidget(widget: WidgetModel) {
@@ -40,7 +45,19 @@ export class CustomizeComponent implements AfterViewInit {
             });
 
         $('#sortable').disableSelection();
+
+
+
     }
 
+}
+
+export class WidgetType
+{
+    constructor
+    (
+        public type:string,
+        public icon:string
+    ){}
 }
 

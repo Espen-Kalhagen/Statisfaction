@@ -5,6 +5,7 @@ import { SurveyConfigService } from '../survey-config.service';
 @Component({
     selector: 'editor',
     templateUrl: './editor.component.html',
+    styleUrls: ['./editor.component.css'],
     providers:[SurveyConfigService]
 })
 

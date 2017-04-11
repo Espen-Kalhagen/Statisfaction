@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { WSmileyModel } from '../../../models/smiley-widget.model';
+import { WSmileyModel } from '../../../models/models';
 
 declare var Stomp: any;
 declare var $: any;

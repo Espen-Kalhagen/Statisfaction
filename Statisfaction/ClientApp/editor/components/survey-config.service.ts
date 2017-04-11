@@ -26,6 +26,14 @@ export class SurveyConfigService
             alert("Cant add more than " + this.MAX_WIDGETS + " widgets per survey!");
     }
 
+    removeWidget(widget:WidgetModel)
+    {
+        var index = this.widgets.indexOf(widget);
+
+        if(index > -1)
+            this.widgets.splice(index,1);
+    }
+
     saveDraft() : void
     {
 

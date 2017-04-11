@@ -5,8 +5,9 @@ export class WSmileyModel {
         (
         public title: string,
         public subtitles: string[],
-        public useSubtitles: boolean
+        public useSubtitles: boolean,
         ) { }
+
 
 }
 
@@ -16,11 +17,15 @@ export class WidgetModel {
     public id: string;
     public content: string;
     public type: string;
+    
+    //Probably not store icon path in the model
+    public icon:string;
 
-    constructor(type: string, content: string) {
+    constructor(type: string, content: string, icon="widget_default") {
         this.id = UUID.newUUID();
         this.content = content;
         this.type = type;
+        this.icon = icon;
     }
 
 }
