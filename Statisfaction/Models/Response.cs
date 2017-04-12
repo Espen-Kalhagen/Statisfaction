@@ -4,10 +4,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Models
 {
-    public class Responce{
+    public class response{
 
         //Needs empty constructor to be created automagically
-        public Responce(){
+        public response(){
         }
 
         public int id {get; set;} //Primary key

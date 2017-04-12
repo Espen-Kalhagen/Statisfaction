@@ -1,17 +1,13 @@
 import { Component, Input } from '@angular/core';
+import { SendingService } from "../../../store-unit/SendingService";
 
-declare var Stomp: any;
-declare var $: any;
-declare var send_data:any;
-declare var all: any;
-declare var start_rabbit: any;
-declare var send_wrapper: any;
-
+declare var $:any;
 
 @Component({
     selector: 'widget-question',
     templateUrl: './question-widget.component.html',
-    styleUrls: ["./question-widget.component.css"]
+    styleUrls: ["./question-widget.component.css"],
+    providers: [SendingService]
 })
 
 
@@ -23,22 +19,29 @@ export class QuestionWidgetComponent
     selection:string; 
     surveyPart:any ="";
     colsize:number;
+    private questionsAnswered: Array<boolean>;
+
+    constructor(private sendingService: SendingService) { 
+    }
+
+
         ngOnInit () {
+            //Dummy data
             this.surveyPart = {
-                "Title":"What discribes this store",
+                "Title":"What discribes this location",
                 "LogoURL":"https://media.snl.no/system/images/18571/standard_uia.png",
                 "BackgroundColor":"#E8E8E8",
-                "widgetID":"2",
+                "widgetID":2,
                 "Questions": [
                     {   
                         "QuestionID":1,
-                        "QuestionTitle":"Look 👁",
+                        "QuestionTitle":"Look",
                         "AnswerList":
                         [
-                            {"Content": "Tidy","ContentIMG":"/images/smiley_1.png", "IMGSize":20,"ButtonColor":"#00ff00","ResponceID":1 },
-                            {"Content": "Normal","ContentIMG":"/images/smiley_2.png", "IMGSize":20,"ButtonColor":"#ffff00","ResponceID":2 },
-                            {"Content": "Messy","ContentIMG":"/images/smiley_3.png", "IMGSize":20,"ButtonColor":"#ff8800","ResponceID":3 },
-                            {"Content": "Disgusting","ContentIMG":"/images/smiley_4.png", "IMGSize":20, "ButtonColor":"#ff0000","ResponceID":3 }
+                            {"Content": "Tidy","ContentIMG":"/images/smiley_1.png", "IMGSize":20,"ButtonColor":"#4CAF50","responseID":1 },
+                            {"Content": "Normal","ContentIMG":"/images/smiley_2.png", "IMGSize":20,"ButtonColor":"#CDDC39","responseID":2 },
+                            {"Content": "Messy","ContentIMG":"/images/smiley_3.png", "IMGSize":20,"ButtonColor":"#FF9800","responseID":3 },
+                            {"Content": "Disgusting","ContentIMG":"/images/smiley_4.png", "IMGSize":20, "ButtonColor":"#FF5722","responseID":3 }                     
                         ]
                     },
                     {
@@ -46,16 +49,17 @@ export class QuestionWidgetComponent
                         "QuestionTitle":"Staff 👩‍💼",
                         "AnswerList":
                         [
-                            {"Content": "Good", "ButtonColor":"#00ff00","ResponceID":1 },
-                            {"Content": "Acceptable", "ButtonColor":"#ffff00","ResponceID":2 },
-                            {"Content": "Bad", "ButtonColor":"#ff0000","ResponceID":3 }
+                            {"Content": "Good", "ButtonColor":"#4CAF50","responseID":1 },
+                            {"Content": "Acceptable", "ButtonColor":"#CDDC39","responseID":2 },
+                            {"Content": "Bad", "ButtonColor":"#FF9800","responseID":3 }
                         ]
                     }
                         
                 ]
             };
+
             this.colsize = 12/this.surveyPart.Questions.length;
-            
+            this.questionsAnswered = [];
 
         }
 
@@ -63,13 +67,12 @@ export class QuestionWidgetComponent
     {
         this.selection = option;
     }
+    //Hide the buttons when answered
+    public isAnswered(qID:number){
+       return this.questionsAnswered[qID];
+    }
 
-    send( responceID, questionID){
-        if (!this.rabbitRunning){
-            start_rabbit();
-            this.rabbitRunning=true;
-        }else{
-            
+    send( responseID, questionID){            
             // Retrieve the CookieData and parse it into a json-object 
             // We do this to be able to extract the data we need to save
             var cookieData = JSON.parse(this.CookieContet);
@@ -77,20 +80,24 @@ export class QuestionWidgetComponent
             // Creates a response-message with the required information
             var resp = 
             {
-                "ownerID" : cookieData["ownerID"],
-                "responses" : 
-                [
-                    {"widgetID" : "2","QuestionID": questionID, "ResponceID" : responceID}
-                ]
+                    "widgetID" : 2,
+                    "QuestionID": questionID, 
+                    "responseID" : responseID
             };
 
-            // Turn the respons into a string (in order to send it)
-            var json = JSON.stringify(resp)
+
+            //Hide the buttons when answered
+            this.questionsAnswered[questionID] = true;
             
             // Send the data to the RabbitMQ Queue system
-            send_wrapper(json);
+            this.sendingService.putRepsonse( cookieData["ownerID"],resp,"smiley-widget").then(result => this.resetView());
+    }
+    //Reset the buttons when answer is sent
+    private resetView(){
+        for(let i =0; i <= this.surveyPart.Questions.length; i++){
+            this.questionsAnswered[i]=false;
         }
-
+        console.log("Reset view");
     }
 
 }

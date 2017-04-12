@@ -5,10 +5,6 @@
 var client;
 
 
-//Call 
-$('#SendMessage').click(function () {
-    send_data($('#first input').val());
-});
 
 function start_rabbit() {
 

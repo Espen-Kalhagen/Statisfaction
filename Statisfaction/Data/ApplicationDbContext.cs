@@ -23,7 +23,7 @@ namespace Data
             // Add your customizations after calling base.OnModelCreating(builder);
         }
 
-        public DbSet<Responce> Reponces { get; set; }
+        public DbSet<response> Reponces { get; set; }
         public DbSet<StoreUnit> StoreUnits { get; set; }
     }
 }

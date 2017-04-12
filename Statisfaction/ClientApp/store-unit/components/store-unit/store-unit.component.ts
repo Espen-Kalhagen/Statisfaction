@@ -3,12 +3,13 @@ import { CookieService } from 'ng2-cookies';
 import { RouterModule, Router } from "@angular/router";
 import { Http, RequestOptions, Headers } from '@angular/http';
 import { Observable } from "rxjs/Rx";
+import { SendingService } from "../../SendingService";
 
 import { WSmileyModel } from '../../../models/models';
 
 @Component({
     selector: 'store-unit',
-    providers: [CookieService],
+    providers: [CookieService, SendingService],
     templateUrl: './store-unit.component.html',
     styleUrls: ["./store-unit.component.css"]
 })
@@ -23,8 +24,10 @@ export class StoreUnitComponent
     public constructor(
         private router: Router,
         private http: Http,
-        private cookie: CookieService
+        private cookie: CookieService,
+        private sendingService: SendingService
     ) {
+        sendingService.init();
     }
     ngAfterViewInit() {
 
