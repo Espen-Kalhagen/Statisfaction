@@ -37,7 +37,7 @@ export class RegisterUnitComponent {
     private handleActivation(response: any) {
         this.cookie.set('StoreUnitCookie', response._body);
         console.log('Check cookie' + ' returned ' + JSON.parse(this.cookie.get('StoreUnitCookie')).id);
-        this.router.navigate(['/store-unit']);
+        this.router.navigate(['/store-unit'],  { skipLocationChange: true });
     }
 }
 

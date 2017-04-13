@@ -32,7 +32,7 @@ export class StoreUnitComponent
     ngAfterViewInit() {
 
         if(!this.cookie.check('StoreUnitCookie')){
-            this.router.navigate(['/register-unit'])
+            this.router.navigate(['/register-unit'], { skipLocationChange: true })
             return;
         }
         console.log("FOUND COOKIE: " + this.cookie.get('StoreUnitCookie'));
@@ -47,7 +47,7 @@ export class StoreUnitComponent
         options.headers = new Headers({ 'Content-Type': 'application/json' });
         this.http.post('api/UnitSetup/checkRegistration', body, options).catch(err => {
             alert("There was an error in the registration, please log out and in and restart the process");
-            this.router.navigate(['/register-unit']);
+            this.router.navigate(['/register-unit'], { skipLocationChange: true });
             this.cookie.delete('StoreUnitCookie');
             return Observable.throw(err); // observable needs to be returned or exception raised
         }).subscribe(res => this.handleCheck(res));
@@ -61,7 +61,7 @@ export class StoreUnitComponent
 
         console.log('activation check returned ' + JSON.parse(response._body).confirmed);
         if (!JSON.parse(response._body).confirmed){
-            this.router.navigate(['/register-unit'])
+            this.router.navigate(['/register-unit'], { skipLocationChange: true })
         }
         
     }
