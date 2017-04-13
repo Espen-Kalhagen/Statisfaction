@@ -30,7 +30,7 @@ export class QuestionWidgetComponent
             this.surveyPart = {
                 "Title":"What discribes this location",
                 "LogoURL":"https://media.snl.no/system/images/18571/standard_uia.png",
-                "BackgroundColor":"#E8E8E8",
+                "BackgroundColor":"#D0DCE3",
                 "widgetID":2,
                 "Questions": [
                     {   
@@ -38,10 +38,10 @@ export class QuestionWidgetComponent
                         "QuestionTitle":"Look",
                         "AnswerList":
                         [
-                            {"Content": "Tidy","ContentIMG":"/images/smiley_1.png", "IMGSize":20,"ButtonColor":"#4CAF50","responseID":1 },
-                            {"Content": "Normal","ContentIMG":"/images/smiley_2.png", "IMGSize":20,"ButtonColor":"#CDDC39","responseID":2 },
-                            {"Content": "Messy","ContentIMG":"/images/smiley_3.png", "IMGSize":20,"ButtonColor":"#FF9800","responseID":3 },
-                            {"Content": "Disgusting","ContentIMG":"/images/smiley_4.png", "IMGSize":20, "ButtonColor":"#FF5722","responseID":3 }                     
+                            {"Content": "Tidy","ButtonColor":"#00759A","responseID":1 },
+                            {"Content": "Normal","ButtonColor":"#A6BCC6","responseID":2 },
+                            {"Content": "Messy","ButtonColor":"#C7B9AA","responseID":3 },
+                            {"Content": "Disgusting", "ButtonColor":"#91785B","responseID":3 }                     
                         ]
                     },
                     {
@@ -49,9 +49,9 @@ export class QuestionWidgetComponent
                         "QuestionTitle":"Staff 👩‍💼",
                         "AnswerList":
                         [
-                            {"Content": "Good", "ButtonColor":"#4CAF50","responseID":1 },
-                            {"Content": "Acceptable", "ButtonColor":"#CDDC39","responseID":2 },
-                            {"Content": "Bad", "ButtonColor":"#FF9800","responseID":3 }
+                            {"Content": "Good","ContentIMG":"/images/smiley_1.png", "IMGSize":20, "ButtonColor":"#4CAF50","responseID":1 },
+                            {"Content": "Acceptable","ContentIMG":"/images/smiley_2.png", "IMGSize":20, "ButtonColor":"#CDDC39","responseID":2 },
+                            {"Content": "Bad","ContentIMG":"/images/smiley_4.png", "IMGSize":20, "ButtonColor":"#FF9800","responseID":3 }
                         ]
                     }
                         
