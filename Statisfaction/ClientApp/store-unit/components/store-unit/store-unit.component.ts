@@ -1,9 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ComponentFactoryResolver } from '@angular/core';
 import { CookieService } from 'ng2-cookies';
 import { RouterModule, Router } from "@angular/router";
 import { Http, RequestOptions, Headers } from '@angular/http';
 import { Observable } from "rxjs/Rx";
 import { SendingService } from "../../SendingService";
+import { WidgetDirective } from "./store-unit.directive";
+import { SmileyWidgetComponent } from "../../../widgets/components/smiley-widget/smiley-widget.component";
+import { WidgetItem } from "../../../widgets/widget-item";
+import { WidgetComponent } from "../../../widgets/widget.component";
+import { QuestionWidgetComponent } from "../../../widgets/components/question-widget/question-widget.component";
 
 import { WSmileyModel } from '../../../models/models';
 
@@ -16,16 +21,18 @@ import { WSmileyModel } from '../../../models/models';
 
 export class StoreUnitComponent 
 {
-
+    _componentFactoryResolver: any;
     CookieContet: string;
 
-    model:WSmileyModel = new WSmileyModel();
+    widgets:WidgetItem[];
+    @ViewChild(WidgetDirective) widgetHost: WidgetDirective;
 
     public constructor(
         private router: Router,
         private http: Http,
         private cookie: CookieService,
-        private sendingService: SendingService
+        private sendingService: SendingService,
+        private componentFactoryResolver: ComponentFactoryResolver
     ) {
         sendingService.init();
     }
@@ -52,7 +59,7 @@ export class StoreUnitComponent
             return Observable.throw(err); // observable needs to be returned or exception raised
         }).subscribe(res => this.handleCheck(res));
         
-
+        this.loadComponent();
 
         
     }
@@ -65,6 +72,18 @@ export class StoreUnitComponent
         }
         
     }
+
+    private loadComponent(){
+            let componentFactory = this.componentFactoryResolver.resolveComponentFactory(QuestionWidgetComponent);
+            let viewContainerRef = this.widgetHost.viewContainerRef;
+            viewContainerRef.clear()
+            let componentRef = viewContainerRef.createComponent(componentFactory);
+            (<WidgetComponent>componentRef.instance).CookieContent = this.CookieContet;
+            //How to access:
+            //(<AdComponent>componentRef.instance).data = adItem.data;
+}
+
+
     
 }
 export class RegistrationCheckData {

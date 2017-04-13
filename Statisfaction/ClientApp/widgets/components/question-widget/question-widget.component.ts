@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { SendingService } from "../../../store-unit/SendingService";
+import { WidgetComponent } from "../../widget.component";
 
 declare var $:any;
 
@@ -11,9 +12,9 @@ declare var $:any;
 })
 
 
-export class QuestionWidgetComponent 
+export class QuestionWidgetComponent implements WidgetComponent
 {
-    @Input() CookieContet: string;
+    CookieContent: string;
     rabbitRunning:boolean = false;
     title:string = "Help us improve";
     selection:string; 
@@ -75,7 +76,8 @@ export class QuestionWidgetComponent
     send( responseID, questionID){            
             // Retrieve the CookieData and parse it into a json-object 
             // We do this to be able to extract the data we need to save
-            var cookieData = JSON.parse(this.CookieContet);
+            //Cookie content is injected by the store-unit 
+            var cookieData = JSON.parse(this.CookieContent);
 
             // Creates a response-message with the required information
             var resp = 

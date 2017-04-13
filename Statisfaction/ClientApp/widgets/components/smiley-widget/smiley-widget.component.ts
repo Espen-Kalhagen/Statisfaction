@@ -1,6 +1,8 @@
-import { Component, Input } from '@angular/core';
 
+import { Component, Input, Type } from '@angular/core';
 import { SendingService } from "../../../store-unit/SendingService";
+import { WidgetItem } from "../../widget-item";
+import { WidgetComponent } from "../../widget.component";
 
 declare var Stomp: any;
 declare var $: any;
@@ -18,13 +20,13 @@ declare var send_wrapper: any;
 })
 
 
-export class SmileyWidgetComponent 
+export class SmileyWidgetComponent implements WidgetComponent
 {
-    @Input() CookieContet: string;
+    CookieContent: string;
     title:string = "Widget name";
     selection:string; 
 
-    constructor(private sendingService: SendingService) { 
+    constructor(private sendingService: SendingService ) { 
     }
 
     onSelect(option:string) : void
@@ -36,7 +38,8 @@ export class SmileyWidgetComponent
 
             // Retrieve the CookieData and parse it into a json-object 
             // We do this to be able to extract the data we need to save
-            var cookieData = JSON.parse(this.CookieContet);
+            //Cookie content is injected by the store-unit 
+            var cookieData = JSON.parse(this.CookieContent);
 
             // Creates a response-message with the required information
             var resp = 

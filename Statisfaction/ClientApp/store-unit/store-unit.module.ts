@@ -9,6 +9,9 @@ import { WidgetModule} from '../widgets/widgets.module';
 // Components
 import { StoreUnitComponent } from './components/store-unit/store-unit.component';
 import { RegisterUnitComponent } from "./components/register-unit/register-unit.component";
+import { SmileyWidgetComponent } from "../widgets/components/smiley-widget/smiley-widget.component";
+import { WidgetDirective } from "./components/store-unit/store-unit.directive";
+import { QuestionWidgetComponent } from "../widgets/components/question-widget/question-widget.component";
 
 
 
@@ -24,12 +27,15 @@ const routes: Routes =
     declarations: [
         StoreUnitComponent,
         RegisterUnitComponent,
+        WidgetDirective
     ],
     imports: [
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.
         RouterModule.forRoot(routes),
         WidgetModule,
-    ]
+        
+    ],
+    entryComponents: [ SmileyWidgetComponent, QuestionWidgetComponent ]
 })
 
 export class StoreUnitModule
