@@ -5,7 +5,6 @@
 var client;
 
 
-
 function start_rabbit() {
 
         // Stomp.js set up a connection

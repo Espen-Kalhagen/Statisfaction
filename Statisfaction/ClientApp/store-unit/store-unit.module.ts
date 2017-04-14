@@ -12,6 +12,9 @@ import { RegisterUnitComponent } from "./components/register-unit/register-unit.
 import { SmileyWidgetComponent } from "../widgets/components/smiley-widget/smiley-widget.component";
 import { WidgetDirective } from "./components/store-unit/store-unit.directive";
 import { QuestionWidgetComponent } from "../widgets/components/question-widget/question-widget.component";
+import { CookieService } from "ng2-cookies";
+import { SendingService } from "./SendingService";
+import { ThanksWidgetComponent } from "../widgets/components/thanks-widget/thanks-widget.component";
 
 
 
@@ -35,7 +38,8 @@ const routes: Routes =
         WidgetModule,
         
     ],
-    entryComponents: [ SmileyWidgetComponent, QuestionWidgetComponent ]
+    entryComponents: [ SmileyWidgetComponent, QuestionWidgetComponent, ThanksWidgetComponent ],
+     providers: [CookieService, SendingService],
 })
 
 export class StoreUnitModule

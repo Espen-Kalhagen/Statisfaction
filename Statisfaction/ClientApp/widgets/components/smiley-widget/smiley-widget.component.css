@@ -4,3 +4,10 @@
     text-align: center;
     margin: 50px ;
 }
+#widget-container{
+    padding-left:25px;
+    padding-right:25px;
+}
+#logo{
+    padding-bottom: 40px;
+}

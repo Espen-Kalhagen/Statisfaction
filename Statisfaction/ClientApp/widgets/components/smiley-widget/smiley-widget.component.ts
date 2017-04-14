@@ -1,5 +1,5 @@
 
-import { Component, Input, Type } from '@angular/core';
+import { Component, Input, Type, Output, EventEmitter } from '@angular/core';
 import { SendingService } from "../../../store-unit/SendingService";
 import { WidgetItem } from "../../widget-item";
 import { WidgetComponent } from "../../widget.component";
@@ -16,7 +16,8 @@ declare var send_wrapper: any;
     selector: 'widget-smiley',
     templateUrl: './smiley-widget.component.html',
     styleUrls: ["./smiley-widget.component.css"],
-    providers: [SendingService]
+    providers: [SendingService],
+    outputs: ['onAnswered'],
 })
 
 
@@ -25,6 +26,8 @@ export class SmileyWidgetComponent implements WidgetComponent
     CookieContent: string;
     title:string = "Widget name";
     selection:string; 
+    surveyPart:any;
+    onAnswered:EventEmitter<boolean>;
 
     constructor(private sendingService: SendingService ) { 
     }
@@ -49,11 +52,9 @@ export class SmileyWidgetComponent implements WidgetComponent
             };
 
             // Turn the respons into a string (in order to send it)
-            this.sendingService.putRepsonse( cookieData["ownerID"],resp,null).then();
-            //Only use if this is the last or only widget
-            this.sendingService.sendNow();
-        
-
+            this.sendingService.putRepsonse( cookieData["ownerID"],resp).then();
+            //Tells storeunit component to move on to next question in survey
+            this.onAnswered.emit();
     }
 
 }
