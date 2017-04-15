@@ -1,45 +1,42 @@
-<div id="top-section">
+<div id="content-panel" class="col-md-9">
 
-    <div id="sortable-section" class="col-md-12">
-
-
-        <div class="dropdown col-md-2 thumbnail">
-            <div class="dropbtn">
-                <img class="icon-img" src="/images/icons/icon_add.png"> Add widget
-            </div>
-
-            <div class="dropdown-content thumbnail">
-                <div *ngFor="let widget of widgetTypes" (click)="addWidget(widget)">
-                    <a><img class="icon-img" src= {{widget.icon}}> {{widget.type}}</a>
-                </div>
-            </div>
+    <div *ngIf="surveydata.selectedWidget != null">
+        <div *ngIf="surveydata.selectedWidget.type === 'Smiley'">
+            <widget-smiley-editor [modelInfo]="surveydata.selectedWidget"></widget-smiley-editor>
         </div>
-
-        <div id="sortable" class="col-md-10">
-            <div (click)="selectWidget(widget)" class="widgets-list-item col-md-1 thumbnail " *ngFor="let widget of surveydata.widgets">
-                <div>
-                    <img class="icon-img" src= {{widget.icon}}> {{widget.type}}
-                </div>
-            </div>
-        </div>
-
     </div>
 
-<br>
-<hr>
+    <div *ngIf="surveydata.selectedWidget == null">
+        <h3>No widget selected!</h3>
+    </div>
 
 </div>
 
-<div id="widget-customizer">
-    <!-- Somehow load the configuration for each widget -->
-    <!-- Maybe in a predefined html-file? -->
-    <div class="page-header">
+<div id="right-panel" class="col-md-3">
 
-    </div>
+    <div id="right-panel-content">
+        <h4>Widgets</h4>
 
-    <div *ngIf="selectedWidget != null">
-        <div *ngIf="selectedWidget.type === 'Smiley'">
-            <widget-smiley-editor [model]="selectedWidget"></widget-smiley-editor>
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Add widget</button>
+
+            <ul class="dropdown-menu">
+                <li>
+                    <a *ngFor="let widget of widgetTypes" (click)="addWidget(widget)">{{widget.type}}</a>
+                </li>
+            </ul>
+        </div>
+
+        <hr>
+
+        <div id="sortable-section">
+
+            <ul id="sortable">
+                <li *ngFor="let widget of surveydata.widgets" (click)="selectWidget(widget)" class="widgets-list-item thumbnail">
+                    {{widget.type}}
+                </li>
+            </ul>
+
         </div>
     </div>
 </div>

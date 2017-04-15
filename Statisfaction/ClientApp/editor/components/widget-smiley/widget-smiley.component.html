@@ -1,19 +1,16 @@
 <div id="editor" class="col-md-6">
-        <h3>Content</h3>
+    <h4>Content</h4>
     <div class="thumbnail">
-
-
         <div class="form-group">
             <label for="usr">Title</label>
             <input type="text" class="form-control" id="title" required [(ngModel)]="model.title" name="title">
         </div>
-
+        <div class="form-group checkbox">
+            <label><input (click)="useSubtitles()" type="checkbox" checked>Use subtitles for smileys </label>
+        </div>
     </div>
 
-    <div class="thumbnail">
-        <div>
-            <label><input type="checkbox" value="">Use subtitles for smileys </label>
-        </div>
+    <div id="subtitles-list" class="thumbnail">
 
         <div class="form-group">
 
@@ -33,8 +30,8 @@
 </div>
 
 <div id="preview" class="col-md-6 ">
-    
-    <h3>Preview</h3>
+
+    <h4>Preview</h4>
 
     <div id="preview-container" class="thumbnail">
 
@@ -44,9 +41,7 @@
 </div>
 
 <div class="col-md-6">
-    <h3>Settings</h3>
-
-     <div id="preview-container" class="thumbnail">
-        <button (click)="onDeleteWidget()" class="button btn-danger">Delete widget</button>
+    <div id="preview-container" class="thumbnail">
+        <button (click)="deleteWidget()" class="btn btn-danger">Delete widget</button>
     </div>
 </div>

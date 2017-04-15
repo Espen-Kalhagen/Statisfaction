@@ -19,7 +19,7 @@ export class CustomizeComponent implements AfterViewInit {
         new WidgetType("Question","/images/icons/widget_question.png")
     ];
 
-    selectedWidget: WidgetModel = null;
+
 
     surveydata: SurveyConfigService = null;
 
@@ -27,12 +27,14 @@ export class CustomizeComponent implements AfterViewInit {
         this.surveydata = config;
     }
 
-    addWidget(widget:WidgetType) {
-        this.surveydata.addWidget(new WidgetModel(widget.type, "",widget.icon));
+    addWidget(widget:WidgetType) 
+    {
+        this.surveydata.addWidget(new WidgetModel(widget.type, "", widget.icon));
     }
 
-    selectWidget(widget: WidgetModel) {
-        this.selectedWidget = widget;
+    selectWidget(widget: WidgetModel) 
+    {
+        this.surveydata.selectedWidget = this.surveydata.widgets.find(m => m.id == widget.id) ;
     }
 
     ngAfterViewInit() {
@@ -45,8 +47,6 @@ export class CustomizeComponent implements AfterViewInit {
             });
 
         $('#sortable').disableSelection();
-
-
 
     }
 

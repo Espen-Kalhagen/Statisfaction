@@ -16,6 +16,10 @@ export class SurveyConfigService
     // Widget-spesific parameters
     widgets:WidgetModel[] = [];
 
+
+    // Editor spesific data
+    selectedWidget: WidgetModel = null;
+
     // -------------------------- Functions -------------------------
     addWidget(widget:WidgetModel) : void
     {
@@ -32,6 +36,13 @@ export class SurveyConfigService
 
         if(index > -1)
             this.widgets.splice(index,1);
+
+        var w = this.widgets[index]; 
+
+        if(w == null)
+            w = this.widgets[index - 1];
+
+        this.selectedWidget = w ;
     }
 
     saveDraft() : void
