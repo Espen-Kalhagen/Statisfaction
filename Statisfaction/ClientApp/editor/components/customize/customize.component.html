@@ -1,12 +1,12 @@
 <div id="content-panel" class="col-md-9">
 
-    <div *ngIf="surveydata.selectedWidget != null">
-        <div *ngIf="surveydata.selectedWidget.type === 'Smiley'">
-            <widget-smiley-editor [modelInfo]="surveydata.selectedWidget"></widget-smiley-editor>
+    <div *ngIf="surveydata.selectedIndex != -1">
+        <div *ngIf="surveydata.selectedType === 'Smiley'">
+            <widget-smiley-editor [(selectedIndex)]="surveydata.selectedIndex"></widget-smiley-editor>
         </div>
     </div>
 
-    <div *ngIf="surveydata.selectedWidget == null">
+    <div *ngIf="surveydata.selectedIndex == null">
         <h3>No widget selected!</h3>
     </div>
 
@@ -32,7 +32,7 @@
         <div id="sortable-section">
 
             <ul id="sortable">
-                <li *ngFor="let widget of surveydata.widgets" (click)="selectWidget(widget)" class="widgets-list-item thumbnail">
+                <li *ngFor="let widget of surveydata.widgets; let i = index;" (click)="selectWidget(widget, i)" [class]="" class="widgets-list-item thumbnail">
                     {{widget.type}}
                 </li>
             </ul>

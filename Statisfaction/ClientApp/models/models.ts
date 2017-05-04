@@ -1,5 +1,13 @@
 
-export class WSmileyModel {
+export class WidgetBaseModel
+{
+    public localID:string ;
+    public type:string;
+    constructor(){this.localID = UUID.newUUID();}
+}
+
+export class WSmileyModel extends WidgetBaseModel {
+
     public title: string = "";
 
     public subtitle1: string = "";
@@ -9,25 +17,11 @@ export class WSmileyModel {
 
     public useSubtitles: boolean = false;
     
-    constructor() { }
-}
-
-// Represents a WidgetBase model
-export class WidgetBase {
-
-    public id: string;
-    public content: string;
-    public type: string;
-
-    constructor(type: string, content: string) {
-        this.id = UUID.newUUID();
-        this.content = content;
-        this.type = type;
+    constructor() 
+    {
+        super();
     }
-
 }
-
-
 
 // Can be used to create a UUID
 class UUID {

@@ -1,6 +1,6 @@
-import { Component, Input} from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 
-import { WidgetBase, WSmileyModel } from '../../../models/models';
+import { WSmileyModel } from '../../../models/models';
 import { SurveyConfigService } from '../survey-config.service';
 
 declare var $: any;
@@ -11,14 +11,14 @@ declare var $: any;
     styleUrls: ['./widget-smiley.component.css']
 })
 
-export class WidgetSmileyEditor
+export class WidgetSmileyEditor implements OnChanges
 {
 
     widgetID:string = "1234";
     
     // ---------------------------
 
-    @Input() modelInfo:WidgetBase ;
+    @Input() selectedIndex:number ;
 
     model:WSmileyModel = null;
 
@@ -27,15 +27,19 @@ export class WidgetSmileyEditor
     constructor(private config: SurveyConfigService)
     {
         this.data = config;
+    
+        this.model = config.getCurrentWidget() as WSmileyModel ;
+    }
 
-        var modelAsString = this.data.selectedWidget.content;
+    ngOnChanges(changes: SimpleChanges) {
+        this.model = this.data.getCurrentWidget() as WSmileyModel ;
 
-        this.model = JSON.parse(modelAsString);
+        console.log("ID",this.model.localID);
     }
 
     deleteWidget()
     {
-        this.data.removeWidget(this.modelInfo);
+        this.data.removeWidget(this.model);
     }
 
     useSubtitles()
@@ -52,10 +56,6 @@ export class WidgetSmileyEditor
         }
     }
 
-    onSaveChanges()
-    {
-        
-    }
 }
 
 

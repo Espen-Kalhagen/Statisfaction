@@ -1,6 +1,6 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { SurveyConfigService } from '../survey-config.service';
-import { WidgetBase, WSmileyModel } from '../../../models/models';
+import { WSmileyModel, WidgetBaseModel} from '../../../models/models';
 
 declare var $: any;
 
@@ -19,6 +19,10 @@ export class CustomizeComponent implements AfterViewInit {
         new WidgetType("Question", "/images/icons/widget_question.png")
     ];
 
+
+    buttonStyles:{};
+
+
     surveydata: SurveyConfigService = null;
 
     constructor(private config: SurveyConfigService) {
@@ -27,22 +31,17 @@ export class CustomizeComponent implements AfterViewInit {
 
     addWidget(widget: WidgetType) {
 
-        var w = new WidgetBase(widget.type, "");
-
-        switch (w.type) {
-            case "Smiley":
-                w.content = JSON.stringify(new WSmileyModel());
-                break;
-            case "Question":
-                //TODO: w.content = JSON.stringify(new WQuestionModel()); 
-                break;
-        }
-
+        var w = new WidgetBaseModel();
+        w.type = widget.type ;
         this.surveydata.addWidget(w);
     }
 
-    selectWidget(widget: WidgetBase) {
-        this.surveydata.selectedWidget = this.surveydata.widgets.find(m => m.id == widget.id);
+    selectWidget(widget: object, index:number) {
+
+        let w = widget as WidgetBaseModel ;
+
+        this.surveydata.selectedIndex = index ;
+        this.surveydata.selectedType = w.type ;
     }
 
     ngAfterViewInit() {
