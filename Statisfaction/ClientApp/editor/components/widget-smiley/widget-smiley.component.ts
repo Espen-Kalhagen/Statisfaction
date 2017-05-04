@@ -1,6 +1,6 @@
 import { Component, Input} from '@angular/core';
 
-import { WidgetModel, WSmileyModel } from '../../../models/models';
+import { WidgetBase, WSmileyModel } from '../../../models/models';
 import { SurveyConfigService } from '../survey-config.service';
 
 declare var $: any;
@@ -14,7 +14,11 @@ declare var $: any;
 export class WidgetSmileyEditor
 {
 
-    @Input() modelInfo:WidgetModel ;
+    widgetID:string = "1234";
+    
+    // ---------------------------
+
+    @Input() modelInfo:WidgetBase ;
 
     model:WSmileyModel = null;
 
@@ -24,16 +28,15 @@ export class WidgetSmileyEditor
     {
         this.data = config;
 
-        this.model.title = this.data.selectedWidget.content["title"];
+        var modelAsString = this.data.selectedWidget.content;
 
+        this.model = JSON.parse(modelAsString);
     }
 
     deleteWidget()
     {
         this.data.removeWidget(this.modelInfo);
     }
-
-
 
     useSubtitles()
     {

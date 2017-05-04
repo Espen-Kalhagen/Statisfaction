@@ -18,7 +18,7 @@ export class StoreUnitComponent
 
     CookieContet: string;
 
-    model:WSmileyModel = new WSmileyModel("Widget title",[""],false)
+    model:WSmileyModel = new WSmileyModel();
 
     public constructor(
         private router: Router,

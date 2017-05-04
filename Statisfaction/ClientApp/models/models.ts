@@ -1,18 +1,19 @@
 
 export class WSmileyModel {
+    public title: string = "";
 
-    constructor
-        (
-        public title: string,
-        public subtitles: string[],
-        public useSubtitles: boolean,
-    ) { }
+    public subtitle1: string = "";
+    public subtitle2: string = "";
+    public subtitle3: string = "";
+    public subtitle4: string = "";
 
-
+    public useSubtitles: boolean = false;
+    
+    constructor() { }
 }
 
-// Represents a WidgetModel
-export class WidgetModel {
+// Represents a WidgetBase model
+export class WidgetBase {
 
     public id: string;
     public content: string;

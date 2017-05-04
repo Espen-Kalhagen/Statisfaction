@@ -1,6 +1,6 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { SurveyConfigService } from '../survey-config.service';
-import { WidgetModel } from '../../../models/models';
+import { WidgetBase, WSmileyModel } from '../../../models/models';
 
 declare var $: any;
 
@@ -13,13 +13,11 @@ declare var $: any;
 export class CustomizeComponent implements AfterViewInit {
 
     // Holds the
-    widgetTypes = 
+    widgetTypes =
     [
-        new WidgetType("Smiley","/images/icons/widget_smiley.png"), 
-        new WidgetType("Question","/images/icons/widget_question.png")
+        new WidgetType("Smiley", "/images/icons/widget_smiley.png"),
+        new WidgetType("Question", "/images/icons/widget_question.png")
     ];
-
-
 
     surveydata: SurveyConfigService = null;
 
@@ -27,14 +25,24 @@ export class CustomizeComponent implements AfterViewInit {
         this.surveydata = config;
     }
 
-    addWidget(widget:WidgetType) 
-    {
-        this.surveydata.addWidget(new WidgetModel(widget.type, "", widget.icon));
+    addWidget(widget: WidgetType) {
+
+        var w = new WidgetBase(widget.type, "");
+
+        switch (w.type) {
+            case "Smiley":
+                w.content = JSON.stringify(new WSmileyModel());
+                break;
+            case "Question":
+                //TODO: w.content = JSON.stringify(new WQuestionModel()); 
+                break;
+        }
+
+        this.surveydata.addWidget(w);
     }
 
-    selectWidget(widget: WidgetModel) 
-    {
-        this.surveydata.selectedWidget = this.surveydata.widgets.find(m => m.id == widget.id) ;
+    selectWidget(widget: WidgetBase) {
+        this.surveydata.selectedWidget = this.surveydata.widgets.find(m => m.id == widget.id);
     }
 
     ngAfterViewInit() {
@@ -47,17 +55,15 @@ export class CustomizeComponent implements AfterViewInit {
             });
 
         $('#sortable').disableSelection();
-
     }
 
 }
 
-export class WidgetType
-{
+export class WidgetType {
     constructor
-    (
-        public type:string,
-        public icon:string
-    ){}
+        (
+        public type: string,
+        public icon: string
+        ) { }
 }
 

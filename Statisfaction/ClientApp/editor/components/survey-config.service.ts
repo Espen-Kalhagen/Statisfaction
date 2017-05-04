@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { WidgetModel } from '../../models/models';
+import { WidgetBase } from '../../models/models';
 
 @Injectable()
 export class SurveyConfigService
@@ -14,23 +14,24 @@ export class SurveyConfigService
     surveyID:string = '';
 
     // Widget-spesific parameters
-    widgets:WidgetModel[] = [];
-
+    widgets:WidgetBase[] = [];
 
     // Editor spesific data
-    selectedWidget: WidgetModel = null;
+    selectedWidget: WidgetBase = null;
 
     // -------------------------- Functions -------------------------
-    addWidget(widget:WidgetModel) : void
+    addWidget(widget:WidgetBase) : void
     {
 
         if(this.widgets.length < this.MAX_WIDGETS )
             this.widgets.push(widget);
         else
             alert("Cant add more than " + this.MAX_WIDGETS + " widgets per survey!");
+
+    
     }
 
-    removeWidget(widget:WidgetModel)
+    removeWidget(widget:WidgetBase)
     {
         var index = this.widgets.indexOf(widget);
 
