@@ -1,4 +1,5 @@
 
+
 #sortable
 {
     display: inline-block;
@@ -14,20 +15,27 @@
     margin: 5px;
     padding: 10px ;
     width: 100%;
-    text-align: left;
+    text-align: center;
+    height: 55px;
+}
+
+.widgets-list-item:hover
+{
+    background-color: #F5F5F5 ;
 }
 
 .icon-img
 {
-    width: 30px;
-    height: 30px;
-    margin: auto;
+    width: 36px;
+    height: 36px;
+    color: red ;
 }
 
 #right-panel
 {
     padding-left: 10px;
     height: 100%;
+        background-color: #FAFAFA;
 }
 
 #right-panel-content
@@ -44,4 +52,35 @@
     padding-left: 15px;
     padding-right: 15px;
     height: 100%;
+}
+
+.selected
+{
+    background-color: #D4E0F6 ;
+}
+
+.selected h5
+{
+    font-weight: bold;
+    color: #417CE7 ;
+}
+
+.post-thumb {
+    float: left;
+    width: 10%;
+}
+
+.post-content 
+{
+    float: left;
+    width: 80%;
+    text-align: left;
+    padding-left: 20px;
+}
+
+.post-settings
+{
+    margin-top: 5px;
+    float: left;
+    width: 10%;
 }

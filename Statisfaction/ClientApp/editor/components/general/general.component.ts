@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 
 import { SurveyConfigService } from '../survey-config.service';
 
+import { GeneralModel } from '../../../models/models';
+
 @Component({
     selector: 'general',
     templateUrl: './general.component.html',
@@ -11,11 +13,11 @@ import { SurveyConfigService } from '../survey-config.service';
 export class GeneralComponent 
 {
 
-    name:string = "Kjell";
+    data:SurveyConfigService = null ;
 
     constructor(private config: SurveyConfigService)
     {
-        this.name = config.surveyTitle ; 
+        this.data = config ;
     }
     
 }

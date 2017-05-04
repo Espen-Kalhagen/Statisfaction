@@ -23,6 +23,18 @@ export class WSmileyModel extends WidgetBaseModel {
     }
 }
 
+export class GeneralModel {
+
+    public title: string = "";
+    
+    public description: string = "";
+
+    constructor() 
+    {
+        
+    }
+}
+
 // Can be used to create a UUID
 class UUID {
     static newUUID() {

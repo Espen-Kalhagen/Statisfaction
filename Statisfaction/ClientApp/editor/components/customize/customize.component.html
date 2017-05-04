@@ -32,11 +32,22 @@
         <div id="sortable-section">
 
             <ul id="sortable">
-                <li *ngFor="let widget of surveydata.widgets; let i = index;" (click)="selectWidget(widget, i)" [class]="" class="widgets-list-item thumbnail">
-                    {{widget.type}}
+                <li *ngFor="let widget of surveydata.widgets; let i = index;" (click)="selectWidget(widget, i)" [class.selected]="widget.localID === this.surveydata.selectedID"
+                    class="widgets-list-item thumbnail">
+                        <div class="post-thumb">
+                            <img class="icon-img" src="/images/icons/icon_w_smiley.svg">
+                        </div>
+
+                        <div class="post-content">
+                            <h5>{{widget.type}}</h5>
+                        </div>
+                        <div class="post-settings">
+                            <input (click)="removeWidget(widget)" id="button-settings" type="image" src="/images/icons/icon_delete.svg"/>
+                        </div>
                 </li>
             </ul>
 
         </div>
     </div>
 </div>
+

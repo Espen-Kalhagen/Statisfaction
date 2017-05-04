@@ -37,11 +37,6 @@ export class WidgetSmileyEditor implements OnChanges
         console.log("ID",this.model.localID);
     }
 
-    deleteWidget()
-    {
-        this.data.removeWidget(this.model);
-    }
-
     useSubtitles()
     {
         if(this.model.useSubtitles)

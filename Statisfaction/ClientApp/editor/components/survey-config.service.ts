@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { WSmileyModel, WidgetBaseModel } from '../../models/models';
+import { WSmileyModel, WidgetBaseModel, GeneralModel } from '../../models/models';
 
 @Injectable()
 export class SurveyConfigService {
@@ -7,17 +7,16 @@ export class SurveyConfigService {
     private MAX_WIDGETS = 7;
 
     // General parameters
-    surveyTitle: string = '';
-    surveyDescription: string = '';
+    general:GeneralModel = new GeneralModel() ;
 
     surveyID: string = '';
-
-    //---------------------------------------------
 
     widgets: WidgetBaseModel[] = [];
 
     selectedIndex:number = -1 ;
     selectedType:string = null ;
+
+    selectedID:string = null ;
 
     getCurrentWidget()
     {

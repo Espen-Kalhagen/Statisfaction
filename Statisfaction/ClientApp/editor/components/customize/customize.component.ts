@@ -20,9 +20,6 @@ export class CustomizeComponent implements AfterViewInit {
     ];
 
 
-    buttonStyles:{};
-
-
     surveydata: SurveyConfigService = null;
 
     constructor(private config: SurveyConfigService) {
@@ -42,6 +39,12 @@ export class CustomizeComponent implements AfterViewInit {
 
         this.surveydata.selectedIndex = index ;
         this.surveydata.selectedType = w.type ;
+        this.surveydata.selectedID = w.localID ;
+    }
+
+    removeWidget(widget: WidgetBaseModel)
+    {
+        this.surveydata.removeWidget(widget);
     }
 
     ngAfterViewInit() {
