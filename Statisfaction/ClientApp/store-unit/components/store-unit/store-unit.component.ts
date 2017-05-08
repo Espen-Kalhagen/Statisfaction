@@ -25,6 +25,7 @@ export class StoreUnitComponent {
         nextWidgetIndex:any =0;
         widgets:any[] = [];
         @ViewChild(WidgetDirective) widgetHost: WidgetDirective;
+        timer:number;
 
 
     public constructor(
@@ -69,7 +70,7 @@ export class StoreUnitComponent {
                     "Title": "What discribes this location",
                     "LogoURL": "https://media.snl.no/system/images/18571/standard_uia.png",
                     "BackgroundColor": "#D0DCE3",
-                    "widgetID": 2, //Uniqe id for each widget
+                    "widgetID": 2, //Uniqe id for each widget configuration
                     "Questions": [
                         {
                             "QuestionID": 1,
@@ -163,8 +164,8 @@ export class StoreUnitComponent {
 
     }
 
-
   private loadComponent(nextWidgetData: WidgetInfo) {
+        window.clearTimeout(this.timer);
         let componentFactory = this.componentFactoryResolver.resolveComponentFactory(nextWidgetData.WidgetType);
         let viewContainerRef = this.widgetHost.viewContainerRef;
         viewContainerRef.clear()
@@ -172,6 +173,13 @@ export class StoreUnitComponent {
         (<WidgetComponent>componentRef.instance).CookieContent = this.cookieContent;
         (<WidgetComponent>componentRef.instance).surveyPart = nextWidgetData.WidgetData;
         (<WidgetComponent>componentRef.instance).onAnswered = this.widgetHost.onAnswered;
+        
+        //Reset view if idle
+
+        this.timer = window.setTimeout(() => {
+            this.loadComponent(this.widgets[0]);
+            this.nextWidgetIndex =0;
+        }, 5001);
     }
     //Emmited by store unit widgets
     onAnswered(answered:boolean){
