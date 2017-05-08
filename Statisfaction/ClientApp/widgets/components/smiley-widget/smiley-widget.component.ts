@@ -3,6 +3,7 @@ import { Component, Input, Type, Output, EventEmitter } from '@angular/core';
 import { SendingService } from "../../../store-unit/SendingService";
 import { WidgetItem } from "../../widget-item";
 import { WidgetComponent } from "../../widget.component";
+import { WSmileyModel } from '../../../models/models';
 
 declare var Stomp: any;
 declare var $: any;
@@ -28,6 +29,7 @@ export class SmileyWidgetComponent implements WidgetComponent
     selection:string; 
     surveyPart:any;
     onAnswered:EventEmitter<boolean>;
+    @Input() model: WSmileyModel;
 
     constructor(private sendingService: SendingService ) { 
     }

@@ -4,6 +4,7 @@ import { UniversalModule } from 'angular2-universal';
 import { SmileyWidgetComponent } from './components/smiley-widget/smiley-widget.component';
 import { QuestionWidgetComponent } from "./components/question-widget/question-widget.component";
 import { ThanksWidgetComponent } from "./components/thanks-widget/thanks-widget.component";
+import { FormsModule } from "@angular/forms";
 
 
 
@@ -14,7 +15,8 @@ import { ThanksWidgetComponent } from "./components/thanks-widget/thanks-widget.
         ThanksWidgetComponent
     ],
     imports: [
-        UniversalModule // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.
+        UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.
+        FormsModule
     ],
     exports: [
         SmileyWidgetComponent,

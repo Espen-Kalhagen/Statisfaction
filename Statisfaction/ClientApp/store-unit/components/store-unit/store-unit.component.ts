@@ -22,6 +22,7 @@ import { WSmileyModel } from '../../../models/models';
 
 export class StoreUnitComponent {
         cookieContent: any;
+        model: WSmileyModel = new WSmileyModel();
         nextWidgetIndex:any =0;
         widgets:any[] = [];
         @ViewChild(WidgetDirective) widgetHost: WidgetDirective;
