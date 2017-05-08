@@ -29,6 +29,7 @@ export class SmileyWidgetComponent implements WidgetComponent
     selection:string; 
     surveyPart:any;
     onAnswered:EventEmitter<boolean>;
+    
     @Input() model: WSmileyModel;
 
     constructor(private sendingService: SendingService ) { 
