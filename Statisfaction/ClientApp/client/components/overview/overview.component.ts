@@ -12,12 +12,26 @@ declare var $: any;
 
 export class SurveyOverviewComponent
 {
-
+    // List of all surveys
     surveys:SurveyInfoModel[] = [];
 
+    // Constructor
     constructor()
     {
 
+        this.getSurveys();
+
+    }
+
+    // This should call the API and retrieve the surveys for the user
+    getSurveys()
+    {
+        this.getDummyData();
+    }
+
+    // This is only used temporary do create some dummy surveys!
+    getDummyData()
+    {
         var m = new SurveyInfoModel();
         m.created = new Date();
         m.updated = new Date();
@@ -35,11 +49,6 @@ export class SurveyOverviewComponent
         m2.created.toDateString();
 
         this.surveys.push(m2);
-    }
-
-    getSurveys()
-    {
-
     }
 
 }

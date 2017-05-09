@@ -1,0 +1,8 @@
+#summary-container
+{
+
+}
+.borderless tr td {
+    border: none !important;
+    padding: 0px !important;
+}

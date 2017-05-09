@@ -19,7 +19,7 @@ import { CustomizeComponent } from "../editor/components/customize/customize.com
 import { FinalizeComponent } from "../editor/components/finalize/finalize.component";
 import { GeneralComponent } from "../editor/components/general/general.component";
 import { SurveyOverviewComponent } from './components/overview/overview.component';
-
+import { SurveySummaryComponent } from './components/survey-summary/survey-summary.component';
 
 
 const routes: Routes =
@@ -55,7 +55,8 @@ const routes: Routes =
         ChartComponent,
         StatisticsComponent,       
         ChartComponent,
-        SurveyOverviewComponent
+        SurveyOverviewComponent,
+        SurveySummaryComponent
     ],
     imports: [  
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.

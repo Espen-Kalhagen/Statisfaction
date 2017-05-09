@@ -37,8 +37,17 @@
 
 <hr class="col-md-12">
 
-<div id="content-panel" class="col-md-12">
+<div id="content-panel" class="col-md-9">
     <table class="table table-hover">
+        <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Created</th>
+                    <th>Edit</th>
+                    <th>Statistics</th>
+                </tr>
+            </thead>
         <tbody>
             <tr *ngFor="let survey of surveys">
                 <td>{{survey.title}}</td>
@@ -53,4 +62,8 @@
             </tr>
         </tbody>
     </table>
+</div>
+
+<div class="col-md-3">
+    <survey-summary></survey-summary>
 </div>
