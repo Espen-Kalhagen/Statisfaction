@@ -1,9 +1,8 @@
 
-export class WidgetBaseModel
-{
-    public localID:string ;
-    public type:string;
-    constructor(){this.localID = UUID.newUUID();}
+export class WidgetBaseModel {
+    public localID: string;
+    public type: string;
+    constructor() { this.localID = UUID.newUUID(); }
 }
 
 export class WSmileyModel extends WidgetBaseModel {
@@ -20,9 +19,8 @@ export class WSmileyModel extends WidgetBaseModel {
     public backgroundColor: string = "#D0DCE3";
 
     public useSubtitles: boolean = false;
-    
-    constructor() 
-    {
+
+    constructor() {
         super();
     }
 }
@@ -30,14 +28,27 @@ export class WSmileyModel extends WidgetBaseModel {
 export class GeneralModel {
 
     public title: string = "";
-    
+
     public description: string = "";
 
-    constructor() 
-    {
-        
+    constructor() {
+
     }
 }
+
+export class SurveyInfoModel {
+    
+    public title: string;
+    public description: string;
+
+    public created: Date;
+    public updated: Date;
+
+    public status:string;
+
+}
+
+
 
 // Can be used to create a UUID
 class UUID {

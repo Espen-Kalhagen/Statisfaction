@@ -3,12 +3,15 @@ import { RouterModule, Routes} from '@angular/router';
 import { UniversalModule } from 'angular2-universal';
 import { FormsModule }   from '@angular/forms';
 
+
 import { EditorComponent } from './components/editor/editor.component';
 import { GeneralComponent } from './components/general/general.component';
 import { FinalizeComponent } from './components/finalize/finalize.component';
 import { CustomizeComponent } from './components/customize/customize.component';
+import { SurveyOverviewComponent } from './components/overview/overview.component';
 
 import { WidgetSmileyEditor } from './components/widget-smiley/widget-smiley.component';
+
 
 // Costom modules
 import { WidgetModule} from '../widgets/widgets.module';
@@ -20,7 +23,8 @@ import { EditorRoutingModule } from './editor-routing.module'
         GeneralComponent,
         CustomizeComponent,
         FinalizeComponent,
-        WidgetSmileyEditor
+        WidgetSmileyEditor,
+        SurveyOverviewComponent
     ],
     imports: [
         UniversalModule,
