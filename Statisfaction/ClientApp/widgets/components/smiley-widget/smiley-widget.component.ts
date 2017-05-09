@@ -34,6 +34,16 @@ export class SmileyWidgetComponent implements WidgetComponent
 
     constructor(private sendingService: SendingService ) { 
     }
+    
+    ngOnInit(){
+        
+        if(this.model == null){
+
+            this.model = this.surveyPart as WSmileyModel;
+        }
+
+
+    }
 
     onSelect(option:string) : void
     {

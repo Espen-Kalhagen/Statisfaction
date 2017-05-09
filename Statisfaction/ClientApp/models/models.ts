@@ -15,6 +15,10 @@ export class WSmileyModel extends WidgetBaseModel {
     public subtitle3: string = "";
     public subtitle4: string = "";
 
+    public LogoURL: string ="";
+
+    public backgroundColor: string = "#D0DCE3";
+
     public useSubtitles: boolean = false;
     
     constructor() 

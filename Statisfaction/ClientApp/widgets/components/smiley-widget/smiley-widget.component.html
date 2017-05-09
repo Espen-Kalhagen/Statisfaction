@@ -1,6 +1,7 @@
-<div id="widget-container">
 
-    <div id="widget-container">
+<img id="logo" src="{{model.LogoURL}}" alt="Logo" width="500" onerror="this.style.display='none'">
+
+<div id="widget-container" [ngStyle]="{ 'background-color': model.backgroundColor }">
 
         <h1 id="title">{{model.title}}</h1>
 
@@ -9,25 +10,28 @@
 
         <div class="row">
             <div class="col-md-3">
-                <a id="smiley1" (click)="send('1')" class="thumbnail">
-                    <img src="/images/smiley_1.png" />
+                <a id="smiley1" (click)="send('1')" class="thumbnail" [ngStyle]="{ 'background-color': model.backgroundColor }">
+                    <img src="/images/smiley_1.png" onerror="this.style.display='none'"/>
+                    <p *ngIf="useSubtitles" > {{model.subtitle1}}</p>
                 </a>
             </div>
             <div class="col-md-3">
-                <a (click)="send('2')" class="thumbnail">
-                    <img src="/images/smiley_2.png" />
+                <a (click)="send('2')" class="thumbnail" [ngStyle]="{ 'background-color': model.backgroundColor }">
+                    <img src="/images/smiley_2.png" onerror="this.style.display='none'" />
+                    <p *ngIf="useSubtitles" > {{model.subtitle2}}</p>
                 </a>
             </div>
             <div class="col-md-3">
-                <a (click)="send('3')" class="thumbnail">
-                    <img src="/images/smiley_3.png" />
+                <a (click)="send('3')" class="thumbnail" [ngStyle]="{ 'background-color': model.backgroundColor }">
+                    <img src="/images/smiley_3.png" onerror="this.style.display='none'" />
+                    <p *ngIf="useSubtitles" > {{model.subtitle3}}</p>
                 </a>
             </div>
             <div class="col-md-3">
-                <a id="smiley4" (click)="send('4')" class="thumbnail">
-                    <img src="/images/smiley_4.png" />
+                <a id="smiley4" (click)="send('4')" class="thumbnail"  [ngStyle]="{ 'background-color': model.backgroundColor }" >
+                    <img src="/images/smiley_4.png" onerror="this.style.display='none'"/>
+                    <p *ngIf="useSubtitles" > {{model.subtitle4}}</p>
                 </a>
             </div>
         </div>
     </div>
-</div>

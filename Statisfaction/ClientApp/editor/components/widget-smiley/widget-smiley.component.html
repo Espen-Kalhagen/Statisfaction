@@ -6,6 +6,10 @@
             <label for="usr">Title</label>
             <input type="text" class="form-control" id="title" required [(ngModel)]="model.title" name="title">
         </div>
+        <div class="form-group">
+            <label for="usr">Logo URL</label>
+            <input type="text" class="form-control" id="logo" [(ngModel)]="model.LogoURL">
+        </div>
         <div class="form-group checkbox">
             <label><input (click)="useSubtitles()" type="checkbox" checked>Use subtitles for smileys </label>
         </div>
@@ -16,16 +20,16 @@
         <div class="form-group">
 
             <label for="usr">Smiley 1 title </label>
-            <input type="text" class="form-control" id="usr">
+            <input type="text" class="form-control" id="usr" [(ngModel)]="model.subtitle1" >
 
             <label for="usr">Smiley 2 title </label>
-            <input type="text" class="form-control" id="usr">
+            <input type="text" class="form-control" id="usr" [(ngModel)]="model.subtitle2">
 
             <label for="usr">Smiley 3 title </label>
-            <input type="text" class="form-control" id="usr">
+            <input type="text" class="form-control" id="usr" [(ngModel)]="model.subtitle3">
 
             <label for="usr">Smiley 4 title </label>
-            <input type="text" class="form-control" id="usr">
+            <input type="text" class="form-control" id="usr" [(ngModel)]="model.subtitle4" >
         </div>
     </div>
 </div>

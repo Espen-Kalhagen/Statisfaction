@@ -120,17 +120,17 @@ export class StoreUnitComponent {
                 },
                 {
                     "WidgetType": "Smilies",
-                    "Title": "How was the help?",
+                    "title": "How was the help?",
                     "LogoURL": "https://media.snl.no/system/images/18571/standard_uia.png",
-                    "BackgroundColor": "#D0DCE3",
+                    "backgroundColor": "#D0DCE3",
                     "widgetID": 1
                 },
                 {
                     "WidgetType": "Thanks",
                     "Title": "Thank you!",
                     "LogoURL": "https://media.snl.no/system/images/18571/standard_uia.png",
-                    "BackgroundColor": "#D0DCE3",
-                    "widgetID": 3,
+                    "backgroundColor": "#D0DCE3",
+                    "WidgetID": 3,
                     "Time":2000
                 },
                 
