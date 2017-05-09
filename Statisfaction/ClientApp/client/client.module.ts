@@ -13,6 +13,11 @@ import { EditorModule } from '../editor/editor.module';
 
 import { ChartsModule } from 'ng2-charts';
 import { DataHandlerService } from './components/chart/data-handler.service';
+import { SelectSurveyComponent } from "./components/survey-selection/survey-selector.component";
+import { EditorComponent } from "../editor/components/editor/editor.component";
+import { CustomizeComponent } from "../editor/components/customize/customize.component";
+import { FinalizeComponent } from "../editor/components/finalize/finalize.component";
+import { GeneralComponent } from "../editor/components/general/general.component";
 
 import { SelectSurveyComponent } from "./components/survey-selection/survey-selector.component";
 import { EditorComponent } from "../editor/components/editor/editor.component";
@@ -60,6 +65,7 @@ const routes: Routes =
         SurveyOverviewComponent,
         SurveySummaryComponent,
         OverviewHelpComponent
+        ChartComponent
     ],
     imports: [  
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.
