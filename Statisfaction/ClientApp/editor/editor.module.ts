@@ -8,7 +8,7 @@ import { EditorComponent } from './components/editor/editor.component';
 import { GeneralComponent } from './components/general/general.component';
 import { FinalizeComponent } from './components/finalize/finalize.component';
 import { CustomizeComponent } from './components/customize/customize.component';
-import { SurveyOverviewComponent } from './components/overview/overview.component';
+
 
 import { WidgetSmileyEditor } from './components/widget-smiley/widget-smiley.component';
 
@@ -23,8 +23,7 @@ import { EditorRoutingModule } from './editor-routing.module'
         GeneralComponent,
         CustomizeComponent,
         FinalizeComponent,
-        WidgetSmileyEditor,
-        SurveyOverviewComponent
+        WidgetSmileyEditor
     ],
     imports: [
         UniversalModule,
