@@ -1,24 +1,43 @@
-<div id="top-panel">
+<div id="top-panel" class="col-md-12">
 
     <div class="col-md-10">
         <h2>Surveys</h2>
     </div>
+</div>
+
+<div id="filter-panel" class="col-md-12">
+
+    <div class="col-md-4">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search for...">
+            <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Go!</button>
+        </span>
+        </div>
+    </div>
+
+    <div id="filters-container" class="col-md-6">
+        <ul>
+            <li>
+                QUICK FILTERS:
+            </li>
+            <li>
+                <a>Recent Updated</a>
+            </li>
+            <li>
+                <a>Sorted By Name</a>
+            </li>
+        </ul>
+    </div>
 
     <div class="col-md-2">
-        <a class="btn btn-primary" [routerLink]="['/editor']">Create</a>
+        <a class="btn btn-primary" [routerLink]="['/editor']">New Survey</a>
     </div>
 </div>
 
-<div class="col-md-12">
-    <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search...">
-        <span class="input-group-btn">
-        <button class="btn btn-default" type="button">Go!</button>
-      </span>
-    </div>
-    <!-- /input-group -->
+<hr class="col-md-12">
 
-
+<div id="content-panel" class="col-md-12">
     <table class="table table-hover">
         <tbody>
             <tr *ngFor="let survey of surveys">
