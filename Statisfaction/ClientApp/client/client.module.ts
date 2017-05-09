@@ -12,6 +12,11 @@ import { EditorModule } from '../editor/editor.module';
 
 import { ChartsModule } from 'ng2-charts';
 import { DataHandlerService } from './components/chart/data-handler.service';
+import { SelectSurveyComponent } from "./components/survey-selection/survey-selector.component";
+import { EditorComponent } from "../editor/components/editor/editor.component";
+import { CustomizeComponent } from "../editor/components/customize/customize.component";
+import { FinalizeComponent } from "../editor/components/finalize/finalize.component";
+import { GeneralComponent } from "../editor/components/general/general.component";
 
 
 
@@ -22,9 +27,17 @@ const routes: Routes =
     [
         {path: 'statistics', component: StatisticsComponent},
         {path: 'fetch-data', component: FetchDataComponent},
-        {path: 'chart', component: ChartComponent}
-    ]},
-    { path: '**', redirectTo: 'client' }
+        {path: 'chart', component: ChartComponent},
+        {
+            path: 'editor', component: EditorComponent, children:
+                [
+                    { path: 'general', component: GeneralComponent },
+                    { path: 'customize', component: CustomizeComponent },
+                    { path: 'finalize', component: FinalizeComponent }
+                ]
+        },
+        { path: 'survey-selector', component: SelectSurveyComponent }
+    ]}
 ]
 
 @NgModule({
@@ -34,7 +47,8 @@ const routes: Routes =
         NavMenuComponent,
         CounterComponent,
         FetchDataComponent,
-        StatisticsComponent,       
+        StatisticsComponent,
+        SelectSurveyComponent,       
         ChartComponent
     ],
     imports: [  
