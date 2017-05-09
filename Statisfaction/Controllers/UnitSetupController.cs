@@ -75,6 +75,55 @@ namespace api.UnitSetup
             return Json(new StoreUnitViewModel(unit));
         }
 
+
+        /**
+        Get all unis registered to email (id)
+         */
+        [Route("units/{id}")]
+        [HttpGet("{id}")]
+        public IActionResult Get(string id)
+        {
+
+            var unitQ = from i in db.StoreUnits
+                        where i.Owner.Id == id
+                        select i;
+            List<StoreUnit> units;
+            try
+            {
+                units = unitQ.ToList();
+            }
+            catch
+            {
+                return NotFound();
+            }
+            return Json(units);
+
+        }
+        /**
+        Post a new survey to a unit
+         */
+        [Route("UnitSurvey")]
+        public IActionResult post([FromBody]SurveyUnitData data)
+        {
+            var unitQ = from i in db.StoreUnits
+                        where i.id == data.Unitid
+                        select i;
+
+            StoreUnit unit;
+            try
+            {
+                unit = unitQ.ToList().First();
+            }
+            catch
+            {
+                return NotFound();
+            }
+            unit.SurveyID = data.surveyID;
+            db.SaveChanges();
+            return Json(unit);
+        }
+
+
     }
     public class RegistrationData
     {
@@ -85,6 +134,12 @@ namespace api.UnitSetup
         public int Unitid { get; set; }
         public string ownerID { get; set; }
     }
-    
+    public class SurveyUnitData
+    {
+        public int Unitid { get; set; }
+        public string surveyID { get; set; }
+    }
+
+
 }
 
