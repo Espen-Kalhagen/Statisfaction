@@ -38,7 +38,6 @@ export class SmileyWidgetComponent implements WidgetComponent
     ngOnInit(){
         
         if(this.model == null){
-
             this.model = this.surveyPart as WSmileyModel;
         }
 

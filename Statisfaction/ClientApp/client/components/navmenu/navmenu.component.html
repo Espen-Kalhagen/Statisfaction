@@ -7,21 +7,23 @@
                 <span class='icon-bar'></span>
                 <span class='icon-bar'></span>
             </button>
-            <a class='navbar-brand' [routerLink]="['/statistics']">WebApplicationBasic</a>
+            <a class='navbar-brand' [routerLink]="['statistics']"> <span class='glyphicon glyphicon-home'></span> Your tools</a>
         </div>
         <div class='clearfix'></div>
         <div class='navbar-collapse collapse'>
             <ul class='nav navbar-nav'>
+                <h3> Survey tools </h3>
                 <li [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['statistics']">
-                        <span class='glyphicon glyphicon-home'></span> Statistics
+                    <a [routerLink]="['editor']">
+                        <span class='glyphicon glyphicon-list-alt'></span> Create survey
                     </a>
                 </li>
                 <li [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/editor']">
-                        <span class='glyphicon glyphicon-list-alt'></span> Surveys
+                    <a [routerLink]="['survey-selector']">
+                        <span class='glyphicon glyphicon-list-alt'></span> Select survey
                     </a>
                 </li>
+                <h3> Data tools </h3>
                 <li [routerLinkActive]="['link-active']">
                     <a [routerLink]="['fetch-data']">
                         <span class='glyphicon glyphicon-th-list'></span> Fetch data
@@ -33,6 +35,9 @@
                     </a>
                 </li>
             </ul>
+
         </div>
     </div>
 </div>
+
+
