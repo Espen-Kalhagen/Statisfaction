@@ -6,6 +6,7 @@ declare var send_wrapper: any;
 declare var $:any;
 declare var respList:any;
 
+
 @Injectable()
 export class SendingService {
 
@@ -17,8 +18,9 @@ export class SendingService {
     constructor(){
     }
 
-    public init(){
-        start_rabbit();
+    public init(unitID:any){
+        start_rabbit("StoreUnitQueue:" + unitID);
+        
 
     }
 

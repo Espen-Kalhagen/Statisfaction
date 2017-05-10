@@ -21,12 +21,16 @@ import { WSmileyModel } from '../../../models/models';
 
 
 export class StoreUnitComponent {
+
     cookieContent: any;
     model: WSmileyModel = new WSmileyModel();
-    nextWidgetIndex: any = 0;
-    widgets: any[] = [];
+    nextWidgetIndex:any =0;
+    widgets:any[] = [];
     @ViewChild(WidgetDirective) widgetHost: WidgetDirective;
-    timer: number;
+    timer:number;
+    currentSurveyID:number;
+    CookieObject:any;
+
 
 
     public constructor(
@@ -45,11 +49,12 @@ export class StoreUnitComponent {
         }
         console.log("found cookie: " + this.cookie.get('StoreUnitCookie'));
         this.cookieContent = this.cookie.get('StoreUnitCookie');
-        let CookieObject = JSON.parse(this.cookieContent);
+        this.CookieObject = JSON.parse(this.cookieContent);
         let data = new RegistrationCheckData(
-            CookieObject.id,
-            CookieObject.ownerID,
+            this.CookieObject.id,
+            this.CookieObject.ownerID,
         )
+
         let body = JSON.stringify(data);
         let options = new RequestOptions();
         options.headers = new Headers({ 'Content-Type': 'application/json' });
@@ -60,77 +65,54 @@ export class StoreUnitComponent {
             return Observable.throw(err); // observable needs to be returned or exception raised
         }).subscribe(res => this.handleCheck(res));
 
-        //Get survey data:
-        //From the server
-        let surveyData = {
-            "surveyID": 1,
-            "widgetList":
-            [
-                {
-                    "WidgetType": "Questions", //Widget type identifier
-                    "title": "What discribes this location",
-                    "LogoURL": "https://media.snl.no/system/images/18571/standard_uia.png",
-                    "backgroundColor": "#D0DCE3",
-                    "widgetID": 2, //Uniqe id for each widget configuration     
-                    "questionID": 1,
-                    "answerList":
-                    [
-                        {
-                            "answerText": "Tidy",
-                            "contentIMG": "/images/smiley_1.png",
-                            "imgSize": 20,
-                            "ButtonColor": "#00759A",
-                            "responseID": 1
-                        },
-                        { "answerText": "Normal", "buttonColor": "#A6BCC6", "responseID": 2 },
-                        { "answerText": "Messy", "buttonColor": "#C7B9AA", "responseID": 3 },
-                        { "answerText": "Disgusting", "buttonColor": "#91785B", "responseID": 3 }
-                    ]
-                },
-                {
-                    "WidgetType": "Smilies",
-                    "title": "How was the help?",
-                    "LogoURL": "https://media.snl.no/system/images/18571/standard_uia.png",
-                    "backgroundColor": "#D0DCE3",
-                    "widgetID": 1
-                },
-                {
-                    "WidgetType": "Thanks",
-                    "Title": "Thank you!",
-                    "LogoURL": "https://media.snl.no/system/images/18571/standard_uia.png",
-                    "backgroundColor": "#D0DCE3",
-                    "WidgetID": 3,
-                    "Time": 2000
-                },
-
-            ]
-        }
-
-
-        for (let i = 0; i < surveyData.widgetList.length; i++) {
-            if (surveyData.widgetList[i].WidgetType == "Questions") {
-                this.widgets[i] = new WidgetInfo(surveyData.widgetList[i], QuestionWidgetComponent);
-            } else if (surveyData.widgetList[i].WidgetType == "Smilies") {
-                this.widgets[i] = new WidgetInfo(surveyData.widgetList[i], SmileyWidgetComponent);
-            } else if (surveyData.widgetList[i].WidgetType == "Thanks") {
-                this.widgets[i] = new WidgetInfo(surveyData.widgetList[i], ThanksWidgetComponent);
-            }
-            else {
-                console.log("ERROR ADDING " + i);
-            }
-        }
-
-        this.sendingService.init();
-        this.loadComponent(this.widgets[0]);
 
 
     }
     private handleCheck(response: any) {
-
-        console.log('activation check returned ' + JSON.parse(response._body).confirmed);
-        if (!JSON.parse(response._body).confirmed) {
+        let checkResult = JSON.parse(response._body);
+        console.log('activation check returned ' + checkResult.confirmed);
+        if (!checkResult.confirmed) {
             this.router.navigate(['/register-unit'], { skipLocationChange: true })
         }
+        this.currentSurveyID = checkResult.surveyID;
+
+        //Default survey
+        if (this.currentSurveyID==null){
+            this.currentSurveyID = 100; 
+        } 
+
+        //Get survey data:
+        //From the server
+        let surveyData
+        //load the data above, but from the server
+        //TODO:change 100 to surveyID
+        console.log("get surveydata");
+        this.http.get('http://localhost:5000/api/UnitSetup/survey/' + this.currentSurveyID).subscribe(result => {
+
+            surveyData = result.json();
+            //surveyData = surveyData[0];
+            console.log(surveyData);
+
+            console.log(surveyData.surveyID);
+            for (let i = 0; i < surveyData.widgetList.length; i++) {
+                if (surveyData.widgetList[i].WidgetType == "Questions") {
+                    this.widgets[i] = new WidgetInfo(surveyData.widgetList[i], QuestionWidgetComponent);
+
+                } else if (surveyData.widgetList[i].WidgetType == "Smilies") {
+                    this.widgets[i] = new WidgetInfo(surveyData.widgetList[i], SmileyWidgetComponent);
+                } else if (surveyData.widgetList[i].WidgetType == "Thanks") {
+                    this.widgets[i] = new WidgetInfo(surveyData.widgetList[i], ThanksWidgetComponent);
+                }
+                else {
+                    console.log("ERROR ADDING " + i);
+                }
+            }
+
+            this.sendingService.init(this.CookieObject.id);
+            this.loadComponent(this.widgets[0]);
+
+        });
+
 
     }
 

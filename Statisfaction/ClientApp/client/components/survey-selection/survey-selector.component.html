@@ -1,1 +1,19 @@
 <h1>Select a survey for each store unit</h1>
+<div> 
+    <h2>Units</h2>
+    <div *ngFor="let resp of responses">
+        <ul>
+        <h3> Unit name: {{resp.unitName}} </h3>
+        <p> ID: {{resp.id}} </p>
+        <p> Placement: {{resp.placement}} </p>
+        <p> {{resp.surveyName}} </p>
+        <label for="surveys">Avilable surveys</label>
+        <select class="form-control" id="surveys{{resp.id}}" required>
+            <option selected disabled [value] ="-1"> Please select one of your surveys</option>
+             <option *ngFor="let sur of availableSurveys" [selected]="sur.surveyName == resp.surveyName" [value]="sur.surveyID">{{sur.surveyName}}</option>
+        </select>
+        <button type="button" class="btn btn-default" (click)="apply(resp.id)">Apply</button>
+        </ul>
+    </div>
+    
+</div>
