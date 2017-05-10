@@ -25,6 +25,8 @@ namespace Models
             ChainName = unit.Owner.ChainName;
             LocationName = unit.Owner.LocationName;
             OwnerID = unit.Owner.Id;
+            SurveyID = unit.SurveyID;
+
         }
 
         public int id { get; set; } //Primary key
@@ -55,6 +57,9 @@ namespace Models
 
         [Display(Name = "Unit Owner ID")]
         public string OwnerID { get; set; }
+
+        [Display(Name = "Survey currently running on unit")]
+        public string SurveyID { get; set; }
 
 
     }

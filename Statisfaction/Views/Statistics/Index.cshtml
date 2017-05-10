@@ -1,8 +1,6 @@
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Tools";
 }
-
-
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -29,7 +27,7 @@
 <app></app>
 
 <script src="~/dist/vendor.js" asp-append-version="true"></script>
-
+<script> var OwnerID = '@(ViewBag.ID)'; </script>
 <script src="~/dist/main-client.js" asp-append-version="true"></script>
     <environment names="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
