@@ -1,22 +1,14 @@
-<div id="summary-container" *ngIf="surveyService.survey != null">
+<div id="summary-container">
 
-    <div class="col-md-12">
-        <div class="col-md-10">
-            <h4>Survey Summary</h4>
-        </div>
+    <h4>Survey Summary</h4>
 
-        <div class="col-md-2">
-            <a class="btn btn-default">Edit</a>
-        </div>
-    </div>
-
-    <p class="editable">{{surveyService.survey.title}}</p>
+    <input class="editable editable-style" type="text" [(ngModel)]="surveyService.survey.title">
 
     <div class="divider">
         <span>Details</span>
     </div>
 
-    <p class="editable">{{surveyService.survey.description}}</p>
+    <input class="editable editable-style" type="text" [(ngModel)]="surveyService.survey.description">
 
     <table class="table borderless">
         <tbody>
@@ -61,6 +53,9 @@
         </li>
         <li>
             <a class="btn btn-default">Duplicate</a>
+        </li>
+        <li>
+            <a class="btn btn-default">Edit</a>
         </li>
     </ul>
 

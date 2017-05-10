@@ -1,6 +1,6 @@
 import { Component, Input, AfterViewInit } from '@angular/core';
 import { SurveyInfoModel } from '../../../models/models';
-import {SurveyDataService} from '../survey-data.service';
+import { SurveyDataService } from '../survey-data.service';
 
 declare var $: any;
 
@@ -14,59 +14,63 @@ declare var $: any;
 export class SurveySummaryComponent implements AfterViewInit {
 
 
-    constructor(private surveyService:SurveyDataService) 
+    constructor(private surveyService: SurveyDataService) 
     {
-        
+
     }
 
     /*
      * Gets called when the user clicks delete on the survey.
      */
-    onClickedDelete()
-    {
+    onClickedDelete() {
         // Ask the user if he is sure
         // Call the API to remove the survey
         // Wait for API-response. Remove from list if successful!
     }
-    
+
     /*
      * Gets called when the user clicks edit on the survey
      */
-    onClickedEdit()
-    {
+    onClickedEdit() {
         // If the survey is in production. Dont continue
         // Go to the editor!
     }
 
-    saveChanges()
-    {
+    saveChanges() {
         // Save the changes made (Call the API)
     }
 
 
     ngAfterViewInit() {
 
-        $('.editable').mouseenter(goToEditState);
-        $('.editable').mouseleave(goToViewState);
+        $('.editable').mouseenter(enter);
 
-        function goToViewState() {
-            console.log("Unhover!");
-            var text = $(this).val();
-            var textView = $('<p class="editable">');
-            textView.html(text);
-            textView.mouseenter(goToEditState);
-            $(this).replaceWith(textView);
+        function leave() {
+            $(this).off();
+            $(this).removeClass("form-control");
+            $(this).addClass("editable-style");
+            $(this).mouseenter(enter);
         }
 
-        function goToEditState() {
-            console.log("Hover!");
-            var text = $(this).html();
+        function click() {
+            $(this).off();
+            $(this).focusout(lostFocus);
+        }
 
-            var textField = $('<textarea class="editable form-control" rows="3" />').css({ 'width': '100%' });
-            textField.val(text);
+        function lostFocus() {
+            $(this).off();
+            $(this).mouseenter(enter);
+            $(this).removeClass("form-control");
+            $(this).addClass("editable-style");
+            // Save changes
+        }
 
-            textField.mouseleave(goToViewState);
-            $(this).replaceWith(textField);
+        function enter() {
+            $(this).off();
+            $(this).addClass("form-control");
+            $(this).removeClass("editable-style");
+            $(this).mouseleave(leave);
+            $(this).click(click);
         }
     }
 }

@@ -7,6 +7,7 @@ import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { StatisticsComponent } from './components/statistics/statistics.component';
 import { NavMenuComponent} from './components/navmenu/navmenu.component';
 import { ChartComponent} from './components/chart/chart.component';
+import { FormsModule }   from '@angular/forms';
 
 import { EditorModule } from '../editor/editor.module';
 
@@ -62,6 +63,7 @@ const routes: Routes =
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.
         ChartsModule,
         EditorModule,
+        FormsModule,
         RouterModule.forChild(routes)
     ],
     providers: [

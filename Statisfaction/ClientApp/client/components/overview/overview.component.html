@@ -84,6 +84,11 @@
 
 </div>
 
-<div class="col-md-3">
-    <survey-summary></survey-summary>
+<div class="col-md-3" id="sidebar">
+    <div *ngIf="surveyService.survey != null" id="sidebar">
+        <survey-summary></survey-summary>
+    </div>
+    <div *ngIf="surveyService.survey == null">
+        <h3>This is the descripton area!</h3>
+    </div>
 </div>
