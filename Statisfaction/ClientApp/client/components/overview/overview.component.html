@@ -4,7 +4,6 @@
 
 <div id="filter-panel" class="col-md-12">
 
-
     <div class="col-md-3">
         <div class="input-group">
             <input type="text" class="form-control" placeholder="Search for...">
@@ -14,7 +13,7 @@
         </div>
     </div>
 
-    <div id="filters-container" class="col-md-3">
+    <div id="filters-container" class="col-md-5">
         <ul>
             <li>
                 QUICK FILTERS:
@@ -30,18 +29,23 @@
 
 
 
-    <div class="col-md-3"></div>
+    <div class="col-md-1"></div>
 
     <div id="create-panel" class="col-md-3">
         <a class="btn btn-primary" [routerLink]="['/editor']">New Survey</a>
     </div>
 </div>
 
-<hr class="col-md-12">
+
 
 <div id="content-panel" class="col-md-9">
 
-    <h4>Published Surveys</h4>
+    <div class="row-image">
+        <img class="icon-img" src="/images/icons/icon_production.png">
+    </div>
+    <div class="row-content">
+        <h4>Production</h4>
+    </div>
 
     <table class="table table-hover">
         <thead>
@@ -53,16 +57,19 @@
         </thead>
         <tbody>
             <tr *ngFor="let survey of surveyService.surveys; let i = index;" (click)="onSurveyClicked(survey, i)">
-                <td>{{survey.title}}</td>
-                <td>{{survey.description}}</td>
-                <td>{{survey.created.toDateString()}}</td>
+                <td width="20%">{{survey.title}}</td>
+                <td width="60%">{{survey.description}}</td>
+                <td width="20%">{{survey.created.toDateString()}}</td>
             </tr>
         </tbody>
     </table>
 
-    <hr class="col-md-12">
-
-    <h4>Drafts</h4>
+    <div class="row-image">
+        <img class="icon-img" src="/images/icons/icon_planning.png">
+    </div>
+    <div class="row-content">
+        <h4>Drafts</h4>
+    </div>
 
     <table class="table table-hover">
         <thead>
@@ -74,21 +81,19 @@
         </thead>
         <tbody>
             <tr *ngFor="let survey of surveyService.surveys; let i = index;" (click)="onSurveyClicked(survey, i)">
-                <td>{{survey.title}}</td>
-                <td>{{survey.description}}</td>
-                <td>{{survey.created.toDateString()}}</td>
+                <td width="20%">{{survey.title}}</td>
+                <td width="60%">{{survey.description}}</td>
+                <td width="20%">{{survey.created.toDateString()}}</td>
             </tr>
         </tbody>
     </table>
-
-
 </div>
 
-<div class="col-md-3" id="sidebar">
-    <div *ngIf="surveyService.survey != null" id="sidebar">
+<div class="col-md-3 sidebar">
+    <div *ngIf="surveyService.survey != null" class="sidebar">
         <survey-summary></survey-summary>
     </div>
-    <div *ngIf="surveyService.survey == null">
-        <h3>This is the descripton area!</h3>
+    <div *ngIf="surveyService.survey == null" class="sidebar">
+        <overview-help></overview-help>
     </div>
 </div>

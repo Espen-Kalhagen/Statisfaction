@@ -21,7 +21,7 @@ import { FinalizeComponent } from "../editor/components/finalize/finalize.compon
 import { GeneralComponent } from "../editor/components/general/general.component";
 import { SurveyOverviewComponent } from './components/overview/overview.component';
 import { SurveySummaryComponent } from './components/survey-summary/survey-summary.component';
-
+import { OverviewHelpComponent } from './components/overview-help/overview-help.component';
 
 const routes: Routes =
 [
@@ -31,6 +31,7 @@ const routes: Routes =
         {path: 'statistics', component: StatisticsComponent},
         {path: 'fetch-data', component: FetchDataComponent},
         {path: 'chart', component: ChartComponent},
+        {path: 'surveys', component: SurveyOverviewComponent},
         {
             path: 'editor', component: EditorComponent, children:
                 [
@@ -57,7 +58,8 @@ const routes: Routes =
         StatisticsComponent,       
         ChartComponent,
         SurveyOverviewComponent,
-        SurveySummaryComponent
+        SurveySummaryComponent,
+        OverviewHelpComponent
     ],
     imports: [  
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.

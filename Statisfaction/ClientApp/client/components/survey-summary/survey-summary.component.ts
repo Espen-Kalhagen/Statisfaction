@@ -36,6 +36,11 @@ export class SurveySummaryComponent implements AfterViewInit {
         // Go to the editor!
     }
 
+    onCloseDetail()
+    {
+        this.surveyService.survey = null ;
+    }
+
     saveChanges() {
         // Save the changes made (Call the API)
     }

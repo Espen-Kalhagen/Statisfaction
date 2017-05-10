@@ -27,8 +27,9 @@
 
 #filter-panel
 {
+    border-bottom: 1px #D3D3D3 solid;
     margin-top: 10px;
-    margin-bottom: 10px;
+    padding-bottom: 25px;
 }
 
 #content-panel
@@ -38,10 +39,41 @@
 
 #create-panel a
 {
-    float: right;
+    float: left;
 }
 
-#sidebar
+.sidebar
 {
+    padding: 0px;
     height: 100%;
+}
+
+.row-image {
+    height: 50px;
+    float: left;
+}
+
+.row-content
+{
+    margin-left: 20px;
+    float: left;
+    width: 80%;
+    text-align: left;
+}
+
+.row-content p
+{
+    margin-top: 7px;
+}
+
+.icon-img
+{
+    max-width: 36px;
+    max-height: 36px;
+    color: red ;
+}
+
+hr
+{
+    margin-bottom: 0px;
 }
