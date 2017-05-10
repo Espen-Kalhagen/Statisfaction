@@ -1,13 +1,11 @@
 <div id="top-panel" class="col-md-12">
-
-    <div class="col-md-10">
-        <h2>Surveys</h2>
-    </div>
+    <h2>Surveys</h2>
 </div>
 
 <div id="filter-panel" class="col-md-12">
 
-    <div class="col-md-4">
+
+    <div class="col-md-3">
         <div class="input-group">
             <input type="text" class="form-control" placeholder="Search for...">
             <span class="input-group-btn">
@@ -16,21 +14,25 @@
         </div>
     </div>
 
-    <div id="filters-container" class="col-md-6">
+    <div id="filters-container" class="col-md-3">
         <ul>
             <li>
                 QUICK FILTERS:
             </li>
             <li>
-                <a>Recent Updated</a>
+                <a class="btn btn-default">Recent Updated</a>
             </li>
             <li>
-                <a>Sorted By Name</a>
+                <a class="btn btn-default"> Sorted By Name</a>
             </li>
         </ul>
     </div>
 
-    <div class="col-md-2">
+
+
+    <div class="col-md-3"></div>
+
+    <div id="create-panel" class="col-md-3">
         <a class="btn btn-primary" [routerLink]="['/editor']">New Survey</a>
     </div>
 </div>
@@ -38,30 +40,48 @@
 <hr class="col-md-12">
 
 <div id="content-panel" class="col-md-9">
+
+    <h4>Published Surveys</h4>
+
     <table class="table table-hover">
         <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Created</th>
-                    <th>Edit</th>
-                    <th>Statistics</th>
-                </tr>
-            </thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Created</th>
+            </tr>
+        </thead>
         <tbody>
-            <tr *ngFor="let survey of surveys">
+            <tr *ngFor="let survey of surveyService.surveys; let i = index;" (click)="onSurveyClicked(survey, i)">
                 <td>{{survey.title}}</td>
                 <td>{{survey.description}}</td>
                 <td>{{survey.created.toDateString()}}</td>
-                <td>
-                    <a>Edit</a>
-                </td>
-                <td>
-                    <a>Statistics</a>
-                </td>
             </tr>
         </tbody>
     </table>
+
+    <hr class="col-md-12">
+
+    <h4>Drafts</h4>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Created</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let survey of surveyService.surveys; let i = index;" (click)="onSurveyClicked(survey, i)">
+                <td>{{survey.title}}</td>
+                <td>{{survey.description}}</td>
+                <td>{{survey.created.toDateString()}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
 </div>
 
 <div class="col-md-3">

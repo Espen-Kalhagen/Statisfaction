@@ -1,9 +1,23 @@
-<div id="summary-container">
+<div id="summary-container" *ngIf="surveyService.survey != null">
 
-    <h3>Summary</h3>
+    <div class="col-md-12">
+        <div class="col-md-10">
+            <h4>Survey Summary</h4>
+        </div>
 
-    <p class="editable">Title</p>
-    <p class="editable"> Description</p>
+        <div class="col-md-2">
+            <a class="btn btn-default">Edit</a>
+        </div>
+    </div>
+
+    <p class="editable">{{surveyService.survey.title}}</p>
+
+    <div class="divider">
+        <span>Details</span>
+    </div>
+
+    <p class="editable">{{surveyService.survey.description}}</p>
+
     <table class="table borderless">
         <tbody>
             <tr>
@@ -13,37 +27,53 @@
         </tbody>
     </table>
 
-    <hr>
+    <div class="divider">
+        <span>Dates</span>
+    </div>
 
     <table class="table borderless">
         <tbody>
             <tr>
                 <td>Created</td>
-                <td>00.00.00</td>
+                <td>{{surveyService.survey.created.toDateString()}}</td>
             </tr>
             <tr>
                 <td>Updated</td>
-                <td>00.00.00</td>
+                <td>{{surveyService.survey.updated.toDateString()}}</td>
             </tr>
         </tbody>
     </table>
 
-    <hr>
+    <div class="divider">
+        <span>Styling</span>
+    </div>
+
     <p>Color</p>
     <p>Survey Image</p>
 
-    <hr>
+    <div class="divider">
+        <span>Functions</span>
+    </div>
 
     <ul class="list-unstyled">
         <li>
             <a class="btn btn-default">Go to statistics</a>
         </li>
         <li>
-            <a class="btn btn-default">Edit</a>
+            <a class="btn btn-default">Duplicate</a>
         </li>
+    </ul>
+
+    <div class="divider">
+        <span>Dangerous Functions</span>
+    </div>
+    <ul class="list-unstyled">
         <li>
-            <a class="btn btn-danger">Delete</a>
+            <a class="btn btn-danger">Delete survey</a>
         </li>
     </ul>
 
 </div>
+
+
+<!-- https://www.iconfinder.com/icons/2139350/blueprint_design_draft_plan_tool_icon#size=128 -->

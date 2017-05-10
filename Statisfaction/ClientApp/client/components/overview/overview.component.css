@@ -3,20 +3,22 @@
     display: inline-block ;
 }
 
+
 #filters-container ul
 {
+    vertical-align: middle;
     margin: 0;
     padding: 0;
     list-style-type: none;
-    height: 100%;
-
 }
 
 #filters-container ul li 
 { 
+    align-content: center;
+    text-align: center;
     display: inline-block; 
-    margin-left: 5px;
-    margin-right: 5px;
+    margin-left: 0px;
+    margin-right: 0px;
     color:#1a1a1a;
     font-size: small;
     font-weight: bold;
@@ -32,4 +34,9 @@
 #content-panel
 {
     margin-top: 20px;
+}
+
+#create-panel a
+{
+    float: right;
 }

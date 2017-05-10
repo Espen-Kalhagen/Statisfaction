@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import { SurveyInfoModel} from '../../../models/models';
+import {SurveyDataService} from '../survey-data.service';
 
 declare var $: any;
 
@@ -12,11 +13,7 @@ declare var $: any;
 
 export class SurveyOverviewComponent
 {
-    // List of all surveys
-    surveys:SurveyInfoModel[] = [];
-
-    // Constructor
-    constructor()
+    constructor(public surveyService:SurveyDataService)
     {
 
         this.getSurveys();
@@ -29,6 +26,11 @@ export class SurveyOverviewComponent
         this.getDummyData();
     }
 
+    onSurveyClicked(survey:object, index:number)
+    {
+        this.surveyService.survey = this.surveyService.surveys[index];
+    }
+
     // This is only used temporary do create some dummy surveys!
     getDummyData()
     {
@@ -38,7 +40,7 @@ export class SurveyOverviewComponent
         m.description = "Some description";
         m.title = "Survey 1";
 
-        this.surveys.push(m);
+        this.surveyService.surveys.push(m);
 
         var m2 = new SurveyInfoModel();
         m2.created = new Date();
@@ -48,7 +50,7 @@ export class SurveyOverviewComponent
 
         m2.created.toDateString();
 
-        this.surveys.push(m2);
+        this.surveyService.surveys.push(m2);
     }
 
 }

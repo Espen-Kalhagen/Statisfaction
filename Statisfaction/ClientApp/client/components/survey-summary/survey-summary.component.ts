@@ -1,5 +1,6 @@
 import { Component, Input, AfterViewInit } from '@angular/core';
 import { SurveyInfoModel } from '../../../models/models';
+import {SurveyDataService} from '../survey-data.service';
 
 declare var $: any;
 
@@ -12,11 +13,36 @@ declare var $: any;
 
 export class SurveySummaryComponent implements AfterViewInit {
 
-    surveys: SurveyInfoModel[] = [];
 
-    constructor() {
-
+    constructor(private surveyService:SurveyDataService) 
+    {
+        
     }
+
+    /*
+     * Gets called when the user clicks delete on the survey.
+     */
+    onClickedDelete()
+    {
+        // Ask the user if he is sure
+        // Call the API to remove the survey
+        // Wait for API-response. Remove from list if successful!
+    }
+    
+    /*
+     * Gets called when the user clicks edit on the survey
+     */
+    onClickedEdit()
+    {
+        // If the survey is in production. Dont continue
+        // Go to the editor!
+    }
+
+    saveChanges()
+    {
+        // Save the changes made (Call the API)
+    }
+
 
     ngAfterViewInit() {
 
