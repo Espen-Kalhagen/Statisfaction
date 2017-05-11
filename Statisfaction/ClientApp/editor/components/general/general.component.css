@@ -9,3 +9,9 @@ h4
 {
     margin-bottom: 20px;
 }
+
+label
+{
+    font-weight: lighter;
+    color: darkgrey;
+}

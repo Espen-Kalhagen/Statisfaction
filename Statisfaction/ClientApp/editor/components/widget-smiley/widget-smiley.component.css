@@ -6,10 +6,17 @@
 
 #preview-container
 {
+    max-width: 500px;
     padding: 20px;
 }
 
 .thumbnail
 {
     padding: 20px;
+}
+
+label
+{
+    font-weight: lighter;
+    color: #808080;
 }
