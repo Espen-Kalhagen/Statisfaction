@@ -42,7 +42,7 @@ namespace Controllers
             // IMPORTANT! The json-writer settings must be configured to strict in order to correctly create a valid Json
             // response for the client
             var jsonWriterSettings = new JsonWriterSettings { OutputMode = JsonOutputMode.Strict };
-
+            
             // Return the retrieved data to the client
             return result.ToJson(jsonWriterSettings);
         }

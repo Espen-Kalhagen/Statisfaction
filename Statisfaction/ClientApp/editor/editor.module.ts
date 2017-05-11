@@ -12,7 +12,7 @@ import { CustomizeComponent } from './components/customize/customize.component';
 
 import { CustomizeSidebarComponent } from './components/customize-sidebar/customize-sidebar.component';
 import { GeneralSidebarComponent } from './components/general-sidebar/general-sidebar.component';
-
+import { EditorTopbarComponent } from './components/editor-topbar/editor-topbar.component';
 
 import { WidgetSmileyEditor } from './components/widget-smiley/widget-smiley.component';
 import { WidgetQuestionEditorComponent } from './components/widget-question/widget-question.component';
@@ -30,7 +30,8 @@ import { EditorRoutingModule } from './editor-routing.module'
         WidgetSmileyEditor,
         CustomizeSidebarComponent,
         GeneralSidebarComponent,
-        WidgetQuestionEditorComponent
+        WidgetQuestionEditorComponent,
+        EditorTopbarComponent
     ],
     imports: [
         UniversalModule,

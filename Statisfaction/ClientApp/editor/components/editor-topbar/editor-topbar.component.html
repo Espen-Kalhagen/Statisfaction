@@ -1,0 +1,15 @@
+<div id="topbar-container" class="col-md-12">
+
+    <div class="col-md-6">
+        <div *ngIf="sharedData.general.title != ''">
+            <h5>{{sharedData.general.title}}</h5>
+        </div>
+        <div *ngIf="sharedData.general.title == ''">
+            <h5>Survey Title</h5>
+        </div>
+        
+        <h4>Now editing {{sharedData.state}}</h4>
+
+    </div>
+
+</div>
