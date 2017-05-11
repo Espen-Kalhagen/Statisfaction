@@ -1,40 +1,47 @@
 <h4>Widget question editor!</h4>
 
+<div class="col-md-12 thumbnail">
 
-<div>
+    <h4>Questions</h4>
 
-    <div class="col-md-6 thumbnail">
-        <h4>Questions</h4>
+    <div class="col-md-12">
 
-        <div class="form-group">
+        <input type="text" class="form-control" [(ngModel)]="model.title" placeholder="Title">
 
-            <label for="usr">Question 1 </label>
-            <input type="text" class="form-control" id="usr" [(ngModel)]="model.subtitle1" placeholder="Question 1">
+        <table class="col-md-12">
+            <tbody>
+                <tr *ngFor="let m of model.answerList; let i = index; " width="100%">
+                    <td width="60%">
+                        <input type="text" class="form-control" id="usr" [(ngModel)]="model.answerList[i].answerText" placeholder="Question {{i + 1}}">
+                    </td>
+                    <td width="20%">
+                        <div class=" cp input-group colorpicker-component">
+                            <input id="color" type="text" [(ngModel)]="model.answerList[i].buttonColor" class="form-control" placeholder="#FFFFFF" />
+                            <span class="input-group-addon"><i></i></span>
+                        </div>
+                    </td>
+                    <td width="20%">
+                        <button class="btn btn-warning" (click)="removeOption(i)">Remove</button>
+                    </td>
 
-            <label for="usr">Question 2 </label>
-            <input type="text" class="form-control" id="usr" [(ngModel)]="model.subtitle2" placeholder="Question 2">
+                    <span *ngIf='i == model.answerList.length - 1 '>{{ngAfterViewInit()}}</span>
 
-            <label for="usr">Question 3 </label>
-            <input type="text" class="form-control" id="usr" [(ngModel)]="model.subtitle3" placeholder="Question 3">
-
-            <label for="usr">Question 4 </label>
-            <input type="text" class="form-control" id="usr" [(ngModel)]="model.subtitle4" placeholder="Question 4">
-
-            <label for="usr">Question 5 </label>
-            <input type="text" class="form-control" id="usr" [(ngModel)]="model.subtitle4" placeholder="Question 5">
-
-            <label for="usr">Question 6 </label>
-            <input type="text" class="form-control" id="usr" [(ngModel)]="model.subtitle4" placeholder="Question 6">
-        </div>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
-    <div class="col-md-6 thumbnail">
-        <h4>General</h4>
-        <input type="text" class="form-control" placeholder="Title">
-    </div>
+    <button class="btn btn-primary" (click)="addOption()">Add Option</button>
+</div>
 
-    <div class="col-md-12 thumbnail">
-        <h4>Preview</h4>
-    </div>
 
+<div id="preview" class="col-md-12 ">
+
+    <h4>Preview</h4>
+
+    <div id="preview-container" class="thumbnail">
+
+        <widget-question [model]="model"></widget-question>
+
+    </div>
 </div>

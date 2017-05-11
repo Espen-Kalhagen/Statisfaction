@@ -1,0 +1,9 @@
+#preview
+{
+    pointer-events: none;
+}
+
+#preview-container
+{
+    padding: 20px;
+}
