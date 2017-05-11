@@ -8,7 +8,7 @@
         <div class="input-group">
             <input type="text" class="form-control" placeholder="Search for...">
             <span class="input-group-btn">
-        <button class="btn btn-default" type="button">Go!</button>
+        <button class="btn btn-default" type="button">Search</button>
         </span>
         </div>
     </div>
@@ -72,13 +72,6 @@
     </div>
 
     <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Created</th>
-            </tr>
-        </thead>
         <tbody>
             <tr *ngFor="let survey of surveyService.surveys; let i = index;" (click)="onSurveyClicked(survey, i)">
                 <td width="20%">{{survey.title}}</td>
