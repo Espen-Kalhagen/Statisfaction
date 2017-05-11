@@ -14,8 +14,8 @@ export class WSmileyModel extends WidgetBaseModel {
     public subtitle3: string = "";
     public subtitle4: string = "";
 
+    //TODO:remove
     public LogoURL: string ="";
-
     public backgroundColor: string = "#D0DCE3";
 
     public useSubtitles: boolean = false;
@@ -36,6 +36,7 @@ export class GeneralModel {
     }
 }
 
+<<<<<<< HEAD
 export class SurveyInfoModel {
     
     public title: string;
@@ -49,6 +50,33 @@ export class SurveyInfoModel {
 }
 
 
+=======
+export class WQuestionModel extends WidgetBaseModel {
+
+    public title: string = "";
+    public questionID: string ="";
+
+    public answerList: [
+        {
+            answerText: string;
+            buttonColor:string;
+            responseID:string;
+            //man kan bare ignorere disse feltene og det går fint
+            contentIMG:string;
+            imgSize:number;
+        }
+    ]
+
+    //TODO:remove
+    public LogoURL: string = "";
+    public backgroundColor: string = "#D0DCE3";
+
+
+    constructor() {
+        super();
+    }
+}
+>>>>>>> Changed question widget to use model, alos fixed a crusial sending bug in store widget
 
 // Can be used to create a UUID
 class UUID {

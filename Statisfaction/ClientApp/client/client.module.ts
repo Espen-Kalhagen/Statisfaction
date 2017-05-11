@@ -19,11 +19,6 @@ import { CustomizeComponent } from "../editor/components/customize/customize.com
 import { FinalizeComponent } from "../editor/components/finalize/finalize.component";
 import { GeneralComponent } from "../editor/components/general/general.component";
 
-import { SelectSurveyComponent } from "./components/survey-selection/survey-selector.component";
-import { EditorComponent } from "../editor/components/editor/editor.component";
-import { CustomizeComponent } from "../editor/components/customize/customize.component";
-import { FinalizeComponent } from "../editor/components/finalize/finalize.component";
-import { GeneralComponent } from "../editor/components/general/general.component";
 import { SurveyOverviewComponent } from './components/overview/overview.component';
 import { SurveySummaryComponent } from './components/survey-summary/survey-summary.component';
 import { OverviewHelpComponent } from './components/overview-help/overview-help.component';

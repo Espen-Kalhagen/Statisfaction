@@ -4,16 +4,17 @@ import { QuestionWidgetComponent } from "../widgets/components/question-widget/q
 declare var start_rabbit: any;
 declare var send_wrapper: any;
 declare var $:any;
+declare var respList:any;
 
 @Injectable()
 export class SendingService {
 
-    private respList: Array<any>;
+
     private timer:number;
     private owner:any;
+    private randNumber:number;
 
     constructor(){
-        this.respList = [];
     }
 
     public init(){
@@ -22,11 +23,10 @@ export class SendingService {
     }
 
     public putRepsonse(owner:any, response:any): Promise<Boolean> {
-
+        this.randNumber = this.randNumber;
         window.clearTimeout(this.timer);
-
-        console.log("Added response: "+ JSON.stringify(response));
-        this.respList.push(response);
+        respList.push(response);
+        console.log("Added response: " + JSON.stringify(response) + "RespListlooks like this: " + JSON.stringify(respList));
         this.owner = owner;
 
         return new Promise(resolve => {
@@ -41,16 +41,18 @@ export class SendingService {
 
   private sendData( ): Promise<Boolean>{
 
-
+      if ("undefined" === typeof respList[0]){
+        return Promise.resolve(true);
+    }
     var result ={
         "Owner":this.owner,
         "responses":[]
     } 
-    for (let entry of this.respList) {
+    for (let entry of respList) {
      result.responses.push(entry)
     }
     send_wrapper(JSON.stringify(result));
-    this.respList=[];
+    respList=[];
     return  Promise.resolve(true);
   }
 

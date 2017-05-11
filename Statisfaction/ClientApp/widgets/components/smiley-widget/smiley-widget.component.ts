@@ -5,12 +5,7 @@ import { WidgetItem } from "../../widget-item";
 import { WidgetComponent } from "../../widget.component";
 import { WSmileyModel } from '../../../models/models';
 
-declare var Stomp: any;
-declare var $: any;
-declare var send_data:any;
-declare var all: any;
-declare var start_rabbit: any;
-declare var send_wrapper: any;
+
 
 
 @Component({

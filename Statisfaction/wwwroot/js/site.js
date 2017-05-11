@@ -3,7 +3,7 @@
 "use strict";
 
 var client;
-
+var respList = [];
 
 function start_rabbit() {
 
