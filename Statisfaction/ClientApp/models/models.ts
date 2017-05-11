@@ -33,6 +33,10 @@ export class GeneralModel {
     
     public description: string = "";
 
+    public color:string = "";
+
+    public logoUrl:string = "";
+
     constructor() 
     {
         
