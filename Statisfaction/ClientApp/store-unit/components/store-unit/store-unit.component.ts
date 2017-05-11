@@ -21,12 +21,12 @@ import { WSmileyModel } from '../../../models/models';
 
 
 export class StoreUnitComponent {
-        cookieContent: any;
-        model: WSmileyModel = new WSmileyModel();
-        nextWidgetIndex:any =0;
-        widgets:any[] = [];
-        @ViewChild(WidgetDirective) widgetHost: WidgetDirective;
-        timer:number;
+    cookieContent: any;
+    model: WSmileyModel = new WSmileyModel();
+    nextWidgetIndex: any = 0;
+    widgets: any[] = [];
+    @ViewChild(WidgetDirective) widgetHost: WidgetDirective;
+    timer: number;
 
 
     public constructor(
@@ -68,54 +68,23 @@ export class StoreUnitComponent {
             [
                 {
                     "WidgetType": "Questions", //Widget type identifier
-                    "Title": "What discribes this location",
+                    "title": "What discribes this location",
                     "LogoURL": "https://media.snl.no/system/images/18571/standard_uia.png",
-                    "BackgroundColor": "#D0DCE3",
-                    "widgetID": 2, //Uniqe id for each widget configuration
-                    "Questions": [
+                    "backgroundColor": "#D0DCE3",
+                    "widgetID": 2, //Uniqe id for each widget configuration     
+                    "questionID": 1,
+                    "answerList":
+                    [
                         {
-                            "QuestionID": 1,
-                            "QuestionTitle": "Look",
-                            "AnswerList":
-                            [
-                                { "Content": "Tidy", "ButtonColor": "#00759A", "responseID": 1 },
-                                { "Content": "Normal", "ButtonColor": "#A6BCC6", "responseID": 2 },
-                                { "Content": "Messy", "ButtonColor": "#C7B9AA", "responseID": 3 },
-                                { "Content": "Disgusting", "ButtonColor": "#91785B", "responseID": 3 }
-                            ]
+                            "answerText": "Tidy",
+                            "contentIMG": "/images/smiley_1.png",
+                            "imgSize": 20,
+                            "ButtonColor": "#00759A",
+                            "responseID": 1
                         },
-                        {
-                            "QuestionID": 2,
-                            "QuestionTitle": "Staff 👩‍💼",
-                            "AnswerList":
-                            [
-                                { "Content": "Good", "ContentIMG": "/images/smiley_1.png", "IMGSize": 20, "ButtonColor": "#4CAF50", "responseID": 1 },
-                                { "Content": "Acceptable", "ContentIMG": "/images/smiley_2.png", "IMGSize": 20, "ButtonColor": "#CDDC39", "responseID": 2 },
-                                { "Content": "Bad", "ContentIMG": "/images/smiley_4.png", "IMGSize": 20, "ButtonColor": "#FF9800", "responseID": 3 }
-                            ]
-                        }
-
-                    ]
-                },
-                {
-                    "WidgetType": "Questions", //Widget type identifier
-                    "Title": "What discribes this location",
-                    "LogoURL": "https://media.snl.no/system/images/18571/standard_uia.png",
-                    "BackgroundColor": "#D0DCE3",
-                    "widgetID": 2, //Uniqe id for each widget
-                    "Questions": [
-                        {
-                            "QuestionID": 1,
-                            "QuestionTitle": "Look",
-                            "AnswerList":
-                            [
-                                { "Content": "Tidy", "ButtonColor": "#00759A", "responseID": 1 },
-                                { "Content": "Normal", "ButtonColor": "#A6BCC6", "responseID": 2 },
-                                { "Content": "Messy", "ButtonColor": "#C7B9AA", "responseID": 3 },
-                                { "Content": "Disgusting", "ButtonColor": "#91785B", "responseID": 3 }
-                            ]
-                        }
-
+                        { "answerText": "Normal", "buttonColor": "#A6BCC6", "responseID": 2 },
+                        { "answerText": "Messy", "buttonColor": "#C7B9AA", "responseID": 3 },
+                        { "answerText": "Disgusting", "buttonColor": "#91785B", "responseID": 3 }
                     ]
                 },
                 {
@@ -131,31 +100,31 @@ export class StoreUnitComponent {
                     "LogoURL": "https://media.snl.no/system/images/18571/standard_uia.png",
                     "backgroundColor": "#D0DCE3",
                     "WidgetID": 3,
-                    "Time":2000
+                    "Time": 2000
                 },
-                
+
             ]
         }
 
 
-        for(let i =0;i < surveyData.widgetList.length;i++){
-            if(surveyData.widgetList[i].WidgetType=="Questions"){
-                this.widgets[i]= new WidgetInfo(surveyData.widgetList[i],QuestionWidgetComponent);
-            }else if(surveyData.widgetList[i].WidgetType=="Smilies"){
-                this.widgets[i]= new WidgetInfo(surveyData.widgetList[i],SmileyWidgetComponent);
-            }else if(surveyData.widgetList[i].WidgetType=="Thanks"){
-                this.widgets[i]= new WidgetInfo(surveyData.widgetList[i],ThanksWidgetComponent);
+        for (let i = 0; i < surveyData.widgetList.length; i++) {
+            if (surveyData.widgetList[i].WidgetType == "Questions") {
+                this.widgets[i] = new WidgetInfo(surveyData.widgetList[i], QuestionWidgetComponent);
+            } else if (surveyData.widgetList[i].WidgetType == "Smilies") {
+                this.widgets[i] = new WidgetInfo(surveyData.widgetList[i], SmileyWidgetComponent);
+            } else if (surveyData.widgetList[i].WidgetType == "Thanks") {
+                this.widgets[i] = new WidgetInfo(surveyData.widgetList[i], ThanksWidgetComponent);
             }
-            else{
-                console.log("ERROR ADDING "+ i );
-            }   
+            else {
+                console.log("ERROR ADDING " + i);
+            }
         }
 
         this.sendingService.init();
         this.loadComponent(this.widgets[0]);
-        
 
-    }   
+
+    }
     private handleCheck(response: any) {
 
         console.log('activation check returned ' + JSON.parse(response._body).confirmed);
@@ -165,7 +134,7 @@ export class StoreUnitComponent {
 
     }
 
-  private loadComponent(nextWidgetData: WidgetInfo) {
+    private loadComponent(nextWidgetData: WidgetInfo) {
         window.clearTimeout(this.timer);
         let componentFactory = this.componentFactoryResolver.resolveComponentFactory(nextWidgetData.WidgetType);
         let viewContainerRef = this.widgetHost.viewContainerRef;
@@ -174,21 +143,21 @@ export class StoreUnitComponent {
         (<WidgetComponent>componentRef.instance).CookieContent = this.cookieContent;
         (<WidgetComponent>componentRef.instance).surveyPart = nextWidgetData.WidgetData;
         (<WidgetComponent>componentRef.instance).onAnswered = this.widgetHost.onAnswered;
-        
+
         //Reset view if idle
 
         this.timer = window.setTimeout(() => {
             this.loadComponent(this.widgets[0]);
-            this.nextWidgetIndex =0;
+            this.nextWidgetIndex = 0;
         }, 5001);
     }
     //Emmited by store unit widgets
-    onAnswered(answered:boolean){
-        
+    onAnswered(answered: boolean) {
+
         this.nextWidgetIndex++;
-        
-        if(this.nextWidgetIndex >= this.widgets.length){
-            this.nextWidgetIndex=0;
+
+        if (this.nextWidgetIndex >= this.widgets.length) {
+            this.nextWidgetIndex = 0;
             this.sendingService.sendNow();
         }
         console.log("Going to next widget of type: " + this.widgets[this.nextWidgetIndex].WidgetData.WidgetType);
@@ -205,8 +174,8 @@ export class RegistrationCheckData {
 }
 export class WidgetInfo {
     constructor(
-        public WidgetData:any,
-      public WidgetType:Type<any>
-    ){}
+        public WidgetData: any,
+        public WidgetType: Type<any>
+    ) { }
 }
 

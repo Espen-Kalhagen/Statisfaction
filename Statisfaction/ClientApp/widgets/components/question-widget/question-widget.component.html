@@ -7,18 +7,17 @@
  
    <div id="background" background-color [ngStyle]="{ 'background-color': surveyPart.BackgroundColor }">
        
-    <h1 id="title">{{surveyPart.Title}}</h1>
+    <h1 id="title">{{model.title}}</h1>
 
     <div class="row">
-        <div class="col-md-{{colsize}}" *ngFor="let question of surveyPart.Questions">
-        <h2 id="titleQuestion">{{question.QuestionTitle}} </h2>
-      <button [disabled]="isAnswered(question.QuestionID)" *ngFor="let answer of question.AnswerList" (click)="send( answer.responseID, question.QuestionID)" class ="Btn btn-lg btn-block" [ngStyle]="{ 'background-color': answer.ButtonColor }">
-         {{ answer.Content }}
-         <img src="{{answer.ContentIMG}}"  height="{{answer.IMGSize}}" onerror="this.style.display='none'">
+      <button *ngFor="let answer of model.answerList" (click)="send( answer.responseID)" class ="Btn btn-lg btn-block" [ngStyle]="{ 'background-color': answer.buttonColor }">
+         {{ answer.answerText }}
+         <!-- man kan bare ignorere disse feltene og det går fint-->
+         <img src="{{answer.contentIMG}}"  height="{{answer.imgSize}}" onerror="this.style.display='none'">
          
       </button>
       <br>
-    </div>
+
     </div>
 </div>
 
