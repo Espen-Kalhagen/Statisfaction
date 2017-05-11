@@ -31,8 +31,18 @@ export class GeneralModel {
 
     public description: string = "";
 
+<<<<<<< HEAD
     constructor() {
 
+=======
+    public color:string = "";
+
+    public logoUrl:string = "";
+
+    constructor() 
+    {
+        
+>>>>>>> Added colorpicker and url input in general editor
     }
 }
 

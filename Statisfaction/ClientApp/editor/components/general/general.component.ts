@@ -1,11 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 
-import { SurveyConfigService, SIDEBAR_STATES} from '../survey-config.service';
+import { SurveyConfigService, SIDEBAR_STATES } from '../survey-config.service';
 
 import { GeneralModel } from '../../../models/models';
 
 declare var $: any;
-
 
 @Component({
     selector: 'general',
@@ -13,13 +12,12 @@ declare var $: any;
     styleUrls: ['./general.component.css']
 })
 
-export class GeneralComponent 
-{
+export class GeneralComponent implements AfterViewInit {
 
 
-    constructor(private sharedData: SurveyConfigService)
-    {
+    constructor(private sharedData: SurveyConfigService) {
         this.sharedData.state = SIDEBAR_STATES.GENERAL;
+
     }
     
     ngAfterViewInit() {
@@ -29,11 +27,4 @@ export class GeneralComponent
         });
     }
 
-}
-
-export class TestModel
-{
-    name:string;
-    age:number;
-    city:string;
 }
