@@ -24,7 +24,7 @@ export class WidgetQuestionEditorComponent implements AfterViewInit, OnChanges {
         this.model = sharedData.getCurrentWidget() as WQuestionModel;
 
         if (this.model.answerList == null) {
-            this.model.answerList = [{ "answerText": "", "buttonColor": "", "responseID": "0", "contentIMG": "", "imgSize": 0 }];
+            this.model.answerList = [{ "answerText": "", "buttonColor": "", "responseID": "0", "contentIMG": "", "imgSize": 0 }, { "answerText": "", "buttonColor": "", "responseID": "1", "contentIMG": "", "imgSize": 0 }];
         }
 
 
@@ -40,7 +40,7 @@ export class WidgetQuestionEditorComponent implements AfterViewInit, OnChanges {
         this.model.answerList.push({ "answerText": "", "buttonColor": "", "responseID": responseID, "contentIMG": "", "imgSize": 0 });
     }
 
-    removeOption(index:number) {
+    removeOption(index: number) {
 
         if (index > -1)
             this.model.answerList.splice(index, 1);
@@ -50,6 +50,8 @@ export class WidgetQuestionEditorComponent implements AfterViewInit, OnChanges {
 
     ngAfterViewInit() {
         $('.cp').colorpicker();
+        //$('.cpinput').val("#5f37db");
+        //$('.cpinput').keyup();
     }
 
     ngOnChanges(changes: SimpleChanges) {
