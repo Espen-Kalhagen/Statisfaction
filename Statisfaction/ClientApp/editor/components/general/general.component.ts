@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { SurveyConfigService } from '../survey-config.service';
+import { SurveyConfigService, SIDEBAR_STATES} from '../survey-config.service';
 
 import { GeneralModel } from '../../../models/models';
 
@@ -16,11 +16,10 @@ declare var $: any;
 export class GeneralComponent 
 {
 
-    data:SurveyConfigService = null ;
 
-    constructor(private config: SurveyConfigService)
+    constructor(private sharedData: SurveyConfigService)
     {
-        this.data = config ;
+        this.sharedData.state = SIDEBAR_STATES.GENERAL;
     }
     
     ngAfterViewInit() {

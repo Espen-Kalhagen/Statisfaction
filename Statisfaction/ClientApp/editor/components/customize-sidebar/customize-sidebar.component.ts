@@ -1,17 +1,17 @@
 import { Component, AfterViewInit } from '@angular/core';
-import { SurveyConfigService, SIDEBAR_STATES } from '../survey-config.service';
+import { SurveyConfigService } from '../survey-config.service';
 import { WSmileyModel, WidgetBaseModel} from '../../../models/models';
 
 declare var $: any;
 
 @Component({
-    selector: 'customizer',
-    templateUrl: './customize.component.html',
-    styleUrls: ['./customize.component.css']
+    selector: 'customize-sidebar',
+    templateUrl: './customize-sidebar.component.html',
+    styleUrls: ['./customize-sidebar.component.css']
 })
 
-export class CustomizeComponent implements AfterViewInit {
-
+export class CustomizeSidebarComponent {
+   
     // Holds the
     widgetTypes =
     [
@@ -19,8 +19,8 @@ export class CustomizeComponent implements AfterViewInit {
         new WidgetType("Question", "/images/icons/widget_question.png")
     ];
 
-    constructor(public sharedData: SurveyConfigService) {
-        this.sharedData.state = SIDEBAR_STATES.EDITOR ;
+    constructor(private sharedData: SurveyConfigService) {
+        
     }
 
     addWidget(widget: WidgetType) {

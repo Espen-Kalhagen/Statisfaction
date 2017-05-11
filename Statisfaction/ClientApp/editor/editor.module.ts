@@ -10,8 +10,12 @@ import { FinalizeComponent } from './components/finalize/finalize.component';
 import { CustomizeComponent } from './components/customize/customize.component';
 
 
-import { WidgetSmileyEditor } from './components/widget-smiley/widget-smiley.component';
+import { CustomizeSidebarComponent } from './components/customize-sidebar/customize-sidebar.component';
+import { GeneralSidebarComponent } from './components/general-sidebar/general-sidebar.component';
 
+
+import { WidgetSmileyEditor } from './components/widget-smiley/widget-smiley.component';
+import { WidgetQuestionEditorComponent } from './components/widget-question/widget-question.component';
 
 // Costom modules
 import { WidgetModule} from '../widgets/widgets.module';
@@ -23,7 +27,10 @@ import { EditorRoutingModule } from './editor-routing.module'
         GeneralComponent,
         CustomizeComponent,
         FinalizeComponent,
-        WidgetSmileyEditor
+        WidgetSmileyEditor,
+        CustomizeSidebarComponent,
+        GeneralSidebarComponent,
+        WidgetQuestionEditorComponent
     ],
     imports: [
         UniversalModule,

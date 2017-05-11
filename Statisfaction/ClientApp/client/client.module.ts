@@ -59,7 +59,7 @@ const routes: Routes =
         ChartComponent,
         SurveyOverviewComponent,
         SurveySummaryComponent,
-        OverviewHelpComponent
+        OverviewHelpComponent,
         ChartComponent
     ],
     imports: [  
