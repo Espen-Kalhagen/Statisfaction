@@ -12,4 +12,8 @@ import { SurveyConfigService } from '../survey-config.service';
 export class EditorComponent 
 {
 
+    constructor(public sharedData: SurveyConfigService)
+    {
+
+    }
 }

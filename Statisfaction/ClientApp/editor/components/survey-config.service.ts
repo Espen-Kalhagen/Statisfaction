@@ -1,8 +1,12 @@
 import { Injectable } from '@angular/core';
 import { WSmileyModel, WidgetBaseModel, GeneralModel } from '../../models/models';
 
+export enum SIDEBAR_STATES {GENERAL, EDITOR, DEPLOY };
+
 @Injectable()
 export class SurveyConfigService {
+
+    public state:SIDEBAR_STATES = SIDEBAR_STATES.GENERAL ;
 
     private MAX_WIDGETS = 7;
 

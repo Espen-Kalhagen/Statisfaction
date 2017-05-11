@@ -13,3 +13,26 @@
     height: 100%;
     width: 100%;
 }
+
+
+#sidebar
+{
+    background-color: #F5F5F5;
+    height: 100%;
+}
+
+#sidebar-top
+{
+    margin-top: 30px;
+}
+
+#sidebar-buttom
+{
+    margin-top: 30px;
+    border-top: 1px #CCCCCC solid;
+}
+
+#editor-container
+{
+    height: 100%;
+}
