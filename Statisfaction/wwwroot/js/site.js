@@ -4,6 +4,7 @@
 
 var client;
 var respList = [];
+var delay= 10;
 
 function start_rabbit(destQueueName) {
 

@@ -18,7 +18,11 @@ export class WSmileyModel extends WidgetBaseModel {
 
     public useSubtitles: boolean = false;
 
-    constructor() {
+    //Looks weird without colors, please don't remove
+    public color:string;
+    
+    constructor() 
+    {
         super();
     }
 }

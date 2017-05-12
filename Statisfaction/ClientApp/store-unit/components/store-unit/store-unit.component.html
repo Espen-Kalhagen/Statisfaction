@@ -1,7 +1,7 @@
 
 
-
-<div class="container">
+<img id="logo" src="{{model.logoUrl}}" alt="Logo" width="500" >
+<div class="container" [ngStyle]="{ 'background-color': model.color }">
 
     <template widget-host (onAnswered)="onAnswered($event)" ></template>
 

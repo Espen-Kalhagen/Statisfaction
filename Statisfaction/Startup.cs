@@ -77,9 +77,7 @@ namespace WebApplicationBasic
                 }
                 app.UseDeveloperExceptionPage();
                 app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions {
-
                   HotModuleReplacement = true
-
                 });
 
             //I allways debug!

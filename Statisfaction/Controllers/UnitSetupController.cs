@@ -176,8 +176,8 @@ namespace api.UnitSetup
             */
             var collection = mongodb.GetCollection<BsonDocument>("surveys");
 
-            var filter = Builders<BsonDocument>.Filter.Eq("ownerID", id);
-            var defaultsFilter = Builders<BsonDocument>.Filter.Eq("ownerID", "ALL");
+            var filter = Builders<BsonDocument>.Filter.Eq("general.ownerID", id);
+            var defaultsFilter = Builders<BsonDocument>.Filter.Eq("general.ownerID", "ALL");
 
             List<MongoDB.Bson.BsonDocument> result = collection.Find(defaultsFilter).ToList();
             result.AddRange(collection.Find(filter).ToList());
@@ -205,10 +205,11 @@ namespace api.UnitSetup
             */
 
             var collection = mongodb.GetCollection<BsonDocument>("surveys");
-            var filter = Builders<BsonDocument>.Filter.Eq("surveyID", id);
+            var filter = Builders<BsonDocument>.Filter.Eq("general.surveyID", "c2c841d0-9257-495c-832e-0adc424b17ec");
             //var filter = new BsonDocument();
 
             var result = collection.Find(filter).FirstOrDefault();
+
 
             var jsonWriterSettings = new JsonWriterSettings { OutputMode = JsonOutputMode.Strict };
             return result.ToJson(jsonWriterSettings);

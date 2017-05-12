@@ -21,8 +21,9 @@
     "aspnet-webpack": "^1.0.17",
     "awesome-typescript-loader": "^3.0.0",
     "bootstrap": "^3.3.7",
-    "chart.js": "^2.5.0",
     "browserify-sign": "^4.0.0",
+    "chart.js": "2.5.0",
+    "clipboard": "^1.6.1",
     "css": "^2.2.1",
     "css-loader": "^0.25.0",
     "es6-shim": "^0.35.1",
@@ -33,9 +34,9 @@
     "html-loader": "^0.4.4",
     "isomorphic-fetch": "^2.2.1",
     "jquery": "^2.2.1",
-    "jquery-ui":"1.12.1",
+    "jquery-ui": "1.12.1",
     "json-loader": "^0.5.4",
-    "ng2-charts": "^1.5.0",
+    "ng2-charts": "1.5.0",
     "ng2-cookies": "^1.0.10",
     "preboot": "^4.5.2",
     "raw-loader": "^0.5.1",
@@ -44,11 +45,9 @@
     "to-string-loader": "^1.1.5",
     "typescript": "^2.2.1",
     "url-loader": "^0.5.7",
-    "webpack": "^2.2.0",
-    "webpack-hot-middleware": "^2.12.2",
+    "webpack": "^2.5.1",
+    "webpack-hot-middleware": "^2.18.0",
     "webpack-merge": "^0.14.1",
-    "zone.js": "^0.7.6",
-    "ng2-charts": "1.5.0",
-    "chart.js": "2.5.0"
+    "zone.js": "^0.7.6"
   }
 }

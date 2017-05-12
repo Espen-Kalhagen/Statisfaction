@@ -2,6 +2,7 @@ import { Component, Input, Type, Output, EventEmitter } from '@angular/core';
 import { SendingService } from "../../../store-unit/SendingService";
 import { WidgetItem } from "../../widget-item";
 import { WidgetComponent } from "../../widget.component";
+import { WThankYouModel } from "../../../models/models";
 
 declare var Stomp: any;
 declare var $: any;
@@ -23,19 +24,19 @@ declare var send_wrapper: any;
 export class ThanksWidgetComponent implements WidgetComponent
 {
     CookieContent: string;
-    title:string = "Thanks ";
     selection:string; 
     surveyPart:any;
     onAnswered:EventEmitter<boolean>;
+    model: WThankYouModel;
 
     constructor(private sendingService: SendingService ) { 
 
     }
     ngOnInit(){
-        this.title = this.surveyPart.Title;
+        this.model = this.surveyPart as WThankYouModel;
     setTimeout(() => {
       this.onAnswered.emit();
-    }, this.surveyPart.Time);
+    }, this.model.delay*1000);
     }
 
 
