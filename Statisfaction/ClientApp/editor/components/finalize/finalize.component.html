@@ -1,1 +1,19 @@
-<h1>This is the finalizer</h1>
+<div class="col-md-6">
+    <div class="form-group">
+        <label for="usr">Thank you message</label>
+        <input type="text" class="form-control" id="title" required [(ngModel)]="sharedData.otherInfo.message" name="title">
+        <!--  -->
+    </div>
+
+    <div class="form-group">
+        <label for="usr">Delay before starting over after finish</label>
+        <input type="text" class="form-control" id="title" required [(ngModel)]="sharedData.otherInfo.delay" name="title">
+    </div>
+
+    <div class="form-group">
+        <label for="usr">Timeout delay</label>
+        <input type="text" class="form-control" id="title" required [(ngModel)]="sharedData.general.timeoutDelay" name="title">
+    </div>
+
+    <button class="btn btn-primary" (click)="deploySurvey()">Save</button>
+</div>

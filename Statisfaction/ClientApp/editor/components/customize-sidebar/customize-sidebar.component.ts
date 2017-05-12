@@ -7,7 +7,7 @@ declare var $: any;
 @Component({
     selector: 'customize-sidebar',
     templateUrl: './customize-sidebar.component.html',
-    styleUrls: ['./customize-sidebar.component.css']
+    styleUrls: ['./customize-sidebar.component.css', '../general-sidebar/general-sidebar.component.css']
 })
 
 export class CustomizeSidebarComponent {
@@ -36,7 +36,7 @@ export class CustomizeSidebarComponent {
 
         this.sharedData.selectedIndex = index ;
         this.sharedData.selectedType = w.type ;
-        this.sharedData.selectedID = w.localID ;
+        this.sharedData.selectedID = w.widgetID ;
     }
 
     removeWidget(widget: WidgetBaseModel)

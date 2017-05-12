@@ -1,8 +1,10 @@
 
-export class WidgetBaseModel {
-    public localID: string;
-    public type: string;
-    constructor() { this.localID = UUID.newUUID(); }
+
+export class WidgetBaseModel
+{
+    public widgetID:string ;
+    public type:string;
+    constructor(){this.widgetID = UUID.newUUID();}
 }
 
 export class WSmileyModel extends WidgetBaseModel {
@@ -14,10 +16,6 @@ export class WSmileyModel extends WidgetBaseModel {
     public subtitle3: string = "";
     public subtitle4: string = "";
 
-    //TODO:remove
-    public LogoURL: string ="";
-    public backgroundColor: string = "#D0DCE3";
-
     public useSubtitles: boolean = false;
 
     constructor() {
@@ -25,28 +23,38 @@ export class WSmileyModel extends WidgetBaseModel {
     }
 }
 
+export class WThankYouModel
+{
+    public delay:number = 4;
+    public message:string = "";
+}
+
 export class GeneralModel {
+
+    public ownerID:string = "temp";
+
+    public surveyID:string = "";
 
     public title: string = "";
 
     public description: string = "";
 
-<<<<<<< HEAD
-    constructor() {
-
-=======
     public color:string = "";
 
     public logoUrl:string = "";
 
+    public timeoutDelay:number = 8;
+
     constructor() 
     {
-        
->>>>>>> Added colorpicker and url input in general editor
+        if(this.surveyID == "")
+        {
+            this.surveyID = UUID.newUUID();
+        }
     }
 }
 
-<<<<<<< HEAD
+
 export class SurveyInfoModel {
     
     public title: string;
@@ -60,7 +68,7 @@ export class SurveyInfoModel {
 }
 
 
-=======
+
 export class WQuestionModel extends WidgetBaseModel {
 
     public title: string = "";
@@ -75,18 +83,18 @@ export class WQuestionModel extends WidgetBaseModel {
             contentIMG:string;
             imgSize:number;
         }
-    ]
-
-    //TODO:remove
-    public LogoURL: string = "";
-    public backgroundColor: string = "#D0DCE3";
-
+    ];
 
     constructor() {
         super();
     }
 }
->>>>>>> Changed question widget to use model, alos fixed a crusial sending bug in store widget
+
+
+export class SurveyModel
+{
+    constructor(public general:GeneralModel, public widgets:WidgetBaseModel[], public thankYou:WThankYouModel){}
+}
 
 // Can be used to create a UUID
 class UUID {

@@ -36,7 +36,7 @@ export class CustomizeComponent implements AfterViewInit {
 
         this.sharedData.selectedIndex = index ;
         this.sharedData.selectedType = w.type ;
-        this.sharedData.selectedID = w.localID ;
+        this.sharedData.selectedID = w.widgetID ;
     }
 
     removeWidget(widget: WidgetBaseModel)
