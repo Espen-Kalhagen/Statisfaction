@@ -1,0 +1,27 @@
+
+.sidebar-container
+{
+    margin-top: 30px;
+}
+
+.sidebar-container h4
+{
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.sidebar-container p
+{
+    text-align: center;
+    margin-top: 25px;
+}
+
+.icon-img
+{
+    margin-bottom: 105px;
+    margin-top: 15px;
+    max-height: 200px;
+    max-width: 200px;
+    display: block;
+    margin: 0 auto;
+}
