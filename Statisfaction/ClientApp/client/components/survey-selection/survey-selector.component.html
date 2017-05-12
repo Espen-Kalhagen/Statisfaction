@@ -1,19 +1,31 @@
-<h1>Select a survey for each store unit</h1>
+<div id="StyleContainer">
+<h1>Survey binding</h1>
+<h4> Deside which surveys run on what device </h4>
+<p> 
+    After you have registered your store unit<a href="home/addUnit"> here </a> 
+    and created a survey to run on it<a href="client/editor"> here </a> 
+    you can choose which survey to run on what device.
+    We also got a couple of example sureys to get you up and running.
+</p>
+<hr>
 <div> 
-    <h2>Units</h2>
+    <h2>Your registred store units:</h2>
     <div *ngFor="let resp of responses">
         <ul>
-        <h3> Unit name: {{resp.unitName}} </h3>
-        <p> ID: {{resp.id}} </p>
+        <h3> {{resp.unitName}} </h3>
+
+        <p>Registration pin: <span id="registrationPin"> {{resp.registationPin}} </span></p>
         <p> Placement: {{resp.placement}} </p>
-        <p> {{resp.surveyName}} </p>
+        <p> Current survey: {{resp.surveyName}} </p>
         <label for="surveys">Avilable surveys</label>
         <select class="form-control" id="surveys{{resp.id}}" required>
             <option selected disabled [value] ="-1"> Please select one of your surveys</option>
              <option *ngFor="let sur of availableSurveys" [selected]="sur.surveyName == resp.surveyName" [value]="sur.surveyID">{{sur.surveyName}}</option>
         </select>
         <button type="button" class="btn btn-default" (click)="apply(resp.id)">Apply</button>
+        <p id="applied{{resp.id}}"> </p>
         </ul>
     </div>
     
+</div>
 </div>

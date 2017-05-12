@@ -9,8 +9,9 @@ import { SmileyWidgetComponent } from "../../../widgets/components/smiley-widget
 import { WidgetComponent } from "../../../widgets/widget.component";
 import { QuestionWidgetComponent } from "../../../widgets/components/question-widget/question-widget.component";
 import { ThanksWidgetComponent } from "../../../widgets/components/thanks-widget/thanks-widget.component";
+import { GeneralModel } from "../../../models/models";
 
-import { WSmileyModel } from '../../../models/models';
+declare var delay: any;
 
 @Component({
     selector: 'store-unit',
@@ -19,17 +20,16 @@ import { WSmileyModel } from '../../../models/models';
     styleUrls: ["./store-unit.component.css"]
 })
 
-
 export class StoreUnitComponent {
 
     cookieContent: any;
-    model: WSmileyModel = new WSmileyModel();
     nextWidgetIndex:any =0;
     widgets:any[] = [];
     @ViewChild(WidgetDirective) widgetHost: WidgetDirective;
     timer:number;
-    currentSurveyID:number;
-    CookieObject:any;
+    currentSurveyID:string;
+    cookieObject: any;
+    model:GeneralModel ;
 
 
 
@@ -40,6 +40,7 @@ export class StoreUnitComponent {
         private sendingService: SendingService,
         private componentFactoryResolver: ComponentFactoryResolver
     ) {
+        this.model = new GeneralModel();
     }
     ngAfterViewInit() {
         //Check registration
@@ -49,10 +50,10 @@ export class StoreUnitComponent {
         }
         console.log("found cookie: " + this.cookie.get('StoreUnitCookie'));
         this.cookieContent = this.cookie.get('StoreUnitCookie');
-        this.CookieObject = JSON.parse(this.cookieContent);
+        this.cookieObject = JSON.parse(this.cookieContent);
         let data = new RegistrationCheckData(
-            this.CookieObject.id,
-            this.CookieObject.ownerID,
+            this.cookieObject.id,
+            this.cookieObject.ownerID,
         )
 
         let body = JSON.stringify(data);
@@ -78,37 +79,39 @@ export class StoreUnitComponent {
 
         //Default survey
         if (this.currentSurveyID==null){
-            this.currentSurveyID = 100; 
+            this.currentSurveyID = "c2c841d0-9257-495c-832e-0adc424b17ec"; 
         } 
 
         //Get survey data:
         //From the server
-        let surveyData
+        let surveyData;
         //load the data above, but from the server
         //TODO:change 100 to surveyID
         console.log("get surveydata");
         this.http.get('http://localhost:5000/api/UnitSetup/survey/' + this.currentSurveyID).subscribe(result => {
 
             surveyData = result.json();
-            //surveyData = surveyData[0];
+            this.model = surveyData.general as GeneralModel;
+            delay = this.model.timeoutDelay;
             console.log(surveyData);
 
-            console.log(surveyData.surveyID);
-            for (let i = 0; i < surveyData.widgetList.length; i++) {
-                if (surveyData.widgetList[i].WidgetType == "Questions") {
-                    this.widgets[i] = new WidgetInfo(surveyData.widgetList[i], QuestionWidgetComponent);
+            console.log(surveyData.general.surveyID);
+            for (let i = 0; i < surveyData.widgets.length; i++) {
+                if (surveyData.widgets[i].type == "Question") {
+                    this.widgets[i] = new WidgetInfo(surveyData.widgets[i], QuestionWidgetComponent);
 
-                } else if (surveyData.widgetList[i].WidgetType == "Smilies") {
-                    this.widgets[i] = new WidgetInfo(surveyData.widgetList[i], SmileyWidgetComponent);
-                } else if (surveyData.widgetList[i].WidgetType == "Thanks") {
-                    this.widgets[i] = new WidgetInfo(surveyData.widgetList[i], ThanksWidgetComponent);
+                } else if (surveyData.widgets[i].type == "Smiley") {
+                    surveyData.widgets[i].color = surveyData.general.color;
+                    this.widgets[i] = new WidgetInfo(surveyData.widgets[i], SmileyWidgetComponent);
                 }
                 else {
                     console.log("ERROR ADDING " + i);
                 }
             }
 
-            this.sendingService.init(this.CookieObject.id);
+            this.widgets.push(new WidgetInfo(surveyData.thankYou, ThanksWidgetComponent))
+
+            this.sendingService.init(this.cookieObject.id);
             this.loadComponent(this.widgets[0]);
 
         });
@@ -131,7 +134,7 @@ export class StoreUnitComponent {
         this.timer = window.setTimeout(() => {
             this.loadComponent(this.widgets[0]);
             this.nextWidgetIndex = 0;
-        }, 5001);
+        }, delay*1001);
     }
     //Emmited by store unit widgets
     onAnswered(answered: boolean) {
@@ -142,7 +145,7 @@ export class StoreUnitComponent {
             this.nextWidgetIndex = 0;
             this.sendingService.sendNow();
         }
-        console.log("Going to next widget of type: " + this.widgets[this.nextWidgetIndex].WidgetData.WidgetType);
+        console.log("Going to next widget of type: " + this.widgets[this.nextWidgetIndex].WidgetData.type);
         this.loadComponent(this.widgets[this.nextWidgetIndex]);
     }
 
