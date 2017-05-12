@@ -10,10 +10,10 @@ import { StatisticsComponent } from '../client/components/statistics/statistics.
 
 const routes: Routes =
 [
-    { path: '', redirectTo: 'statistics', pathMatch: 'full' },
-    { path: '**', redirectTo: 'Statistics' },
+    { path: '', redirectTo: 'console', pathMatch: 'full' },
+    { path: '**', redirectTo: 'console' },
     {path: 'store-unit', component: StoreUnitModule},
-    {path: 'statistics', component : ClientModule}
+    {path: 'console', component : ClientModule}
 ]
 
 @NgModule({

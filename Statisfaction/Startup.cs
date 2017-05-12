@@ -97,16 +97,16 @@ namespace WebApplicationBasic
                 routes.MapRoute(
                     name: "spa-store-unit",
                     template: "store-unit",
-                    defaults: new { controller = "Statistics", action = "StoreUnit" });
+                    defaults: new { controller = "Console", action = "StoreUnit" });
 
                 routes.MapRoute(
                     name: "spa-register-unit",
                     template: "register-unit",
-                    defaults: new { controller = "Statistics", action = "StoreUnit" });
+                    defaults: new { controller = "Console", action = "StoreUnit" });
 
                 routes.MapSpaFallbackRoute(
                     name: "spa-fallback",
-                    defaults: new { controller = "Statistics", action = "Index" });
+                    defaults: new { controller = "Console", action = "Index" });
 
             });
         }

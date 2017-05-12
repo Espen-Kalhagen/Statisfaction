@@ -1,21 +1,33 @@
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel;
-using Microsoft.EntityFrameworkCore;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
+using System.Collections.Generic;
 
 namespace Models
 {
-    public class response{
+    public class Response
+    {
+        [BsonId]
+        public ObjectId Id { get; set; }
 
-        //Needs empty constructor to be created automagically
-        public response(){
-        }
+        [BsonElement("Owner")]
+        public string Owner { get; set; }
 
-        public int id {get; set;} //Primary key
-
-        [ Display(Name="Content")]
-        public string Content {get;set;}
-
-
+        [BsonElement("responses")]
+        public List<WidgetResponse> Responses { get; set; }
     }
 
+    public class WidgetResponse
+    {
+        [BsonElement("widgetID")]
+        public int WidgetId { get; set; }
+
+        [BsonElement("QuestionID")]
+        public int QuestionId { get; set; }
+
+        [BsonElement("responseID")]
+        public int ResponseId { get; set; }
+
+        [BsonElement("response")]
+        public string Response { get; set; }
+    }
 }

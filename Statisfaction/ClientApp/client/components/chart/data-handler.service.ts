@@ -1,13 +1,18 @@
 import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
 
 @Injectable()
 export class DataHandlerService {
 
+    constructor(private http: Http) { }
+
     getData(): Promise<number[]> {
         let array:number[] = [];
-        for (let i:number = 0; i < 4; i++) {
-            array.push(random(0, 10));
-        }
+        this.http.get('/api/statistics').subscribe(result => {
+            for (let value of result.json()) {
+                array.push(value.count);
+            }
+        });
         return Promise.resolve(array);
     }
 }
