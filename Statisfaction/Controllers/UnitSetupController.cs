@@ -62,6 +62,37 @@ namespace api.UnitSetup
 
             return Json(new StoreUnitViewModel(unit));
         }
+
+        [Route("unbindUnit")]
+        [HttpPost]
+        public IActionResult unbind([FromBody]RegistrationData data)
+        {
+            var unitQ = from i in db.StoreUnits.Include(p => p.Owner)
+                        where i.RegistationPin == data.pin
+                        select i;
+
+            StoreUnit unit = null;
+            try
+            {
+                unit = unitQ.ToList().First();
+            }
+            catch
+            {
+                return NotFound();
+            }
+
+            if (!unit.Confirmed)
+            {
+                return StatusCode(409); //409 conflict
+            }
+            unit.Confirmed = false;
+            db.SaveChanges();
+            //activation was successfull
+
+            return Json(new StoreUnitViewModel(unit));
+        }
+
+        
         [Route("checkRegistration")]
         [HttpPost]
         public IActionResult Post([FromBody]ActivationData data)

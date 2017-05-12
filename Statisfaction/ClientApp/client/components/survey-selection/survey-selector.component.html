@@ -16,6 +16,7 @@
 
         <p>Registration pin: <span id="registrationPin"> {{resp.registationPin}} </span></p>
         <p> Placement: {{resp.placement}} </p>
+        <p> Bound to a store unit: {{resp.confirmed}} <button type="button" class="btn btn-default"(click)="unbind(resp.id)"> Unbind </button></p>
         <p> Current survey: {{resp.surveyName}} </p>
         <label for="surveys">Avilable surveys</label>
         <select class="form-control" id="surveys{{resp.id}}" required>

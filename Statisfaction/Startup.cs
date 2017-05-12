@@ -76,9 +76,9 @@ namespace WebApplicationBasic
                     db.SaveChanges();
                 }
                 app.UseDeveloperExceptionPage();
-                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions {
-                  HotModuleReplacement = true
-                });
+              //  app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions {
+             //     HotModuleReplacement = true
+            //    });
 
             //I allways debug!
          //   }
