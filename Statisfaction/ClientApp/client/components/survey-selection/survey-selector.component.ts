@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Http, RequestOptions, Headers  } from '@angular/http';
+import { Observable } from "rxjs/Rx";
 
 declare var OwnerID: any;
 declare var $:any;
@@ -54,11 +55,36 @@ export class SelectSurveyComponent
         this.http.post('http://localhost:5000/api/UnitSetup/UnitSurvey', JSON.stringify({ Unitid, surveyID, surveyName }), { headers: headers }).toPromise().then(servResp => $("#applied" + unitID).text("Done!")).catch(error => $("#applied" + unitID).text("Error! Please try later"));
     
 }
+    unbind(unitID) {
+        let posNr;
+        for (posNr in this.responses){
+            if (this.responses[posNr].id = unitID){
+                break;
+            }
+        }
+
+        let data = new RegistrationData(Number(this.responses[posNr].registationPin));
+        let body = JSON.stringify(data );
+        let options = new RequestOptions();
+        options.headers = new Headers({ 'Content-Type': 'application/json' });
+
+        this.http.post('http://localhost:5000/api/UnitSetup/unbindUnit', body, options).catch(err => {
+            alert("Failed to unbind");
+            return Observable.throw(err); // observable needs to be returned or exception raised
+        }).subscribe(res => console.log("Unbound!"));
+
+    }
 }
 export class SurveyData {
 
     constructor(
         public surveyName: string,
         public surveyID: string 
+    ) { }
+}
+export class RegistrationData {
+
+    constructor(
+        public pin: number
     ) { }
 }

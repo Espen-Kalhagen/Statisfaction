@@ -3,12 +3,11 @@
 Checklist for starting av server:
 <ul>
     <li>Alle filer ledige?</li>
-    <li>RabbitMQ server startet?</li>
     <li>npm/node kommandoer kjørt? 
         <ol> 
             <li>npm install</li>
             <li>node --max_old_space_size=4096 node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js --env.prod</li>
-	        <li>node node_modules/webpack/bin/webpack.js --env.prod</li>
+	        <li>node -max_old_space_size=4096 node_modules/webpack/bin/webpack.js --env.prod</li>
            
         </ol>
     </li>
