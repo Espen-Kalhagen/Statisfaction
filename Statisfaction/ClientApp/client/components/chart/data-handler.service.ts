@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class DataHandlerService {
@@ -7,13 +8,13 @@ export class DataHandlerService {
     constructor(private http: Http) { }
 
     getData(): Promise<number[]> {
-        let array:number[] = [];
-        this.http.get('/api/statistics').subscribe(result => {
+        return this.http.get('/api/statistics').toPromise().then(result => {
+            let array:number[] = [];
             for (let value of result.json()) {
                 array.push(value.count);
             }
+            return array;
         });
-        return Promise.resolve(array);
     }
 }
 
