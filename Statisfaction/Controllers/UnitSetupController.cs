@@ -37,7 +37,10 @@ namespace api.UnitSetup
             this.mongodb = mongoService.GetMongo();
         }
 
-        [Route("registerNewUnit")]
+        /**
+        After a unit has been created, it needs to be bound to a physical store unit, this is done here
+         */
+        [Route("register")]
         [HttpPost]
         public IActionResult Post([FromBody]RegistrationData data)
         {
@@ -62,8 +65,10 @@ namespace api.UnitSetup
 
             return Json(new StoreUnitViewModel(unit));
         }
-
-        [Route("unbindUnit")]
+        /**
+        Unbind a physical store unit from a unit
+         */
+        [Route("unregister")]
         [HttpPost]
         public IActionResult unbind([FromBody]RegistrationData data)
         {
@@ -89,10 +94,15 @@ namespace api.UnitSetup
             db.SaveChanges();
             //activation was successfull
 
+            //Publish a rabbit message telling the store unit to refresh
+            refreshStoreUnit(unit.id);
+
             return Json(new StoreUnitViewModel(unit));
         }
 
-        
+        /**
+        Each time a physical store unit loads the site, it needs to check that it is registered with this device
+         */
         [Route("checkRegistration")]
         [HttpPost]
         public IActionResult Post([FromBody]ActivationData data)
@@ -120,7 +130,7 @@ namespace api.UnitSetup
 
 
         /**
-        Get all unis registered to  (id)
+        Get all unis registered to OwnerID (id)
          */
         [Route("units/{id}")]
         [HttpGet("{id}")]
@@ -143,9 +153,9 @@ namespace api.UnitSetup
 
         }
         /**
-        Post a new survey to a unit
+        Bind a new survey to a unit, also sends a message to the storeunit telling it to  change to the new survey
          */
-        [Route("UnitSurvey")]
+        [Route("bindSurvey")]
         public IActionResult post([FromBody]SurveyUnitData data)
         {
             //Update database
@@ -167,33 +177,14 @@ namespace api.UnitSetup
             db.SaveChanges();
 
             //Publish a rabbit message telling the store unit to refresh
+            refreshStoreUnit(data.Unitid);
 
-            var factory = new ConnectionFactory() { HostName = "rabbitmq.statisfaction.tech", Password = "unituser", UserName = "unituser" };
-            using (var connection = factory.CreateConnection())
-            using (var channel = connection.CreateModel())
-            {
-                channel.QueueDeclare(queue: "StoreUnitQueue:" + data.Unitid,
-                                     durable: true,
-                                     exclusive: false,
-                                     autoDelete: false,
-                                     arguments: null);
-
-
-                var body = Encoding.UTF8.GetBytes("SurveyIDUpdate");
-
-                var properties = channel.CreateBasicProperties();
-                properties.Persistent = true;
-            channel.BasicPublish(exchange: "",
-                     routingKey: "StoreUnitQueue:" + data.Unitid,
-                     basicProperties: properties,
-                     body: body);
-            }
             return Json(unit);
         }
         /**
         Get available surveys for user id
         */
-        [Route("LoadSurveys/{id}")]
+        [Route("surveys/{id}")]
         [HttpGet("{id}")]
         public string get(string id)
         {
@@ -220,7 +211,7 @@ namespace api.UnitSetup
         }
 
         /**
-        Get survey by id
+        Get survey by SurveyID
         */
         [Route("survey/{id}")]
         [HttpGet("{id}")]
@@ -247,8 +238,63 @@ namespace api.UnitSetup
 
         }
 
+        /**
+        Delete store unit by unitID
+        */
+        [Route("unit/{id}")]
+        [HttpDelete("{id}")]
+        public IActionResult deleteUnit(int id){
+            var unitQ = from i in db.StoreUnits
+                        where i.id == id
+                        select i;
+            StoreUnit unit;
+            try
+            {
+                unit = unitQ.ToList().First();
+            }
+            catch
+            {
+                return NotFound();
+            }
+            db.StoreUnits.Remove(unit);
+            db.SaveChanges();
+
+            //Publish a rabbit message telling the store unit to refresh
+            refreshStoreUnit(id);
+            return Json(unit);
+        }
+
+        private void refreshStoreUnit(int UnitID)
+        {
+
+            var factory = new ConnectionFactory() { HostName = "rabbitmq.statisfaction.tech", Password = "unituser", UserName = "unituser" };
+            using (var connection = factory.CreateConnection())
+            using (var channel = connection.CreateModel())
+            {
+                channel.QueueDeclare(queue: "StoreUnitQueue:" + UnitID,
+                                     durable: true,
+                                     exclusive: false,
+                                     autoDelete: false,
+                                     arguments: null);
+
+
+                var body = Encoding.UTF8.GetBytes("SurveyIDUpdate");
+
+                var properties = channel.CreateBasicProperties();
+                properties.Persistent = true;
+                channel.BasicPublish(exchange: "",
+                         routingKey: "StoreUnitQueue:" + UnitID,
+                         basicProperties: properties,
+                         body: body);
+            }
+
+        }
+        
 
     }
+
+
+
     public class RegistrationData
     {
         public int pin { get; set; }
