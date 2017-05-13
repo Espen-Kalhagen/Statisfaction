@@ -25,7 +25,7 @@ export class SelectSurveyComponent
 
     ngOnInit(){
         //Load surveys
-        this.http.get('http://localhost:5000/api/UnitSetup/LoadSurveys/' + OwnerID).subscribe(result => {
+        this.http.get('http://localhost:5000/api/UnitSetup/surveys/' + OwnerID).subscribe(result => {
             let surveyData = result.json();
             for(let survey of surveyData){
                 let generalData:SurveyData = new SurveyData(survey.general.title, survey.general.surveyID);
@@ -52,7 +52,7 @@ export class SelectSurveyComponent
         
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
-        this.http.post('http://localhost:5000/api/UnitSetup/UnitSurvey', JSON.stringify({ Unitid, surveyID, surveyName }), { headers: headers }).toPromise().then(servResp => $("#applied" + unitID).text("Done!")).catch(error => $("#applied" + unitID).text("Error! Please try later"));
+        this.http.post('http://localhost:5000/api/UnitSetup/bindSurvey', JSON.stringify({ Unitid, surveyID, surveyName }), { headers: headers }).toPromise().then(servResp => $("#applied" + unitID).text("Done!")).catch(error => $("#applied" + unitID).text("Error! Please try later"));
     
 }
     unbind(unitID) {
@@ -68,12 +68,23 @@ export class SelectSurveyComponent
         let options = new RequestOptions();
         options.headers = new Headers({ 'Content-Type': 'application/json' });
 
-        this.http.post('http://localhost:5000/api/UnitSetup/unbindUnit', body, options).catch(err => {
+        this.http.post('http://localhost:5000/api/UnitSetup/unregister', body, options).catch(err => {
             alert("Failed to unbind");
             return Observable.throw(err); // observable needs to be returned or exception raised
         }).subscribe(res => console.log("Unbound!"));
-
     }
+
+    delete(unitID){
+        if (confirm('WARNING! Are you sure you want to delete this store unit? It will also delete information collected by it!')) {
+            let options = new RequestOptions();
+            this.http.delete('http://localhost:5000/api/UnitSetup/unit/' + unitID, options).catch(err => {
+                alert("Failed to delete");
+                return Observable.throw(err); // observable needs to be returned or exception raised
+            }).subscribe(res => alert("Delete successfull! "));
+
+        }
+        }
+
 }
 export class SurveyData {
 
