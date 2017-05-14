@@ -19,6 +19,7 @@ using Newtonsoft.Json.Serialization;
 using System.Collections.Generic;
 using RabbitMQ.Client;
 using System.Text;
+using Newtonsoft.Json.Linq;
 
 namespace api.UnitSetup
 {
@@ -152,6 +153,34 @@ namespace api.UnitSetup
             return Json(units);
 
         }
+
+        /**
+        Delete store unit by unitID
+        */
+        [Route("unit/{id}")]
+        [HttpDelete("{id}")]
+        public IActionResult deleteUnit(int id)
+        {
+            var unitQ = from i in db.StoreUnits
+                        where i.id == id
+                        select i;
+            StoreUnit unit;
+            try
+            {
+                unit = unitQ.ToList().First();
+            }
+            catch
+            {
+                return NotFound();
+            }
+            db.StoreUnits.Remove(unit);
+            db.SaveChanges();
+
+            //Publish a rabbit message telling the store unit to refresh
+            refreshStoreUnit(id);
+            return Json(unit);
+        }
+
         /**
         Bind a new survey to a unit, also sends a message to the storeunit telling it to  change to the new survey
          */
@@ -215,7 +244,7 @@ namespace api.UnitSetup
         */
         [Route("survey/{id}")]
         [HttpGet("{id}")]
-        public string getSurvey(int id)
+        public string getSurvey(string id)
         {
             //TestData
             /* 
@@ -227,7 +256,7 @@ namespace api.UnitSetup
             */
 
             var collection = mongodb.GetCollection<BsonDocument>("surveys");
-            var filter = Builders<BsonDocument>.Filter.Eq("general.surveyID", "c2c841d0-9257-495c-832e-0adc424b17ec");
+            var filter = Builders<BsonDocument>.Filter.Eq("general.surveyID", id);
             //var filter = new BsonDocument();
 
             var result = collection.Find(filter).FirstOrDefault();
@@ -235,33 +264,62 @@ namespace api.UnitSetup
 
             var jsonWriterSettings = new JsonWriterSettings { OutputMode = JsonOutputMode.Strict };
             return result.ToJson(jsonWriterSettings);
+        }
+        /**
+        Post survey 
+        */
+        [Route("survey")]
+        [HttpPost]
+        public IActionResult postSurvey([FromBody] JObject survey)
+        {
+
+            var collection = mongodb.GetCollection<BsonDocument>("surveys");
+            var surveyDocument = BsonDocument.Parse(survey.ToString());
+
+            collection.InsertOne(surveyDocument);
+
+            return Ok(survey);
 
         }
 
+
         /**
-        Delete store unit by unitID
+        Delete survey with suveryID id
+        
         */
-        [Route("unit/{id}")]
+        //will fail at routing if this is called survey/{id} which is weird since it is HttpDelete and the other is HttpGet...
+        [Route("deleteSurvey/{id}")]
         [HttpDelete("{id}")]
-        public IActionResult deleteUnit(int id){
+        public IActionResult deleteSurvey(string id)
+        {
+
+            var collection = mongodb.GetCollection<BsonDocument>("surveys");
+            var filter = Builders<BsonDocument>.Filter.Eq("general.surveyID", id);
+            var result = collection.Find(filter).FirstOrDefault();
+            collection.DeleteOne(filter);
+
+
+            //Refresh all owners store units, in case they were using this survey
+            var ownerID = result["general"]["ownerID"].AsString;
+
             var unitQ = from i in db.StoreUnits
-                        where i.id == id
+                        where i.Owner.Id == ownerID
                         select i;
-            StoreUnit unit;
+            List<StoreUnit> units = null;
             try
             {
-                unit = unitQ.ToList().First();
+                units = unitQ.ToList();
             }
             catch
             {
-                return NotFound();
+                Console.WriteLine("failed at refreshing store units");
+                return Ok();
             }
-            db.StoreUnits.Remove(unit);
-            db.SaveChanges();
+            foreach(var unit in units){
+                refreshStoreUnit(unit.id);
+            }
 
-            //Publish a rabbit message telling the store unit to refresh
-            refreshStoreUnit(id);
-            return Json(unit);
+            return Ok();
         }
 
         private void refreshStoreUnit(int UnitID)
