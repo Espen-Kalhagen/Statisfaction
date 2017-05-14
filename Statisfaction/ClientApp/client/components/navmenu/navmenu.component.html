@@ -23,6 +23,11 @@
                         <span class='glyphicon glyphicon-briefcase'></span> Select survey
                     </a>
                 </li>
+                <li [routerLinkActive]="['link-active']">
+                     <a [routerLink]="['register-unit-view']">
+                        <span class='glyphicon glyphicon-plus'></span> Register new unit
+                    </a>
+                </li>
                 <h3> Data tools </h3>
                 <li [routerLinkActive]="['link-active']">
                     <a [routerLink]="['fetch-data']">
@@ -39,5 +44,3 @@
         </div>
     </div>
 </div>
-
-
