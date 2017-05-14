@@ -18,6 +18,7 @@ import { EditorComponent } from "../editor/components/editor/editor.component";
 import { CustomizeComponent } from "../editor/components/customize/customize.component";
 import { FinalizeComponent } from "../editor/components/finalize/finalize.component";
 import { GeneralComponent } from "../editor/components/general/general.component";
+import { RegisterUnitViewComponent } from "./components/register-unit-view/register-unit-view.component";
 
 import { SurveyOverviewComponent } from './components/overview/overview.component';
 import { SurveySummaryComponent } from './components/survey-summary/survey-summary.component';
@@ -30,6 +31,7 @@ const routes: Routes =
     [
         {path: 'statistics', component: StatisticsComponent},
         {path: 'fetch-data', component: FetchDataComponent},
+        {path: 'register-unit-view', component: RegisterUnitViewComponent},
         {path: 'chart', component: ChartComponent},
         {path: 'surveys', component: SurveyOverviewComponent},
         {
@@ -53,6 +55,7 @@ const routes: Routes =
         CounterComponent,
         FetchDataComponent,
         StatisticsComponent,
+<<<<<<< HEAD
         SelectSurveyComponent,       
         ChartComponent,
         StatisticsComponent,       
@@ -60,6 +63,10 @@ const routes: Routes =
         SurveyOverviewComponent,
         SurveySummaryComponent,
         OverviewHelpComponent,
+=======
+        SelectSurveyComponent,  
+        RegisterUnitViewComponent,     
+>>>>>>> Moved Add unit to Tools page STAT-51
         ChartComponent
     ],
     imports: [  
