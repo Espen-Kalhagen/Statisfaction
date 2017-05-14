@@ -7,6 +7,9 @@ using MongoDB.Bson;
 using MongoDB.Bson.IO;
 using System.Linq;
 using System;
+using MathNet.Numerics.Statistics;
+using MathNet.Numerics.Distributions;
+using MongoDB.Bson.Serialization;
 
 [Route("api/statistics")]
 public class StatisticsController : Controller
@@ -19,7 +22,8 @@ public class StatisticsController : Controller
     }
 
     [HttpGet]
-    public ActionResult GetResponses()
+    [Route("satisfaction")]
+    public ActionResult Satisfaction()
     {
         var collection = db.GetCollection<Response>("responses");
         /*var filter = BsonDocument.Parse("{'responses.widgetID': 1}");
@@ -41,5 +45,31 @@ public class StatisticsController : Controller
         .Sort(new BsonDocument { { "_id", 1 } });
         var list = aggregate.ToList();
         return Content(list.ToJson());
+    }
+
+    [HttpGet]
+    [Route("summary")]
+    public ActionResult Summary()
+    {
+        var collection = db.GetCollection<Response>("responses");
+        var list = new List<double>();
+        var summary = new List<double>();
+        var aggregate = collection.Aggregate()
+        .Unwind(x => x.Responses)
+        .Match(new BsonDocument { { "responses.widgetID", 1 } });
+        aggregate.ForEachAsync(doc => {
+            WidgetResponse widgetResponse = BsonSerializer.Deserialize<WidgetResponse>(doc["responses"].AsBsonDocument);
+            list.Add(Convert.ToDouble(widgetResponse.Response));
+            Console.WriteLine(doc);
+        }).Wait();
+
+        summary.Add(list.Count);
+        summary.AddRange(Statistics.FiveNumberSummary(list));
+        var data = new DescriptiveStatistics(list);
+        summary.Add(data.StandardDeviation);
+        summary.Add(data.Variance);
+        summary.Add(data.Skewness);
+        summary.Add(data.Kurtosis);
+        return Content(summary.ToJson());
     }
 }

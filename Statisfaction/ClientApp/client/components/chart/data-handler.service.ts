@@ -8,7 +8,7 @@ export class DataHandlerService {
     constructor(private http: Http) { }
 
     getData(): Promise<number[]> {
-        return this.http.get('/api/statistics').toPromise().then(result => {
+        return this.http.get('/api/statistics/satisfaction').toPromise().then(result => {
             let array:number[] = [];
             for (let value of result.json()) {
                 array.push(value.count);

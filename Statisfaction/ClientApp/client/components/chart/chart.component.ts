@@ -13,7 +13,6 @@ export class ChartComponent implements OnInit {
   public labels:string[] = ['Veldig Ufornøyd', 'Ikke fornøyd', 'Fornøyd', 'Veldig fornøyd'];
   public data:number[] = [1, 2, 3, 4];
   public chartType:string = 'doughnut';
-  public lol:string = "";
   //public colors:string[] = ['#FFF','#111']
 
   constructor(private dataHandler:DataHandlerService) {}
