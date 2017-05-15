@@ -20,11 +20,12 @@ namespace Controllers
     {
 
         // A reference to the MongoDB
-        IMongoDatabase db ;
+        IMongoDatabase db;
 
-        
+
         // Dependency injects the mongoService 
-        public SampleDataController(IMongoService mongoService){
+        public SampleDataController(IMongoService mongoService)
+        {
             this.db = mongoService.GetMongo();
         }
 
@@ -42,9 +43,31 @@ namespace Controllers
             // IMPORTANT! The json-writer settings must be configured to strict in order to correctly create a valid Json
             // response for the client
             var jsonWriterSettings = new JsonWriterSettings { OutputMode = JsonOutputMode.Strict };
-            
+
             // Return the retrieved data to the client
             return result.ToJson(jsonWriterSettings);
+        }
+
+        // Gets all responses (for every user)
+        // This is only for test-purposes
+        [HttpPost]
+        public string CustomerResponses(string payload)
+        {
+            
+            Console.WriteLine("Payload: " + payload);
+
+            //var currentUser = um.FindByNameAsync(User.Identity.Name).Result;
+
+            // Get the response collection
+            var collection = db.GetCollection<BsonDocument>("survey-test");
+
+            var document = BsonDocument.Create("Hello!");
+
+            //document["ownerID"] = currentUser.Id;
+
+            collection.InsertOne(document);
+
+            return "{hello:'Value'}";
         }
 
 
