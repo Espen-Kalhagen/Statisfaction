@@ -47,8 +47,16 @@ export class SendingService {
       if ("undefined" === typeof respList[0]){
         return Promise.resolve(true);
     }
+      var time = new Date();
     var result ={
+        
         "Owner":this.owner,
+        "Hours": time.getHours,
+        "Minutes": time.getMinutes,
+        "Seconds": time.getSeconds,
+        "Day":time.getDate,
+        "Month":time.getMonth,
+        "Year":time.getFullYear,
         "responses":[]
     } 
     for (let entry of respList) {
