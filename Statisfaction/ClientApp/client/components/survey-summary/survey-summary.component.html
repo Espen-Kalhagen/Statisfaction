@@ -4,13 +4,13 @@
 
 
 
-    <input class="editable editable-style" type="text" [(ngModel)]="surveyService.survey.title">
+    <input class="editable editable-style" type="text" [(ngModel)]="surveyService.survey.general.title">
 
     <div class="divider">
         <span>Details</span>
     </div>
 
-    <input class="editable editable-style" type="text" [(ngModel)]="surveyService.survey.description">
+    <input class="editable editable-style" type="text" [(ngModel)]="surveyService.survey.general.description">
 
     <table class="table borderless">
         <tbody>
@@ -29,11 +29,11 @@
         <tbody>
             <tr>
                 <td>Created</td>
-                <td>{{surveyService.survey.created.toDateString()}}</td>
+                <td>TODO: Add timestamp</td>
             </tr>
             <tr>
                 <td>Updated</td>
-                <td>{{surveyService.survey.updated.toDateString()}}</td>
+                <td>TODO: Add timestamp</td>
             </tr>
         </tbody>
     </table>
@@ -71,6 +71,3 @@
     </ul>
 
 </div>
-
-
-<!-- https://www.iconfinder.com/icons/2139350/blueprint_design_draft_plan_tool_icon#size=128 -->

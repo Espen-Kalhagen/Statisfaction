@@ -12,19 +12,12 @@ declare var $: any;
     styleUrls: ['./general.component.css']
 })
 
-export class GeneralComponent implements AfterViewInit {
+export class GeneralComponent{
 
 
     constructor(private sharedData: SurveyConfigService) {
         this.sharedData.state = SIDEBAR_STATES.GENERAL;
 
-    }
-    
-    ngAfterViewInit() {
-
-        $("#colorpicker").spectrum({
-            color: "#f00"
-        });
     }
 
 }

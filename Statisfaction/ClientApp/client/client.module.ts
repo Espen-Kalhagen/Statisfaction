@@ -54,20 +54,13 @@ const routes: Routes =
         NavMenuComponent,
         CounterComponent,
         FetchDataComponent,
-        StatisticsComponent,
-<<<<<<< HEAD
-        SelectSurveyComponent,       
-        ChartComponent,
-        StatisticsComponent,       
-        ChartComponent,
+        StatisticsComponent,   
+        ChartComponent,     
         SurveyOverviewComponent,
         SurveySummaryComponent,
         OverviewHelpComponent,
-=======
         SelectSurveyComponent,  
         RegisterUnitViewComponent,     
->>>>>>> Moved Add unit to Tools page STAT-51
-        ChartComponent
     ],
     imports: [  
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.

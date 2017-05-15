@@ -65,13 +65,11 @@ export class SurveyConfigService {
     }
 
     deploy() {
+        
+        this.general.ownerID = OwnerID ;
         let survey = new SurveyModel(this.general, this.widgets, this.otherInfo);
 
         let payload = JSON.stringify(survey);
-
-        alert(payload);
-
-        alert("ID: " + OwnerID);
         
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
