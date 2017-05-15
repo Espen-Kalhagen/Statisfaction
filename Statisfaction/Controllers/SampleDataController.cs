@@ -48,31 +48,6 @@ namespace Controllers
             return result.ToJson(jsonWriterSettings);
         }
 
-        // Gets all responses (for every user)
-        // This is only for test-purposes
-        [HttpPost]
-        public string CustomerResponses(string payload)
-        {
-            
-            Console.WriteLine("Payload: " + payload);
-
-            //var currentUser = um.FindByNameAsync(User.Identity.Name).Result;
-
-            // Get the response collection
-            var collection = db.GetCollection<BsonDocument>("survey-test");
-
-            var document = BsonDocument.Create("Hello!");
-
-            //document["ownerID"] = currentUser.Id;
-
-            collection.InsertOne(document);
-
-            return "{hello:'Value'}";
-        }
-
-
     }
-
-
 
 }

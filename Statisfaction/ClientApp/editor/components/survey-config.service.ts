@@ -6,6 +6,8 @@ export enum SIDEBAR_STATES { GENERAL, EDITOR, DEPLOY };
 
 declare var $: any;
 
+declare var OwnerID: any;
+
 @Injectable()
 export class SurveyConfigService {
 
@@ -69,10 +71,12 @@ export class SurveyConfigService {
 
         alert(payload);
 
+        alert("ID: " + OwnerID);
+        
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
 
-        let url = '/api/SampleData/Test';
+        let url = 'http://localhost:5000/api/UnitSetup/survey';
 
         this.http.post(url, payload, options).subscribe(
             (response) => {
