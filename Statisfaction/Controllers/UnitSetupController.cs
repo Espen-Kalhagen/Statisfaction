@@ -183,6 +183,8 @@ namespace api.UnitSetup
 
         /**
         Bind a new survey to a unit, also sends a message to the storeunit telling it to  change to the new survey
+        Example:
+        http://localhost:5000/api/UnitSetup/bindSurvey
          */
         [Route("bindSurvey")]
         public IActionResult post([FromBody]SurveyUnitData data)
@@ -212,6 +214,10 @@ namespace api.UnitSetup
         }
         /**
         Get available surveys for user id
+        Example:
+        'http://localhost:5000/api/UnitSetup/surveys/' + OwnerID
+
+        See survey-selector for more detailed example
         */
         [Route("surveys/{id}")]
         [HttpGet("{id}")]
@@ -241,19 +247,14 @@ namespace api.UnitSetup
 
         /**
         Get survey by SurveyID
+        Example:
+        http://localhost:5000/api/UnitSetup/survey/a3a841d0-9257-495c-832e-0adc424b17wq
         */
         [Route("survey/{id}")]
         [HttpGet("{id}")]
         public string getSurvey(string id)
         {
-            //TestData
-            /* 
-            List<SurveyData> surveys = new List<SurveyData>();
-            surveys.Add( new SurveyData {surveyName = "Default", surveyID = "5" });
-            surveys.Add(new SurveyData { surveyName = "Price survey", surveyID = "10" });
-            surveys.Add(new SurveyData { surveyName = "Satisfaction survey", surveyID = "20" });
-            return Json(surveys);
-            */
+
 
             var collection = mongodb.GetCollection<BsonDocument>("surveys");
             var filter = Builders<BsonDocument>.Filter.Eq("general.surveyID", id);
@@ -265,8 +266,38 @@ namespace api.UnitSetup
             var jsonWriterSettings = new JsonWriterSettings { OutputMode = JsonOutputMode.Strict };
             return result.ToJson(jsonWriterSettings);
         }
+        
         /**
         Post survey 
+        Example:
+            http://localhost:5000/api/UnitSetup/survey
+            Body:
+                {
+    "general": {
+        "ownerID": "ALL",
+        "surveyID": "a3a841d0-9257-495c-832e-0adc424b17wq",
+        "title": "TEST",
+        "description": "Only smileys",
+        "color": "#a64040",
+        "logoUrl": "",
+        "timeoutDelay": 8
+    },
+    "widgets": [
+        {
+            "widgetID": "4c991cd5-984a-4499-98b5-795750fa0212",
+            "type": "Smiley",
+            "title": "Was the experience enjoyable?",
+            "subtitle1": "Subtitle 1",
+            "subtitle2": "Subtitle 2",
+            "subtitle3": "Subtitle 3",
+            "subtitle4": "Subtitle 4"
+        }
+    ],
+    "thankYou": {
+        "delay": "6",
+        "message": "Thank you!"
+    }
+}
         */
         [Route("survey")]
         [HttpPost]
@@ -285,7 +316,8 @@ namespace api.UnitSetup
 
         /**
         Delete survey with suveryID id
-        
+        Example:
+        http://localhost:5000/api/UnitSetup/deleteSurvey/a3a841d0-9257-495c-832e-0adc424b17ea
         */
         //will fail at routing if this is called survey/{id} which is weird since it is HttpDelete and the other is HttpGet...
         [Route("deleteSurvey/{id}")]
