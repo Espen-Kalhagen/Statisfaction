@@ -34,8 +34,7 @@ const routes: Routes =
         {path: 'register-unit-view', component: RegisterUnitViewComponent},
         {path: 'chart', component: ChartComponent},
         {path: 'surveys', component: SurveyOverviewComponent},
-        {
-            path: 'editor', component: EditorComponent, children:
+        {path: 'editor', component: EditorComponent, children:
                 [
                     { path: 'general', component: GeneralComponent },
                     { path: 'customize', component: CustomizeComponent },

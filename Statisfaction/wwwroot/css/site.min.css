@@ -44,3 +44,16 @@ body {
         display: none;
     }
 }
+
+.navbar-inverse
+{
+    background-color: #0F8AD3;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+    color: #ffffff;
+}
+
+.navbar-inverse .navbar-brand {
+    color: #ffffff;
+}
