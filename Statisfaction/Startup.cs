@@ -50,7 +50,7 @@ namespace WebApplicationBasic
 
             // Adds the custom mongo-service as as scoped service
             services.AddScoped<IMongoService, MongoService>();
-            
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,33 +59,34 @@ namespace WebApplicationBasic
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-           // if (env.IsDevelopment())
-           // {
-                using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
-                {
-                    var db = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
+            // if (env.IsDevelopment())
+            // {
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                var db = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
 
-                    db.Database.EnsureDeleted();
-                    db.Database.EnsureCreated();
+                db.Database.EnsureDeleted();
+                db.Database.EnsureCreated();
 
-                    var userManager = serviceScope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
-                    
-                    var UserUser = new ApplicationUser { Email = "user@uia.no", UserName = "user@uia.no"};
-                    userManager.CreateAsync(UserUser, "Password1.").Wait();
+                var userManager = serviceScope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
 
-                    db.SaveChanges();
-                }
-                app.UseDeveloperExceptionPage();
-              //  app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions {
-             //     HotModuleReplacement = true
-            //    });
+                var UserUser = new ApplicationUser { Email = "user@uia.no", UserName = "user@uia.no" };
+                userManager.CreateAsync(UserUser, "Password1.").Wait();
+
+                db.SaveChanges();
+            }
+            app.UseDeveloperExceptionPage();
+            app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
+            {
+                HotModuleReplacement = true
+            });
 
             //I allways debug!
-         //   }
-         //   else
-          //  {
-                //app.UseExceptionHandler("/Home/Error");
-         //   }
+            //   }
+            //   else
+            //  {
+            //app.UseExceptionHandler("/Home/Error");
+            //   }
 
             app.UseStaticFiles();
 

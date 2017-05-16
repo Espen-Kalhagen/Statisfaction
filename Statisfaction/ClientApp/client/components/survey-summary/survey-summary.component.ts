@@ -1,5 +1,5 @@
 import { Component, Input, AfterViewInit } from '@angular/core';
-import { SurveyInfoModel } from '../../../models/models';
+import { SurveyModel } from '../../../models/models';
 import { SurveyDataService } from '../survey-data.service';
 
 declare var $: any;

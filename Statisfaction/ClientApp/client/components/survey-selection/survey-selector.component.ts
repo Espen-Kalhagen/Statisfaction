@@ -56,6 +56,7 @@ export class SelectSurveyComponent
     
 }
     unbind(unitID) {
+
         let posNr;
         for (posNr in this.responses){
             if (this.responses[posNr].id = unitID){

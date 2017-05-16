@@ -16,7 +16,7 @@ namespace Controllers
 
         private ApplicationDbContext db;
         private UserManager<ApplicationUser> um;
-        public StatisticsController(ApplicationDbContext db, UserManager<ApplicationUser> userManager)
+        public ConsoleController(ApplicationDbContext db, UserManager<ApplicationUser> userManager)
         {
             this.db = db;
             this.um = userManager;
