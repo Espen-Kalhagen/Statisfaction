@@ -1,4 +1,5 @@
 
+
 export class WidgetBaseModel
 {
     public widgetID:string ;
@@ -39,7 +40,7 @@ export class GeneralModel {
     public surveyID:string = "";
 
     public title: string = "";
-    
+
     public description: string = "";
 
     public color:string = "";

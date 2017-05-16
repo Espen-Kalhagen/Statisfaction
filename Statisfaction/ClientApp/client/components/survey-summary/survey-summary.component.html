@@ -1,0 +1,73 @@
+<div id="summary-container">
+    <span id="exit" class='glyphicon glyphicon-remove' (click)="onCloseDetail()"></span>
+    <h4>Survey Summary</h4>
+
+
+
+    <input class="editable editable-style" type="text" [(ngModel)]="surveyService.survey.general.title">
+
+    <div class="divider">
+        <span>Details</span>
+    </div>
+
+    <input class="editable editable-style" type="text" [(ngModel)]="surveyService.survey.general.description">
+
+    <table class="table borderless">
+        <tbody>
+            <tr>
+                <td>Status</td>
+                <td>Draft</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="divider">
+        <span>Dates</span>
+    </div>
+
+    <table class="table borderless">
+        <tbody>
+            <tr>
+                <td>Created</td>
+                <td>TODO: Add timestamp</td>
+            </tr>
+            <tr>
+                <td>Updated</td>
+                <td>TODO: Add timestamp</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="divider">
+        <span>Styling</span>
+    </div>
+
+    <p>Color</p>
+    <p>Survey Image</p>
+
+    <div class="divider">
+        <span>Functions</span>
+    </div>
+
+    <ul class="list-unstyled">
+        <li>
+            <a class="btn btn-default">Go to statistics</a>
+        </li>
+        <li>
+            <a class="btn btn-default">Duplicate</a>
+        </li>
+        <li>
+            <a class="btn btn-default">Edit</a>
+        </li>
+    </ul>
+
+    <div class="divider">
+        <span>Dangerous Functions</span>
+    </div>
+    <ul class="list-unstyled">
+        <li>
+            <a class="btn btn-danger">Delete survey</a>
+        </li>
+    </ul>
+
+</div>

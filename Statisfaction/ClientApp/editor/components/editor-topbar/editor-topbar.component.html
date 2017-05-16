@@ -5,12 +5,13 @@
     </div>
 
     <div  class="post-content">
-        <div *ngIf="sharedData.general.title != ''">
-            <h5>{{sharedData.general.title}}</h5>
+        
+        <div *ngIf="general.title == ''">
+            <h5>Untitled survey</h5>
         </div>
-        <div *ngIf="sharedData.general.title == ''">
-            <h5>Survey Title</h5>
-        </div>
+        <h5>{{general.title}}</h5>
+
+        <h4>Survey Editor</h4>
 
     </div>
 

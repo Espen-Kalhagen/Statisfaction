@@ -1,0 +1,92 @@
+<div id="top-panel" class="col-md-12">
+    <h2>Surveys</h2>
+</div>
+
+<div id="filter-panel" class="col-md-12">
+
+    <div class="col-md-3">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search for...">
+            <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Search</button>
+        </span>
+        </div>
+    </div>
+
+    <div id="filters-container" class="col-md-5">
+        <ul>
+            <li>
+                QUICK FILTERS:
+            </li>
+            <li>
+                <a class="btn btn-default">Recent Updated</a>
+            </li>
+            <li>
+                <a class="btn btn-default"> Sorted By Name</a>
+            </li>
+        </ul>
+    </div>
+
+
+
+    <div class="col-md-1"></div>
+
+    <div id="create-panel" class="col-md-3">
+        <a class="btn btn-primary" [routerLink]="['/editor']">New Survey</a>
+    </div>
+</div>
+
+
+
+<div id="content-panel" class="col-md-9">
+
+    <div class="row-image">
+        <img class="icon-img" src="/images/icons/icon_production.png">
+    </div>
+    <div class="row-content">
+        <h4>Production</h4>
+    </div>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Created</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let survey of surveyService.surveys; let i = index;" (click)="onSurveyClicked(survey, i)">
+                <td width="20%">{{survey.general.title}}</td>
+                <td width="60%">{{survey.general.description}}</td>
+                <td width="20%">TODO:Add timestamp</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="row-image">
+        <img class="icon-img" src="/images/icons/icon_planning.png">
+    </div>
+    <div class="row-content">
+        <h4>Drafts</h4>
+    </div>
+
+    <table class="table table-hover">
+        <tbody>
+            <tr *ngFor="let survey of surveyService.surveys; let i = index;" (click)="onSurveyClicked(survey, i)">
+                <td width="20%">{{survey.general.title}}</td>
+                <td width="60%">{{survey.general.description}}</td>
+                <td width="20%">TODO:Add timestamp</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="col-md-3 sidebar">
+    <div *ngIf="surveyService.survey != null" class="sidebar">
+        <survey-summary></survey-summary>
+    </div>
+    <div *ngIf="surveyService.survey == null" class="sidebar">
+        <overview-help></overview-help>
+    </div>
+</div>

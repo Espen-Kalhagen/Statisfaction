@@ -7,6 +7,7 @@ import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { StatisticsComponent } from './components/statistics/statistics.component';
 import { NavMenuComponent} from './components/navmenu/navmenu.component';
 import { ChartComponent} from './components/chart/chart.component';
+import { FormsModule }   from '@angular/forms';
 
 import { EditorModule } from '../editor/editor.module';
 
@@ -19,7 +20,9 @@ import { FinalizeComponent } from "../editor/components/finalize/finalize.compon
 import { GeneralComponent } from "../editor/components/general/general.component";
 import { RegisterUnitViewComponent } from "./components/register-unit-view/register-unit-view.component";
 
-
+import { SurveyOverviewComponent } from './components/overview/overview.component';
+import { SurveySummaryComponent } from './components/survey-summary/survey-summary.component';
+import { OverviewHelpComponent } from './components/overview-help/overview-help.component';
 
 const routes: Routes =
 [
@@ -30,6 +33,7 @@ const routes: Routes =
         {path: 'fetch-data', component: FetchDataComponent},
         {path: 'register-unit-view', component: RegisterUnitViewComponent},
         {path: 'chart', component: ChartComponent},
+        {path: 'surveys', component: SurveyOverviewComponent},
         {
             path: 'editor', component: EditorComponent, children:
                 [
@@ -39,7 +43,8 @@ const routes: Routes =
                 ]
         },
         { path: 'survey-selector', component: SelectSurveyComponent }
-    ]}
+    ]},
+    { path: '**', redirectTo: 'client' }
 ]
 
 @NgModule({
@@ -49,15 +54,19 @@ const routes: Routes =
         NavMenuComponent,
         CounterComponent,
         FetchDataComponent,
-        StatisticsComponent,
+        StatisticsComponent,   
+        ChartComponent,     
+        SurveyOverviewComponent,
+        SurveySummaryComponent,
+        OverviewHelpComponent,
         SelectSurveyComponent,  
         RegisterUnitViewComponent,     
-        ChartComponent
     ],
     imports: [  
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.
         ChartsModule,
         EditorModule,
+        FormsModule,
         RouterModule.forChild(routes)
     ],
     providers: [

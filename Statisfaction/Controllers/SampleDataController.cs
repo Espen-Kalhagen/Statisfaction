@@ -20,11 +20,12 @@ namespace Controllers
     {
 
         // A reference to the MongoDB
-        IMongoDatabase db ;
+        IMongoDatabase db;
 
-        
+
         // Dependency injects the mongoService 
-        public SampleDataController(IMongoService mongoService){
+        public SampleDataController(IMongoService mongoService)
+        {
             this.db = mongoService.GetMongo();
         }
 
@@ -47,9 +48,6 @@ namespace Controllers
             return result.ToJson(jsonWriterSettings);
         }
 
-
     }
-
-
 
 }
