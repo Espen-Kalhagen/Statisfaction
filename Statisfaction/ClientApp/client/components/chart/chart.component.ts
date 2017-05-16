@@ -5,7 +5,8 @@ import { DataHandlerService } from './data-handler.service';
 
 @Component({
     selector: 'my-chart',
-    templateUrl: './chart.component.html'
+    templateUrl: './chart.component.html',
+    styleUrls: ['./chart.component.css']
 })
 export class ChartComponent implements OnInit {
 

@@ -1,5 +1,5 @@
 import { Component, AfterViewInit } from '@angular/core';
-import { SurveyConfigService } from '../survey-config.service';
+import { SurveyConfigService, SIDEBAR_STATES } from '../survey-config.service';
 import { WSmileyModel, WidgetBaseModel} from '../../../models/models';
 
 declare var $: any;
@@ -19,32 +19,29 @@ export class CustomizeComponent implements AfterViewInit {
         new WidgetType("Question", "/images/icons/widget_question.png")
     ];
 
-
-    surveydata: SurveyConfigService = null;
-
-    constructor(private config: SurveyConfigService) {
-        this.surveydata = config;
+    constructor(public sharedData: SurveyConfigService) {
+        this.sharedData.state = SIDEBAR_STATES.EDITOR ;
     }
 
     addWidget(widget: WidgetType) {
 
         var w = new WidgetBaseModel();
         w.type = widget.type ;
-        this.surveydata.addWidget(w);
+        this.sharedData.addWidget(w);
     }
 
     selectWidget(widget: object, index:number) {
 
         let w = widget as WidgetBaseModel ;
 
-        this.surveydata.selectedIndex = index ;
-        this.surveydata.selectedType = w.type ;
-        this.surveydata.selectedID = w.localID ;
+        this.sharedData.selectedIndex = index ;
+        this.sharedData.selectedType = w.type ;
+        this.sharedData.selectedID = w.widgetID ;
     }
 
     removeWidget(widget: WidgetBaseModel)
     {
-        this.surveydata.removeWidget(widget);
+        this.sharedData.removeWidget(widget);
     }
 
     ngAfterViewInit() {

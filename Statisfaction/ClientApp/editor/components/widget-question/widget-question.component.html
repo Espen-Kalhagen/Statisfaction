@@ -1,0 +1,54 @@
+<div class="col-md-6">
+
+    <h4>Content</h4>
+
+    <div class="col-md-12">
+
+        <div class="form-group">
+            <label for="question">Question</label>
+            <input id="question" type="text" class="form-control" [(ngModel)]="model.title" placeholder="Question">
+        </div>
+
+        <div class="form-group">
+            <label for="table">Options</label>
+            <table id="table" class="col-md-12">
+                <tbody>
+                    <tr *ngFor="let m of model.answerList; let i = index; " width="100%">
+                        <td width="60%" class="padding-right question-row">
+                            <input type="text" class="form-control" id="usr" [(ngModel)]="model.answerList[i].answerText" placeholder="Question {{i + 1}}">
+                        </td>
+                        <td width="30%" class="padding-right question-row">
+                            <div class=" cp input-group colorpicker-component">
+                                <input id="color" type="text" [(ngModel)]="model.answerList[i].buttonColor" class="form-control cpinput" placeholder="#FFFFFF" />
+                                <span class="input-group-addon"><i></i></span>
+                            </div>
+                        </td>
+                        <td width="10%" class="question-row">
+                            <button class="btn btn-warning" (click)="removeOption(i)">Remove</button>
+                        </td>
+
+                        <span *ngIf='i == model.answerList.length - 1 '>{{ngAfterViewInit()}}</span>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-primary" (click)="addOption()">Add Option</button>
+        </div>
+
+    </div>
+</div>
+
+
+<div id="preview" class="col-md-6 ">
+
+    <h4>Preview</h4>
+
+    <div id="preview-container" class="thumbnail">
+
+        <widget-question [model]="model"></widget-question>
+
+    </div>
+</div>

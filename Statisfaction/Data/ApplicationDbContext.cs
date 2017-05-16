@@ -24,5 +24,10 @@ namespace Data
         }
 
         public DbSet<StoreUnit> StoreUnits { get; set; }
+
+        internal object GetCollection<T>(string v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

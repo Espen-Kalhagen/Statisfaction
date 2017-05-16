@@ -11,3 +11,9 @@
 #logo{
     padding-bottom: 40px;
 }
+a,
+ img{
+    border: none;
+    padding: 0;
+    background: none;
+}

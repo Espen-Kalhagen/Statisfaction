@@ -1,39 +1,36 @@
-<div id="dash-container">
-
-
-</div>
-<div class="col-md-5 thumbnail">
+<div class="col-md-6">
     <h4>General information</h4>
 
     <div class="form-group">
         <label for="usr">Survey title</label>
-        <input type="text" class="form-control" id="usr" required [(ngModel)]="data.general.title">
+        <input type="text" class="form-control" id="usr" required [(ngModel)]="sharedData.general.title">
     </div>
 
     <div class="form-group">
         <label for="usr">Description</label>
-        <textarea class="form-control" rows="5" id="comment" required [(ngModel)]="data.general.description"></textarea>
+        <textarea class="form-control" rows="5" id="comment" required [(ngModel)]="sharedData.general.description"></textarea>
     </div>
 </div>
 
-<div class="col-md-5 thumbnail">
-
-    <h4>Status and statistics</h4>
+<div class="col-md-6">
+    <h4>Color and image</h4>
 
     <div class="form-group">
-        <h5>Status:     Draft</h5>
-
-        <a>Statistics for this survey</a>
+        <label for="color">Primary color</label>
+        <div id="cp1" class="input-group colorpicker-component">
+            <input id="color" type="text" [(ngModel)]="sharedData.general.color" class="form-control" />
+            <span class="input-group-addon"><i></i></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="url">Logo URL</label>
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon3">https://</span>
+            <input type="text" class="form-control" id="url" [(ngModel)]="sharedData.general.logoUrl"aria-describedby="basic-addon3">
+        </div>
     </div>
 </div>
 
-<div class="col-md-5 thumbnail">
-
-    <h4>Credentials</h4>
-
-    <div class="form-group">
-        <h5>Survey-PIN:     92342</h5>
-
-        <a>Go to store - unit view</a>
-    </div>
+<div class="col-md-12 thumbnail">
+    <h4>Preview</h4>
 </div>

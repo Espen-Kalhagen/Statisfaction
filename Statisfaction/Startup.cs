@@ -13,6 +13,7 @@ using Models;
 using Data;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Services;
+using Microsoft.AspNetCore.Identity;
 
 namespace WebApplicationBasic
 {
@@ -66,16 +67,18 @@ namespace WebApplicationBasic
 
                     db.Database.EnsureDeleted();
                     db.Database.EnsureCreated();
+
+                    var userManager = serviceScope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
                     
+                    var UserUser = new ApplicationUser { Email = "user@uia.no", UserName = "user@uia.no"};
+                    userManager.CreateAsync(UserUser, "Password1.").Wait();
 
                     db.SaveChanges();
                 }
                 app.UseDeveloperExceptionPage();
-                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions {
-
-                  HotModuleReplacement = true
-
-                });
+              //  app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions {
+             //     HotModuleReplacement = true
+            //    });
 
             //I allways debug!
          //   }

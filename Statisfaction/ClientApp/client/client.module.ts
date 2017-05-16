@@ -17,6 +17,7 @@ import { EditorComponent } from "../editor/components/editor/editor.component";
 import { CustomizeComponent } from "../editor/components/customize/customize.component";
 import { FinalizeComponent } from "../editor/components/finalize/finalize.component";
 import { GeneralComponent } from "../editor/components/general/general.component";
+import { RegisterUnitViewComponent } from "./components/register-unit-view/register-unit-view.component";
 
 
 
@@ -27,6 +28,7 @@ const routes: Routes =
     [
         {path: 'statistics', component: StatisticsComponent},
         {path: 'fetch-data', component: FetchDataComponent},
+        {path: 'register-unit-view', component: RegisterUnitViewComponent},
         {path: 'chart', component: ChartComponent},
         {
             path: 'editor', component: EditorComponent, children:
@@ -48,7 +50,8 @@ const routes: Routes =
         CounterComponent,
         FetchDataComponent,
         StatisticsComponent,
-        SelectSurveyComponent,       
+        SelectSurveyComponent,  
+        RegisterUnitViewComponent,     
         ChartComponent
     ],
     imports: [  

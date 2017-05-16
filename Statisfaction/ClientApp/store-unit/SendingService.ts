@@ -5,6 +5,8 @@ declare var start_rabbit: any;
 declare var send_wrapper: any;
 declare var $:any;
 declare var respList:any;
+declare var delay: any;
+
 
 @Injectable()
 export class SendingService {
@@ -17,8 +19,9 @@ export class SendingService {
     constructor(){
     }
 
-    public init(){
-        start_rabbit();
+    public init(unitID:any){
+        start_rabbit("StoreUnitQueue:" + unitID);
+        
 
     }
 
@@ -30,7 +33,7 @@ export class SendingService {
         this.owner = owner;
 
         return new Promise(resolve => {
-        this.timer = window.setTimeout(() => resolve(this.sendData()), 5000);
+        this.timer = window.setTimeout(() => resolve(this.sendData()), delay*1000);
         });
   }
     //Only use on the last or only widget
@@ -44,8 +47,16 @@ export class SendingService {
       if ("undefined" === typeof respList[0]){
         return Promise.resolve(true);
     }
+      var time = new Date();
     var result ={
+        
         "Owner":this.owner,
+        "Hours": time.getHours,
+        "Minutes": time.getMinutes,
+        "Seconds": time.getSeconds,
+        "Day":time.getDate,
+        "Month":time.getMonth,
+        "Year":time.getFullYear,
         "responses":[]
     } 
     for (let entry of respList) {

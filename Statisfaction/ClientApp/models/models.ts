@@ -1,9 +1,9 @@
 
 export class WidgetBaseModel
 {
-    public localID:string ;
+    public widgetID:string ;
     public type:string;
-    constructor(){this.localID = UUID.newUUID();}
+    constructor(){this.widgetID = UUID.newUUID();}
 }
 
 export class WSmileyModel extends WidgetBaseModel {
@@ -15,11 +15,10 @@ export class WSmileyModel extends WidgetBaseModel {
     public subtitle3: string = "";
     public subtitle4: string = "";
 
-    //TODO:remove
-    public LogoURL: string ="";
-    public backgroundColor: string = "#D0DCE3";
-
     public useSubtitles: boolean = false;
+
+    //Looks weird without colors, please don't remove
+    public color:string;
     
     constructor() 
     {
@@ -27,15 +26,34 @@ export class WSmileyModel extends WidgetBaseModel {
     }
 }
 
+export class WThankYouModel
+{
+    public delay:number = 4;
+    public message:string = "";
+}
+
 export class GeneralModel {
+
+    public ownerID:string = "temp";
+
+    public surveyID:string = "";
 
     public title: string = "";
     
     public description: string = "";
 
+    public color:string = "";
+
+    public logoUrl:string = "";
+
+    public timeoutDelay:number = 8;
+
     constructor() 
     {
-        
+        if(this.surveyID == "")
+        {
+            this.surveyID = UUID.newUUID();
+        }
     }
 }
 
@@ -53,16 +71,16 @@ export class WQuestionModel extends WidgetBaseModel {
             contentIMG:string;
             imgSize:number;
         }
-    ]
-
-    //TODO:remove
-    public LogoURL: string = "";
-    public backgroundColor: string = "#D0DCE3";
-
+    ];
 
     constructor() {
         super();
     }
+}
+
+export class SurveyModel
+{
+    constructor(public general:GeneralModel, public widgets:WidgetBaseModel[], public thankYou:WThankYouModel){}
 }
 
 // Can be used to create a UUID

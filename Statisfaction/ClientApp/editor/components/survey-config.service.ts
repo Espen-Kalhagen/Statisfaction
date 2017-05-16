@@ -1,21 +1,26 @@
 import { Injectable } from '@angular/core';
-import { WSmileyModel, WidgetBaseModel, GeneralModel } from '../../models/models';
+import { WSmileyModel, WidgetBaseModel, GeneralModel, SurveyModel, WThankYouModel } from '../../models/models';
+
+export enum SIDEBAR_STATES {GENERAL, EDITOR, DEPLOY };
 
 @Injectable()
 export class SurveyConfigService {
 
-    private MAX_WIDGETS = 7;
+    public state:SIDEBAR_STATES = SIDEBAR_STATES.GENERAL ;
+
+    private MAX_WIDGETS = 20;
+
+    surveyID: string = '';
 
     // General parameters
     general:GeneralModel = new GeneralModel() ;
 
-    surveyID: string = '';
-
     widgets: WidgetBaseModel[] = [];
+
+    otherInfo: WThankYouModel = new WThankYouModel();
 
     selectedIndex:number = -1 ;
     selectedType:string = null ;
-
     selectedID:string = null ;
 
     getCurrentWidget()
@@ -40,7 +45,7 @@ export class SurveyConfigService {
 
     removeWidget(widgetClicked:WidgetBaseModel) {
         
-        let wi = this.widgets.find(m => m.localID === widgetClicked.localID);
+        let wi = this.widgets.find(m => m.widgetID === widgetClicked.widgetID);
         let index = this.widgets.indexOf(wi);
 
         if (index > -1)
@@ -52,12 +57,13 @@ export class SurveyConfigService {
             this.selectedIndex = index - 1 ;
     }
 
-    saveDraft(): void {
+    deploy()
+    {
+        let survey = new SurveyModel(this.general, this.widgets, this.otherInfo);
 
-    }
+        let payload = JSON.stringify(survey);
 
-    saveSurvey(): void {
-
+        alert(payload);
     }
 
 }

@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 
-import { SurveyConfigService } from '../survey-config.service';
+import { SurveyConfigService, SIDEBAR_STATES } from '../survey-config.service';
 
 import { GeneralModel } from '../../../models/models';
+
+declare var $: any;
 
 @Component({
     selector: 'general',
@@ -10,14 +12,16 @@ import { GeneralModel } from '../../../models/models';
     styleUrls: ['./general.component.css']
 })
 
-export class GeneralComponent 
-{
+export class GeneralComponent implements AfterViewInit {
 
-    data:SurveyConfigService = null ;
 
-    constructor(private config: SurveyConfigService)
-    {
-        this.data = config ;
+    constructor(private sharedData: SurveyConfigService) {
+        this.sharedData.state = SIDEBAR_STATES.GENERAL;
+
     }
-    
+
+    ngAfterViewInit() {
+        $('#cp1').colorpicker();
+    }
+
 }

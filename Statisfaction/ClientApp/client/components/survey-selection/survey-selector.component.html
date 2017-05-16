@@ -1,1 +1,89 @@
-<h1>Select a survey for each store unit</h1>
+<div id="StyleContainer">
+    <div class="row">
+
+        <div class="col-md-8">
+            <h1>Survey binding</h1>
+            <h4> Deside which surveys run on what device </h4>
+            <p>
+                After you have registered your store unit<a href="home/addUnit"> here </a> and created a survey to run on
+                it<a href="client/editor"> here </a> you can choose which survey to run on what device. We also got a couple
+                of example sureys to get you up and running.
+            </p>
+        </div>
+    </div>
+    <hr>
+    <div>
+        <div class="row">
+            <h2>Your registred store units:</h2>
+            <div *ngFor="let resp of responses">
+
+                <ul>
+                    <h3> {{resp.unitName}} </h3>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p>Registration pin: </p>
+                        </div>
+                        <div class="col-md-4">
+                            <span id="registrationPin"> {{resp.registationPin}} </span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p> Placement:</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p> {{resp.placement}} </p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p> Bound to a store unit: {{resp.confirmed}}</p>
+                        </div>
+                        <div class="col-md-4">
+                            <button style="vertical-align: middle" id="unbindBtn" type="button" class="btn btn-warning" (click)="unbind(resp.id)"><span class="glyphicon glyphicon-remove"></span> Unbind </button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p> Current survey: </p>
+                        </div>
+                        <div class="col-md-4">
+                            <p> {{resp.surveyName}} </p>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p for="surveys">Avilable surveys:</p>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <select class="form-control" id="surveys{{resp.id}}" required>
+                                    <option selected disabled [value] ="-1"> Please select one of your surveys</option>
+                                    <option *ngFor="let sur of availableSurveys" [selected]="sur.surveyName == resp.surveyName" [value]="sur.surveyID">{{sur.surveyName}}</option>
+                                </select>
+                                <span class="input-group-addon" (click)="apply(resp.id)">Apply</span></div>
+                            <p id="applied{{resp.id}}"> </p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p> Delete unit </p>
+                        </div>
+                        <div class="col-md-4">
+                            <button id="deleteBtn" (click)="delete(resp.id)" type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>  Delete </button>
+                        </div>
+                    </div>
+                </ul>
+                <hr>
+            </div>
+        </div>
+
+    </div>
+</div>

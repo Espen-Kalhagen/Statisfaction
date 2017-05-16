@@ -1,0 +1,38 @@
+<div id="sidbar-container" class="sidebar-container">
+
+    <div id="right-panel-content">
+        <h4 style="text-align:left">Step 2 - Widgets</h4>
+
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Add widget</button>
+
+            <ul class="dropdown-menu">
+                <li>
+                    <a *ngFor="let widget of widgetTypes" (click)="addWidget(widget)">{{widget.type}}</a>
+                </li>
+            </ul>
+        </div>
+
+        <hr>
+
+        <div id="sortable-section">
+
+            <ul id="sortable">
+                <li *ngFor="let widget of sharedData.widgets; let i = index;" (click)="selectWidget(widget, i)" [class.selected]="widget.localID === this.sharedData.selectedID"
+                    class="widgets-list-item thumbnail">
+                        <div class="post-thumb">
+                            <img class="icon-img" src="/images/icons/icon_w_smiley.png">
+                        </div>
+
+                        <div class="post-content">
+                            <h5>{{widget.type}}</h5>
+                        </div>
+                        <div class="post-settings">
+                            <input (click)="removeWidget(widget)" id="button-settings" type="image" src="/images/icons/icon_delete.svg"/>
+                        </div>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</div>

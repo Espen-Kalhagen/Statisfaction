@@ -4,8 +4,9 @@
 
 var client;
 var respList = [];
+var delay= 10;
 
-function start_rabbit() {
+function start_rabbit(destQueueName) {
 
         // Stomp.js set up a connection
     if (location.search == '?ws') {
@@ -15,11 +16,17 @@ function start_rabbit() {
         client = Stomp.over(ws);
     }
 
-
-    var on_connect = function (x) {
-        //This is where you know the connection is up, and you can subscribe to posts if you want to
-        console.log("Connected tp testqueue");
-    };
+    var on_message = function (m){
+        console.log("recived message: "+ m.body);
+        if (m.body = "SurveyIDUpdate"){
+            location.reload();
+        }
+        
+    }
+    var on_connect = function (m) {
+        client.subscribe(destQueueName, on_message);
+        console.log("Subscribed to " + destQueueName);
+    }
 
 
     var on_error = function () {
@@ -33,5 +40,4 @@ function start_rabbit() {
 function send_wrapper(data) {
     client.send('testqueue', { "content-type": "text/plain" }, data);
 }
-
 

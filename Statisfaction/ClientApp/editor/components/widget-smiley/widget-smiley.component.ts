@@ -33,8 +33,6 @@ export class WidgetSmileyEditor implements OnChanges
 
     ngOnChanges(changes: SimpleChanges) {
         this.model = this.data.getCurrentWidget() as WSmileyModel ;
-
-        console.log("ID",this.model.localID);
     }
 
     useSubtitles()
