@@ -64,8 +64,9 @@ namespace WebApplicationBasic
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
                 var db = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
+                var mongoService = serviceScope.ServiceProvider.GetService<IMongoService>();
 
-                db.Database.EnsureDeleted();
+                //db.Database.EnsureDeleted();
                 db.Database.EnsureCreated();
 
                 var userManager = serviceScope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
@@ -74,12 +75,22 @@ namespace WebApplicationBasic
                 userManager.CreateAsync(UserUser, "Password1.").Wait();
 
                 db.SaveChanges();
+
+                var worker = new RabbitMQTasks.Worker(mongoService);
+                System.Threading.Thread myThread;
+                myThread = new System.Threading.Thread(new
+                    System.Threading.ThreadStart(worker.StartRead));
+
+                myThread.Start();
+
             }
+
+            
             app.UseDeveloperExceptionPage();
-            app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
-            {
-                HotModuleReplacement = true
-            });
+            //app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
+           // {
+           //     HotModuleReplacement = true
+           // });
 
             //I allways debug!
             //   }

@@ -48,21 +48,23 @@ export class SendingService {
         return Promise.resolve(true);
     }
       var time = new Date();
-    var result ={
+      
+    var surveyResponse ={
         
         "Owner":this.owner,
-        "Hours": time.getHours,
-        "Minutes": time.getMinutes,
-        "Seconds": time.getSeconds,
-        "Day":time.getDate,
-        "Month":time.getMonth,
-        "Year":time.getFullYear,
+        "Hours": time.getHours(),
+        "Minutes": time.getMinutes(),
+        "Seconds": time.getSeconds(),
+        "Day":time.getDate(),
+        "Month":time.getMonth(),
+        "Year":time.getFullYear(),
         "responses":[]
     } 
     for (let entry of respList) {
-     result.responses.push(entry)
+        surveyResponse.responses.push(entry)
     }
-    send_wrapper(JSON.stringify(result));
+    var toSend = JSON.stringify(surveyResponse)
+    send_wrapper(toSend);
     respList=[];
     return  Promise.resolve(true);
   }
