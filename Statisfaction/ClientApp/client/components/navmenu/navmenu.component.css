@@ -1,77 +1,76 @@
-li .glyphicon {
-    margin-right: 10px;
-}
 
-/* Highlighting rules for nav menu items */
-li.link-active a,
-li.link-active a:hover,
-li.link-active a:focus {
-    background-color: #4189C7;
-    color: white;
-}
-h3{
-    color: white;
-     padding: 5px 16px;
-}
 
-/* Keep the nav menu independent of scrolling and on top of other items */
-.main-nav {
-    position: fixed;
-    top: 41px;
-    left: 0;
-    right: 0;
-    z-index: 1;
-}
-
-@media (min-width: 768px) {
-    /* On small screens, convert the nav menu to a vertical sidebar */
-    .main-nav {
-        height: 100%;
-        width: 200px
-    }
-    .navbar {
-        border-radius: 0px;
-        border-width: 0px;
-        height: 100%;
-    }
-    .navbar-header {
-        float: none;
-    }
-    .navbar-collapse {
-        border-top: 1px solid #444;
-        padding-left: 10px;
-    }
-    .navbar ul {
-        float: none;
-    }
-    .navbar li {
-        float: none;
-        font-size: 15px;
-        margin: 6px;
-    }
-    .navbar li a {
-        padding: 10px 16px;
-        border-radius: 4px;
-    }
-    .navbar a {
-        /* If a menu item's text is too long, truncate it */
-        width: 100%;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-}
-
-.navbar-inverse
+.navbar-container
 {
-    background-color: #ffffff;
-    box-shadow: 0px 10px 2px #888888;
+    height: 100%;
+    box-shadow: 2px 0px 2px -2px #888888;
 }
 
-.navbar-inverse .navbar-nav>li>a {
-    color: #686868;
+
+.navbar-container li
+{
+    padding-top: 10px;
+    padding-left: 20px;
+    padding-bottom: 10px;
 }
 
-h4{
-   color: #686868 ;
+.navbar-container ul
+{
+    padding: 0px;
+    list-style: none;
+    margin: 0px;
 }
+
+.navbar-container li:hover
+{
+    background-color: #e6e6e6;
+}
+
+.navbar-container li a
+{
+     text-decoration: none;
+    color: #808080;
+}
+
+.navbar-container li span
+{
+    margin-right: 15px;
+}
+
+.navbar-title
+{
+    text-transform: uppercase;
+    padding-left: 20px;
+    font-size: small;
+    color:  #a6a6a6;
+}
+
+.navbar-head
+{
+    width: 100%;
+    box-shadow: 0px 2px 2px -2px #888888;
+    font-size: small;
+    color:  #a6a6a6;
+    padding-bottom: 5px;
+    padding-top:5px;
+}
+
+.navbar-section
+{
+    padding-top: 20px;
+}
+
+
+.link-active a
+{
+    font-weight: bold;
+    border:none;
+    color: #039BE5 !important;
+}
+
+.element-active a
+{
+    border:none;
+    color: #039BE5 !important;
+}
+
