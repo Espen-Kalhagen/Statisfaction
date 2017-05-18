@@ -84,6 +84,13 @@ export class SurveyModel
     constructor(public general:GeneralModel, public widgets:WidgetBaseModel[], public thankYou:WThankYouModel){}
 }
 
+export class RegisterStoreUnitModel
+{
+    UnitName:string;
+    Placement:string;
+    OwnerID:String
+}
+
 // Can be used to create a UUID
 class UUID {
     static newUUID() {

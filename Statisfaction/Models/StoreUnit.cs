@@ -33,6 +33,8 @@ namespace Models
         [Display(Name = "Unit Owner")]
         public ApplicationUser Owner { get; set; }
 
+        public string OwnerID{get;set;}
+
         public string SurveyID { get; set;}
         public string SurveyName { get; set; }
     }

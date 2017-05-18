@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Http, RequestOptions, Headers  } from '@angular/http';
 import { Observable } from "rxjs/Rx";
+import { RegisterStoreUnitModel } from "../../../models/models";
 
 declare var OwnerID: any;
 declare var $:any;
@@ -17,13 +18,15 @@ export class SelectSurveyComponent
     public responses: any;
     private http:Http;
     private availableSurveys: SurveyData[] = []; //TODO:Load these form server
-
+    public unitModel: RegisterStoreUnitModel;
     constructor(http: Http) {
         this.http = http;
         console.log("OwnerID: " + OwnerID);
     };
 
     ngOnInit(){
+
+        this.unitModel = new RegisterStoreUnitModel();
         //Load surveys
         this.http.get('http://localhost:5000/api/UnitSetup/surveys/' + OwnerID).subscribe(result => {
             let surveyData = result.json();
@@ -78,13 +81,29 @@ export class SelectSurveyComponent
                 alert("Failed to delete");
                 return Observable.throw(err); // observable needs to be returned or exception raised
             }).subscribe(res => {
-                this.responses.splice(index);
+                this.responses.splice(index,1);
             });
-
-            
-
         }
-        }
+    }
+    
+    register(){
+        this.unitModel.OwnerID = OwnerID
+        let body = JSON.stringify(this.unitModel);
+        let options = new RequestOptions();
+        options.headers = new Headers({ 'Content-Type': 'application/json' });
+
+        this.http.post('http://localhost:5000/api/UnitSetup/addUnit', body, options).catch(err => {
+            alert("Failed to add new unit");
+            return Observable.throw(err); // observable needs to be returned or exception raised
+        }).subscribe(res => {
+            let unit = res.json() as string
+            this.responses.unshift(unit);
+        });
+
+
+        this.unitModel = new RegisterStoreUnitModel();
+
+    }
 
 }
 

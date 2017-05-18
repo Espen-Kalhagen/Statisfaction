@@ -353,6 +353,43 @@ namespace api.UnitSetup
 
             return Ok();
         }
+        [Route("addUnit")]
+        [HttpPost]
+        public IActionResult addUnit([FromBody]Models.StoreUnit newUnit){
+
+            if (ModelState.IsValid)
+            {
+                var currentUser = um.FindByIdAsync(newUnit.OwnerID).Result;
+
+                newUnit.RegistationTime = DateTime.Now;
+                newUnit.Owner = currentUser;
+                newUnit.Confirmed = false;
+
+                int newUnitPin = -1;
+                Random random = new Random();
+                //Check that pin is unused:
+                var exists = true;
+                while (exists)
+                {
+                    newUnitPin = random.Next(10000, 99999);
+                    var oldUnit = from i in db.StoreUnits
+                                  where i.RegistationPin == newUnitPin
+                                  select i;
+                    if (!oldUnit.ToList().Any())
+                    {
+                        exists = false;
+                    }
+
+                }
+
+                newUnit.RegistationPin = newUnitPin;
+
+                db.StoreUnits.Add(newUnit);
+                db.SaveChanges();
+            }
+
+        return(Json(newUnit));
+        }
 
         private void refreshStoreUnit(int UnitID)
         {
