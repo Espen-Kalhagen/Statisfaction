@@ -6,8 +6,13 @@
 }
 
 #StyleContainer{
+    padding-left:15px;
+}
+#topbar-info  {
     padding-left: 80px;
-    padding-right: 80px;
+}
+.main-body{
+    padding-left:80px;
 }
 
 #registrationPin{
@@ -42,5 +47,5 @@
 }
 
 .add-animation {
-  animation: AddUnitAnimation 1s;
+  animation: AddUnitAnimation 0.5s;
 }
