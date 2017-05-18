@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { WSmileyModel, WidgetBaseModel, GeneralModel, SurveyModel, WThankYouModel } from '../../models/models';
+import { WSmileyModel, WidgetBaseModel, GeneralModel, SurveyModel, WThankYouModel, UUID } from '../../models/models';
 
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
@@ -40,10 +40,12 @@ export class SurveyConfigService {
             this.general = editorData.currentModel.general;
             this.widgets = editorData.currentModel.widgets;
             this.otherInfo = editorData.currentModel.thankYou;
-            console.log("Data was not null!")
+            
+            if(editorData.currentModel.general.surveyID == null)
+            {
+                this.general.surveyID = UUID.newUUID();
+            }
         }
-        console.log("SharedEditorData was null!");
-        
     }
 
     getCurrentWidget() {

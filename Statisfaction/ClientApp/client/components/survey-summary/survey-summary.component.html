@@ -51,13 +51,10 @@
 
     <ul class="list-unstyled">
         <li>
-            <a class="btn btn-default">Go to statistics</a>
+            <a class="btn btn-default" (click)="onClickDuplicate()">Duplicate</a>
         </li>
         <li>
-            <a class="btn btn-default">Duplicate</a>
-        </li>
-        <li>
-            <a class="btn btn-default">Edit</a>
+            <a class="btn btn-default" (click)="onClickEdit()">Edit</a>
         </li>
     </ul>
 
@@ -66,7 +63,7 @@
     </div>
     <ul class="list-unstyled">
         <li>
-            <a class="btn btn-danger">Delete survey</a>
+            <a class="btn btn-danger" (click)="onClickDelete()">Delete survey</a>
         </li>
     </ul>
 

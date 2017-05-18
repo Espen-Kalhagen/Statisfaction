@@ -1,7 +1,7 @@
 /**
 This is an api that handels setup and configuration of the store unit
  */
- using System;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Data;
@@ -47,17 +47,21 @@ namespace api.UnitSetup
         {
 
             var unitQ = from i in db.StoreUnits.Include(p => p.Owner)
-                          where i.RegistationPin == data.pin
-                          select i;
+                        where i.RegistationPin == data.pin
+                        select i;
 
             StoreUnit unit = null;
-            try{
-            unit = unitQ.ToList().First();
-            }catch{
+            try
+            {
+                unit = unitQ.ToList().First();
+            }
+            catch
+            {
                 return NotFound();
             }
-            
-            if(unit.Confirmed){
+
+            if (unit.Confirmed)
+            {
                 return StatusCode(409); //409 conflict
             }
             unit.Confirmed = true;
@@ -242,7 +246,7 @@ namespace api.UnitSetup
 
             var jsonWriterSettings = new JsonWriterSettings { OutputMode = JsonOutputMode.Strict };
             return result.ToJson(jsonWriterSettings);
-            
+
         }
 
         /**
@@ -266,7 +270,7 @@ namespace api.UnitSetup
             var jsonWriterSettings = new JsonWriterSettings { OutputMode = JsonOutputMode.Strict };
             return result.ToJson(jsonWriterSettings);
         }
-        
+
         /**
         Post survey 
         Example:
@@ -313,6 +317,45 @@ namespace api.UnitSetup
 
         }
 
+        [Route("editSurvey")]
+        [HttpPost]
+        public IActionResult editSurvey([FromBody] JObject survey)
+        {
+
+            // The collection containing surveys
+            var collection = mongodb.GetCollection<BsonDocument>("surveys");
+
+            // The id of the survey that are being replaced
+            var surveyID = survey["_id"];
+
+            /* 
+            // An apropriate filter so that we can find the correct survey
+            var filter = Builders<BsonDocument>.Filter.Eq("$oid", surveyID);
+
+            var currentDocument = collection.Find(filter).FirstOrDefault();
+
+            var id = currentDocument["_id"];
+
+            // A new BsonDocument that replaces the old document
+            var newDocument = BsonDocument.Parse(survey.ToString());
+
+            newDocument.Set("_id", id);
+
+            */
+
+            // An apropriate filter so that we can find the correct survey
+            var filter = Builders<BsonDocument>.Filter.Eq("_id", surveyID.First);
+
+            // A new BsonDocument that replaces the old document
+            var newDocument = BsonDocument.Parse(survey.ToString());
+
+            // Replace the old document with the new!
+            //var result = collection.ReplaceOne(filter, newDocument);
+            var result = collection.ReplaceOne(e => e["_id"] == newDocument["_id"], newDocument);
+
+            return Ok(survey);
+        }
+
 
         /**
         Delete survey with suveryID id
@@ -347,7 +390,8 @@ namespace api.UnitSetup
                 Console.WriteLine("failed at refreshing store units");
                 return Ok();
             }
-            foreach(var unit in units){
+            foreach (var unit in units)
+            {
                 refreshStoreUnit(unit.id);
             }
 
@@ -416,7 +460,7 @@ namespace api.UnitSetup
             }
 
         }
-        
+
 
     }
 
@@ -439,10 +483,10 @@ namespace api.UnitSetup
     }
     public class SurveyData
     {
-        public string surveyName { get; set;}
+        public string surveyName { get; set; }
         public string surveyID { get; set; }
-        public string content {get; set;}
-        
+        public string content { get; set; }
+
     }
 
 
