@@ -10,7 +10,7 @@
     <h1 id="title">{{model.title}}</h1>
 
     <div class="row">
-      <button *ngFor="let answer of model.answerList" (click)="send( answer.responseID)" class ="Btn btn-lg btn-block" [ngStyle]="{ 'background-color': answer.buttonColor }">
+      <button *ngFor="let answer of model.answerList" (click)="send( answer.responseID, model.widgetID)" class ="Btn btn-lg btn-block" [ngStyle]="{ 'background-color': answer.buttonColor }">
          {{ answer.answerText }}
          <!-- man kan bare ignorere disse feltene og det går fint-->
          <img src="{{answer.contentIMG}}"  height="{{answer.imgSize}}" onerror="this.style.display='none'">

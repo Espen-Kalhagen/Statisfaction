@@ -8,6 +8,7 @@ import { StatisticsComponent } from './components/statistics/statistics.componen
 import { NavMenuComponent} from './components/navmenu/navmenu.component';
 import { ChartComponent} from './components/chart/chart.component';
 import { FormsModule }   from '@angular/forms';
+import { DatepickerModule } from 'angular2-material-datepicker'
 
 import { EditorModule } from '../editor/editor.module';
 
@@ -23,6 +24,8 @@ import { RegisterUnitViewComponent } from "./components/register-unit-view/regis
 import { SurveyOverviewComponent } from './components/overview/overview.component';
 import { SurveySummaryComponent } from './components/survey-summary/survey-summary.component';
 import { OverviewHelpComponent } from './components/overview-help/overview-help.component';
+import { ChartContentComponent } from "./components/chart/chart-content/chart-content.component";
+import { ChartDirective } from "./components/chart/chart.directive";
 
 const routes: Routes =
 [
@@ -59,18 +62,22 @@ const routes: Routes =
         SurveySummaryComponent,
         OverviewHelpComponent,
         SelectSurveyComponent,  
-        RegisterUnitViewComponent,     
+        RegisterUnitViewComponent,
+        ChartDirective,
+        ChartContentComponent     
     ],
     imports: [  
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.
         ChartsModule,
         EditorModule,
         FormsModule,
-        RouterModule.forChild(routes)
+        RouterModule.forChild(routes),
+        DatepickerModule 
     ],
     providers: [
         DataHandlerService
-    ]
+    ],
+    entryComponents: [ChartContentComponent]
 })
 
 export class ClientModule {

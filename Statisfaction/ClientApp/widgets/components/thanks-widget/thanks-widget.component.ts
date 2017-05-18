@@ -36,6 +36,7 @@ export class ThanksWidgetComponent implements WidgetComponent
         this.model = this.surveyPart as WThankYouModel;
     setTimeout(() => {
       this.onAnswered.emit();
+      console.log("thanks timeout: " + this.model.delay);
     }, this.model.delay*1000);
     }
 

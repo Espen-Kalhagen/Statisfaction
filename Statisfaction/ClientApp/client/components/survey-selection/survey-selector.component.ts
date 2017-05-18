@@ -55,16 +55,9 @@ export class SelectSurveyComponent
         this.http.post('http://localhost:5000/api/UnitSetup/bindSurvey', JSON.stringify({ Unitid, surveyID, surveyName }), { headers: headers }).toPromise().then(servResp => $("#applied" + unitID).text("Done!")).catch(error => $("#applied" + unitID).text("Error! Please try later"));
     
 }
-    unbind(unitID) {
+    unbind(unitID,index) {
 
-        let posNr;
-        for (posNr in this.responses){
-            if (this.responses[posNr].id = unitID){
-                break;
-            }
-        }
-
-        let data = new RegistrationData(Number(this.responses[posNr].registationPin));
+        let data = new RegistrationData(Number(this.responses[index].registationPin));
         let body = JSON.stringify(data );
         let options = new RequestOptions();
         options.headers = new Headers({ 'Content-Type': 'application/json' });
@@ -72,21 +65,29 @@ export class SelectSurveyComponent
         this.http.post('http://localhost:5000/api/UnitSetup/unregister', body, options).catch(err => {
             alert("Failed to unbind");
             return Observable.throw(err); // observable needs to be returned or exception raised
-        }).subscribe(res => console.log("Unbound!"));
+        }).subscribe(res => 
+        {console.log("Unbound!");
+            this.responses[index].confirmed = false;
+    });
     }
 
-    delete(unitID){
+    delete(unitID,index){
         if (confirm('WARNING! Are you sure you want to delete this store unit? It will also delete information collected by it!')) {
             let options = new RequestOptions();
             this.http.delete('http://localhost:5000/api/UnitSetup/unit/' + unitID, options).catch(err => {
                 alert("Failed to delete");
                 return Observable.throw(err); // observable needs to be returned or exception raised
-            }).subscribe(res => alert("Delete successfull! "));
+            }).subscribe(res => {
+                this.responses.splice(index);
+            });
+
+            
 
         }
         }
 
 }
+
 export class SurveyData {
 
     constructor(

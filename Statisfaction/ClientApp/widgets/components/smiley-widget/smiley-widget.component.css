@@ -3,6 +3,7 @@
 {
     text-align: center;
     margin: 50px ;
+    font-family:verdana, sans-serif;
 }
 #widget-container{
     padding-left:25px;
@@ -16,4 +17,7 @@ a,
     border: none;
     padding: 0;
     background: none;
+}
+.simleySubtext{
+    font-weight:normal;color:#000000;letter-spacing:1pt;word-spacing:3pt;font-size:23px;text-align:center;font-family:verdana, sans-serif;line-height:1;
 }

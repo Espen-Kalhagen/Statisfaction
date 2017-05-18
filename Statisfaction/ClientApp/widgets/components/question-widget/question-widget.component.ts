@@ -36,7 +36,7 @@ export class QuestionWidgetComponent implements WidgetComponent {
         this.selection = option;
     }
 
-    send(responseID) {
+    send(responseID, widgetID) {
         // Retrieve the CookieData and parse it into a json-object 
         // We do this to be able to extract the data we need to save
         //Cookie content is injected by the store-unit 
@@ -45,9 +45,9 @@ export class QuestionWidgetComponent implements WidgetComponent {
         // Creates a response-message with the required information
         var resp =
             {
-                "widgetID": 2,
-                "QuestionID": this.model.questionID,
-                "responseID": responseID
+                "widgetTypeID": "2",
+                "widgetID": widgetID,
+                "response": responseID
             };
 
 

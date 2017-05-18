@@ -36,7 +36,6 @@ export class SmileyWidgetComponent implements WidgetComponent
             this.model = this.surveyPart as WSmileyModel;
         }
 
-
     }
 
     onSelect(option:string) : void
@@ -44,7 +43,7 @@ export class SmileyWidgetComponent implements WidgetComponent
         this.selection = option;
     }
 
-    send(smileyNr){
+    send(smileyNr, widgetID){
 
             // Retrieve the CookieData and parse it into a json-object 
             // We do this to be able to extract the data we need to save
@@ -54,8 +53,9 @@ export class SmileyWidgetComponent implements WidgetComponent
             // Creates a response-message with the required information
             var resp = 
             {
-                    "widgetID" : 1, 
-                    "response" : smileyNr
+                    "widgetTypeID" : "1", 
+                    "widgetID": widgetID,
+                    "responseID" : smileyNr
             };
 
             // Turn the respons into a string (in order to send it)
