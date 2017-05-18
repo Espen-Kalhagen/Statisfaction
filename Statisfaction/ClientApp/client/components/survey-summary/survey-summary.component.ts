@@ -61,10 +61,6 @@ export class SurveySummaryComponent implements AfterViewInit {
         let url = 'http://localhost:5000/api/UnitSetup/editSurvey';
 
         this.http.post(url, payload, options).subscribe(
-            (response) => {
-                /* this function is executed every time there's a new output */
-                console.log(response.json() as string);
-            },
             (err) => {
                 /* this function is executed when there's an ERROR */
                 console.log("ERROR: " + err);

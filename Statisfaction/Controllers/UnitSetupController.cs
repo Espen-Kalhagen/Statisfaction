@@ -328,21 +328,6 @@ namespace api.UnitSetup
             // The id of the survey that are being replaced
             var surveyID = survey["_id"];
 
-            /* 
-            // An apropriate filter so that we can find the correct survey
-            var filter = Builders<BsonDocument>.Filter.Eq("$oid", surveyID);
-
-            var currentDocument = collection.Find(filter).FirstOrDefault();
-
-            var id = currentDocument["_id"];
-
-            // A new BsonDocument that replaces the old document
-            var newDocument = BsonDocument.Parse(survey.ToString());
-
-            newDocument.Set("_id", id);
-
-            */
-
             // An apropriate filter so that we can find the correct survey
             var filter = Builders<BsonDocument>.Filter.Eq("_id", surveyID.First);
 
@@ -352,7 +337,7 @@ namespace api.UnitSetup
             // Replace the old document with the new!
             //var result = collection.ReplaceOne(filter, newDocument);
             var result = collection.ReplaceOne(e => e["_id"] == newDocument["_id"], newDocument);
-
+            
             return Ok(survey);
         }
 
