@@ -77,3 +77,8 @@ hr
 {
     margin-bottom: 0px;
 }
+
+.dropdown-menu li a, .dropdown-menu li
+{
+    width: 100%;
+}

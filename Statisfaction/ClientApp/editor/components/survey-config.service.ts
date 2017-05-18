@@ -3,6 +3,8 @@ import { WSmileyModel, WidgetBaseModel, GeneralModel, SurveyModel, WThankYouMode
 
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
+import { EditorSharedDataService } from '../editor-shared-data.service';
+
 export enum SIDEBAR_STATES { GENERAL, EDITOR, DEPLOY };
 
 declare var $: any;
@@ -16,28 +18,32 @@ export class SurveyConfigService {
 
     public state: SIDEBAR_STATES = SIDEBAR_STATES.GENERAL;
 
-
     private MAX_WIDGETS = 20;
 
     surveyID: string = '';
 
     // General parameters
-
     general: GeneralModel = new GeneralModel();
-
 
     widgets: WidgetBaseModel[] = [];
 
     otherInfo: WThankYouModel = new WThankYouModel();
 
-
     selectedIndex: number = -1;
     selectedType: string = null;
     selectedID: string = null;
 
-
-    constructor(private http: Http) {
-
+    constructor(private http: Http, private editorData:EditorSharedDataService) 
+    {
+        if(editorData.currentModel != null)
+        {
+            this.general = editorData.currentModel.general;
+            this.widgets = editorData.currentModel.widgets;
+            this.otherInfo = editorData.currentModel.thankYou;
+            console.log("Data was not null!")
+        }
+        console.log("SharedEditorData was null!");
+        
     }
 
     getCurrentWidget() {
@@ -101,14 +107,4 @@ export class SurveyConfigService {
         );
 
     }
-
-    success() {
-        alert("Success occured!");
-    }
-
-    error() {
-        alert("Error occured!");
-
-    }
-
 }

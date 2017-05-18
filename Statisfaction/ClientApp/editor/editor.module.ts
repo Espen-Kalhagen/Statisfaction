@@ -16,6 +16,7 @@ import { EditorTopbarComponent } from './components/editor-topbar/editor-topbar.
 
 import { WidgetSmileyEditor } from './components/widget-smiley/widget-smiley.component';
 import { WidgetQuestionEditorComponent } from './components/widget-question/widget-question.component';
+
 // Costom modules
 import { WidgetModule} from '../widgets/widgets.module';
 import { EditorRoutingModule } from './editor-routing.module'
@@ -42,7 +43,8 @@ import { EditorRoutingModule } from './editor-routing.module'
     ],
     exports: [
         EditorComponent
-    ]
+    ],
+
 
 })
 

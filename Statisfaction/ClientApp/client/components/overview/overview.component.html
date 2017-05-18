@@ -1,12 +1,14 @@
 <div id="filter-panel" class="col-md-12">
 
     <div class="col-md-3">
-        <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search for...">
-            <span class="input-group-btn">
+        <form id="survey-filter">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for..." [ngModelOptions]="{standalone:true}" [(ngModel)]="keyword">
+                <span class="input-group-btn">
         <button class="btn btn-default" type="button">Search</button>
         </span>
-        </div>
+            </div>
+        </form>
     </div>
 
     <div id="filters-container" class="col-md-5">
@@ -18,17 +20,25 @@
                 <a class="btn btn-default">Recent Updated</a>
             </li>
             <li>
-                <a class="btn btn-default"> Sorted By Name</a>
+                <a class="btn btn-default" (click)="onSortByName()"> Sorted By Name</a>
             </li>
         </ul>
     </div>
 
-
-
+    <!-- Divider -->
     <div class="col-md-1"></div>
 
     <div id="create-panel" class="col-md-3">
-        <a class="btn btn-primary" [routerLink]="['/client/editor']">New Survey</a>
+
+        <!-- Single button -->
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">New Survey</button>
+            <ul class="dropdown-menu">
+                <li (click)="createNewSurvey()"><a>New Survey</a></li>
+                <li role="separator" class="divider"></li>
+                <li *ngFor="let model of surveyService.templates" (click)="createNewSurveyFromTemplate(model)"><a>{{model.general.title}}</a></li>
+            </ul>
+        </div>
     </div>
 </div>
 
@@ -52,8 +62,8 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let survey of surveyService.surveys; let i = index;" (click)="onSurveyClicked(survey, i)">
-                <td width="20%">{{survey.general.title}}</td>
+            <tr *ngFor="let survey of surveyService.surveys | surveyfilter:keyword ; let i = index;" (click)="onSurveyClicked(survey, i)">
+                <td width="20%">{{survey.general.title | lowercase}}</td>
                 <td width="60%">{{survey.general.description}}</td>
                 <td width="20%">TODO:Add timestamp</td>
             </tr>
