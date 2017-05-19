@@ -49,12 +49,17 @@ export class GeneralModel {
 
     public timeoutDelay:number = 8;
 
+    public created:Date;
+    
+    public updated:Date;
+
+    public inProduction:boolean = false;
+
     constructor() 
     {
         if(this.surveyID == "")
-        {
             this.surveyID = UUID.newUUID();
-        }
+        
     }
 }
 

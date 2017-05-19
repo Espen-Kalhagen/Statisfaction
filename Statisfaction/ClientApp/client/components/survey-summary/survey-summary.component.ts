@@ -28,22 +28,51 @@ export class SurveySummaryComponent implements AfterViewInit {
      * Gets called when the user clicks delete on the survey.
      */
     onClickDelete() {
-        // Ask the user if he is sure
-        // Call the API to remove the survey
-        // Wait for API-response. Remove from list if successful!
+        // TODO: Ask the user if he is sure
+
+        let payload = JSON.stringify(this.surveyService.survey);
+
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+
+        let url = 'http://localhost:5000/api/UnitSetup/deleteSurvey/' + this.surveyService.survey.general.surveyID;
+
+        this.http.delete(url).subscribe(
+            (response) => {
+
+                if (response.status == 200) {
+                    var index = this.surveyService.surveys.indexOf(this.surveyService.survey);
+                    if (index > -1)
+                        this.surveyService.surveys.splice(index, 1);
+
+                    this.surveyService.survey = null;
+                }
+            },
+            (err) => {
+                console.log("ERROR: " + err);
+            },
+            () => {
+                console.log("COMPLETED");
+            }
+        );
     }
 
     /*
      * Gets called when the user clicks edit on the survey
      */
     onClickEdit() {
-        // If the survey is in production. Dont continue
-        // Go to the editor!
+        this.editorData.modelIsEdit = true;
+        this.editorData.currentModel = this.surveyService.survey;
+        this.router.navigate(['/client/editor']);
     }
 
     onClickDuplicate() {
+
+        this.editorData.modelIsEdit = false;
         this.editorData.currentModel = this.surveyService.survey;
-        this.editorData.currentModel.general.surveyID = null;
+
+        this.editorData.currentModel.general.title = "DUPLICATE OF: " + this.editorData.currentModel.general.title;
+        this.editorData.currentModel.general.surveyID = "";
         this.router.navigate(['/client/editor']);
     }
 
@@ -58,7 +87,7 @@ export class SurveySummaryComponent implements AfterViewInit {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
 
-        let url = 'http://localhost:5000/api/UnitSetup/editSurvey';
+        let url = 'http://localhost:5000/api/UnitSetup/saveSurvey';
 
         this.http.post(url, payload, options).subscribe(
             (err) => {

@@ -15,8 +15,13 @@
     <table class="table borderless">
         <tbody>
             <tr>
-                <td>Status</td>
-                <td>Draft</td>
+                <td>State</td>
+                <div *ngIf="surveyService.survey.general.inProduction == false">
+                    <td><span class="label label-info">Draft</span></td>
+                </div>
+                <div *ngIf="surveyService.survey.general.inProduction == true">
+                    <td><span class="label label-success">In production</span></td>
+                </div>
             </tr>
         </tbody>
     </table>
@@ -28,35 +33,25 @@
     <table class="table borderless">
         <tbody>
             <tr>
-                <td>Created</td>
-                <td>TODO: Add timestamp</td>
+                <td>Created:</td>
+                <td>{{surveyService.survey.general.created | date:'medium'}}</td>
             </tr>
             <tr>
-                <td>Updated</td>
-                <td>TODO: Add timestamp</td>
+                <td>Updated:</td>
+                <td>{{surveyService.survey.general.updated | date:'medium'}}</td>
             </tr>
         </tbody>
     </table>
 
     <div class="divider">
-        <span>Styling</span>
-    </div>
-
-    <p>Color</p>
-    <p>Survey Image</p>
-
-    <div class="divider">
         <span>Functions</span>
     </div>
 
-    <ul class="list-unstyled">
-        <li>
-            <a class="btn btn-default" (click)="onClickDuplicate()">Duplicate</a>
-        </li>
-        <li>
-            <a class="btn btn-default" (click)="onClickEdit()">Edit</a>
-        </li>
-    </ul>
+
+    <button class="btn btn-default" (click)="onClickDuplicate()">Duplicate</button>
+
+    <button [disabled]="surveyService.survey.general.inProduction" class="btn btn-default" (click)="onClickEdit()">Edit</button>
+
 
     <div class="divider">
         <span>Dangerous Functions</span>

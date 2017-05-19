@@ -48,3 +48,8 @@
     margin-top: 0px;
     float: right;
 }
+
+#button-group
+{
+    display: inline;
+}

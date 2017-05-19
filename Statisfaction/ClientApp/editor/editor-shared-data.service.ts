@@ -6,6 +6,8 @@ export class EditorSharedDataService {
 
     public currentModel:SurveyModel = null;
 
+    public modelIsEdit:boolean = false ;
+
     constructor() 
     {
         console.log("Constructed editorservice!");

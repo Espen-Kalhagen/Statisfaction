@@ -249,11 +249,39 @@ namespace api.UnitSetup
 
         }
 
+        [Route("getSurveys/{id}")]
+        [HttpGet("{id}")]
+        public string getSurveys(string id)
+        {
+            var collection = mongodb.GetCollection<BsonDocument>("surveys");
+
+            var filter = Builders<BsonDocument>.Filter.Eq("general.ownerID", id);
+
+            List<MongoDB.Bson.BsonDocument> result = collection.Find(filter).ToList();
+
+            var jsonWriterSettings = new JsonWriterSettings { OutputMode = JsonOutputMode.Strict };
+            return result.ToJson(jsonWriterSettings);
+        }
+
+        [Route("getTemplates")]
+        [HttpGet]
+        public string getTemplates()
+        {
+            var collection = mongodb.GetCollection<BsonDocument>("surveys");
+
+            var filter = Builders<BsonDocument>.Filter.Eq("general.ownerID", "TEMPLATE");
+
+            List<MongoDB.Bson.BsonDocument> result = collection.Find(filter).ToList();
+
+            var jsonWriterSettings = new JsonWriterSettings { OutputMode = JsonOutputMode.Strict };
+            return result.ToJson(jsonWriterSettings);
+
+        }
+
         /**
-        Get survey by SurveyID
-        Example:
-        http://localhost:5000/api/UnitSetup/survey/a3a841d0-9257-495c-832e-0adc424b17wq
-        */
+         * Get survey by SurveyID
+         * Example: http://localhost:5000/api/UnitSetup/survey/a3a841d0-9257-495c-832e-0adc424b17wq
+         */
         [Route("survey/{id}")]
         [HttpGet("{id}")]
         public string getSurvey(string id)
@@ -271,38 +299,7 @@ namespace api.UnitSetup
             return result.ToJson(jsonWriterSettings);
         }
 
-        /**
-        Post survey 
-        Example:
-            http://localhost:5000/api/UnitSetup/survey
-            Body:
-                {
-    "general": {
-        "ownerID": "ALL",
-        "surveyID": "a3a841d0-9257-495c-832e-0adc424b17wq",
-        "title": "TEST",
-        "description": "Only smileys",
-        "color": "#a64040",
-        "logoUrl": "",
-        "timeoutDelay": 8
-    },
-    "widgets": [
-        {
-            "widgetID": "4c991cd5-984a-4499-98b5-795750fa0212",
-            "type": "Smiley",
-            "title": "Was the experience enjoyable?",
-            "subtitle1": "Subtitle 1",
-            "subtitle2": "Subtitle 2",
-            "subtitle3": "Subtitle 3",
-            "subtitle4": "Subtitle 4"
-        }
-    ],
-    "thankYou": {
-        "delay": "6",
-        "message": "Thank you!"
-    }
-}
-        */
+
         [Route("survey")]
         [HttpPost]
         public IActionResult postSurvey([FromBody] JObject survey)
@@ -317,27 +314,43 @@ namespace api.UnitSetup
 
         }
 
-        [Route("editSurvey")]
+        /**
+         * Saves the given survey to MongoDB
+         * If the given survey does not exist, it will save a new one.
+         * Used to both edit existing surveys and save new ones
+         */
+        [Route("saveSurvey")]
         [HttpPost]
-        public IActionResult editSurvey([FromBody] JObject survey)
+        public IActionResult saveSurvey([FromBody] JObject survey)
         {
 
             // The collection containing surveys
             var collection = mongodb.GetCollection<BsonDocument>("surveys");
 
-            // The id of the survey that are being replaced
-            var surveyID = survey["_id"];
+            var surveyID = survey["general"]["surveyID"];
 
             // An apropriate filter so that we can find the correct survey
-            var filter = Builders<BsonDocument>.Filter.Eq("_id", surveyID.First);
+            var filter = Builders<BsonDocument>.Filter.Eq("general.surveyID", surveyID.ToString());
+
+            var currentDocument = collection.Find(filter).FirstOrDefault();
+
+
+            if(currentDocument == null)
+            {
+                this.postSurvey(survey);
+                return Ok(survey);
+            }
+
+
+            var currentID = currentDocument["_id"];
 
             // A new BsonDocument that replaces the old document
             var newDocument = BsonDocument.Parse(survey.ToString());
 
-            // Replace the old document with the new!
-            //var result = collection.ReplaceOne(filter, newDocument);
-            var result = collection.ReplaceOne(e => e["_id"] == newDocument["_id"], newDocument);
-            
+            newDocument["_id"] = currentID;
+
+            var result2 = collection.ReplaceOne(filter, newDocument);
+
             return Ok(survey);
         }
 

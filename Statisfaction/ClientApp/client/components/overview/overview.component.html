@@ -58,14 +58,14 @@
             <tr>
                 <th>Title</th>
                 <th>Description</th>
-                <th>Created</th>
+                <th>Updated</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let survey of surveyService.surveys | surveyfilter:keyword ; let i = index;" (click)="onSurveyClicked(survey, i)">
                 <td width="20%">{{survey.general.title | lowercase}}</td>
                 <td width="60%">{{survey.general.description}}</td>
-                <td width="20%">TODO:Add timestamp</td>
+                <td width="20%">{{survey.general.updated | date}}</td>
             </tr>
         </tbody>
     </table>

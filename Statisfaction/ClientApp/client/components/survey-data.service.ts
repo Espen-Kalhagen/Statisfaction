@@ -21,7 +21,7 @@ export class SurveyDataService {
 
     public loadSurveys() {
 
-        let url = 'http://localhost:5000/api/UnitSetup/surveys/' + OwnerID;
+        let url = 'http://localhost:5000/api/UnitSetup/getSurveys/' + OwnerID;
 
         this.http.get(url).subscribe(result => {
             this.surveys = result.json() as SurveyModel[];
@@ -31,7 +31,7 @@ export class SurveyDataService {
 
     public loadTemplates() {
 
-        let url = 'http://localhost:5000/api/UnitSetup/surveys/' + OwnerID;
+        let url = 'http://localhost:5000/api/UnitSetup/getTemplates';
 
         this.http.get(url).subscribe(result => {
             this.templates = result.json() as SurveyModel[];

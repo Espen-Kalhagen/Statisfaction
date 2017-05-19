@@ -48,11 +48,13 @@ export class SurveyOverviewComponent {
     }
 
     createNewSurvey() {
+        this.editorData.modelIsEdit = false;
         this.editorData.currentModel = null;
         this.router.navigate(['/client/editor']);
     }
 
     createNewSurveyFromTemplate(model: SurveyModel) {
+        this.editorData.modelIsEdit = false;
         this.editorData.currentModel = model;
         this.router.navigate(['/client/editor']);
     }
