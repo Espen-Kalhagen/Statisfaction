@@ -17,10 +17,10 @@
                 QUICK FILTERS:
             </li>
             <li>
-                <a class="btn btn-default">Recent Updated</a>
+                <a class="btn btn-default" (click)="onSortByUpdated()">Recent Updated</a>
             </li>
             <li>
-                <a class="btn btn-default" (click)="onSortByName()"> Sorted By Name</a>
+                <a class="btn btn-default" (click)="onSortByName()"> Sort By Name</a>
             </li>
         </ul>
     </div>
@@ -63,7 +63,7 @@
         </thead>
         <tbody>
             <tr *ngFor="let survey of surveyService.surveys | surveyfilter:keyword ; let i = index;" (click)="onSurveyClicked(survey, i)">
-                <td width="20%">{{survey.general.title | lowercase}}</td>
+                <td width="20%">{{survey.general.title}}</td>
                 <td width="60%">{{survey.general.description}}</td>
                 <td width="20%">{{survey.general.updated | date}}</td>
             </tr>
@@ -79,7 +79,7 @@
 
     <table class="table table-hover">
         <tbody>
-            <tr *ngFor="let survey of surveyService.surveys; let i = index;" (click)="onSurveyClicked(survey, i)">
+            <tr *ngFor="let survey of surveyService.surveys | surveyfilter:keyword ; let i = index;" (click)="onSurveyClicked(survey, i)">
                 <td width="20%">{{survey.general.title}}</td>
                 <td width="60%">{{survey.general.description}}</td>
                 <td width="20%">TODO:Add timestamp</td>

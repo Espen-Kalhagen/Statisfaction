@@ -20,10 +20,6 @@
             <ul id="sortable">
                 <li *ngFor="let widget of sharedData.widgets; let i = index;" (click)="selectWidget(widget, i)" [class.selected]="widget.localID === this.sharedData.selectedID"
                     class="widgets-list-item thumbnail">
-                        <div class="post-thumb">
-                            <img class="icon-img" src="/images/icons/icon_w_smiley.png">
-                        </div>
-
                         <div class="post-content">
                             <h5>{{widget.type}}</h5>
                         </div>

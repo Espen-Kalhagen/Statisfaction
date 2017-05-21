@@ -50,17 +50,12 @@
     color: #417CE7 ;
 }
 
-.post-thumb {
-    float: left;
-    width: 10%;
-}
-
 .post-content 
 {
     float: left;
-    width: 80%;
+    width: 90%;
     text-align: left;
-    padding-left: 20px;
+    padding-left: 5px;
 }
 
 .post-settings

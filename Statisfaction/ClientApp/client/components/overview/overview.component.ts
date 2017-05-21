@@ -30,13 +30,14 @@ export class SurveyOverviewComponent {
     }
 
     onSortByName() {
-        this.surveyService.surveys = this.surveyService.surveys.sort((n1, n2) => {
-            if (n1 > n2) {
-                return -1;
+        this.surveyService.surveys.sort((n1, n2) => {
+
+            if (n1.general.title > n2.general.title) {
+                return 1;
             }
 
-            if (n1 < n2) {
-                return 1;
+            if (n1.general.title < n2.general.title) {
+                return -1;
             }
 
             return 0;
@@ -44,7 +45,19 @@ export class SurveyOverviewComponent {
     }
 
     onSortByUpdated() {
+        this.surveyService.surveys.sort((n1, n2) => {
+            var d1 = n1.general.updated as Date;
+            var d2 = n2.general.updated as Date;
 
+            if (n1.general.updated.valueOf() > n2.general.updated.valueOf()) {
+                return 1;
+            }
+
+            if (n1.general.updated.valueOf() < n2.general.updated.valueOf()) {
+                return -1;
+            }
+            return 0;
+        });
     }
 
     createNewSurvey() {

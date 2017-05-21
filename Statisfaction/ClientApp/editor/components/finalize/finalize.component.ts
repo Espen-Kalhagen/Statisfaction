@@ -4,7 +4,8 @@ import { WSmileyModel, WidgetBaseModel} from '../../../models/models';
 
 @Component({
     selector: 'finalizer',
-    templateUrl: './finalize.component.html'
+    templateUrl: './finalize.component.html',
+    styleUrls:['./finalize.component.css']
 })
 
 export class FinalizeComponent {
