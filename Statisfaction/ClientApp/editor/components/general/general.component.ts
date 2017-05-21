@@ -4,12 +4,14 @@ import { SurveyConfigService, SIDEBAR_STATES } from '../survey-config.service';
 
 import { GeneralModel } from '../../../models/models';
 
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+
 declare var $: any;
 
 @Component({
     selector: 'general',
     templateUrl: './general.component.html',
-    styleUrls: ['./general.component.css']
+    styleUrls: ['./general.component.css', '../../styles/forms.styles.css']
 })
 
 export class GeneralComponent{

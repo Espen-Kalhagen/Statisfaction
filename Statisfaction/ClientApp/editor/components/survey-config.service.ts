@@ -1,7 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { WSmileyModel, WidgetBaseModel, GeneralModel, SurveyModel, WThankYouModel, UUID } from '../../models/models';
 
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
+
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+
 
 import { EditorSharedDataService } from '../editor-shared-data.service';
 
@@ -37,30 +40,52 @@ export class SurveyConfigService {
     selectedType: string = null;
     selectedID: string = null;
 
+    form: FormGroup;
+
     /*
      * Constructs a new SurveyConfigService 
      * The service holds data that are shared between editor-components
      * 
      * Http and EditorSharedDataService is injected so that we can use this services later
      */
-    constructor(private http: Http, private editorData:EditorSharedDataService) 
-    {
+    constructor(private editorData: EditorSharedDataService, private http: Http, @Inject(FormBuilder) private fbuilder: FormBuilder) {
 
-        if(editorData.currentModel != null)
-        {
+        if (editorData.currentModel != null) {
             this.general = editorData.currentModel.general;
             this.widgets = editorData.currentModel.widgets;
             this.otherInfo = editorData.currentModel.thankYou;
-            
-            if(editorData.modelIsEdit == false)
-            {
+
+            if (editorData.modelIsEdit == false) {
                 this.general.surveyID = UUID.newUUID();
             }
         }
 
         this.general.created = new Date();
-        
-        console.log("Creating new survey");
+
+
+        this.form = fbuilder.group({
+            'general.title': ['', Validators.compose([Validators.required, Validators.minLength(8)])],
+            'general.description': ['', Validators.required],
+            'general.color': [''],
+            'general.logoUrl': [''],
+            'otherInfo.thankyou': ['', Validators.compose([Validators.required, Validators.minLength(8)])],
+            'otherInfo.delay': ['4', Validators.compose([Validators.required])],
+            'general.timeout': ['7', Validators.compose([Validators.required])],
+            'smileys': this.fbuilder.array(
+                [
+
+                ])
+        });
+    }
+
+    addSmileyForm() {
+        return this.fbuilder.group({
+            'title': ['', Validators.compose([Validators.required, Validators.minLength(8)])]
+        });
+    }
+
+    addQuestionForm() {
+
     }
 
     getCurrentWidget() {
@@ -75,10 +100,20 @@ export class SurveyConfigService {
     // -------------------------- Functions -------------------------
     addWidget(widget: WidgetBaseModel): void {
 
-        if (this.widgets.length < this.MAX_WIDGETS)
-            this.widgets.push(widget);
-        else
+        if (this.widgets.length >= this.MAX_WIDGETS) {
+
             alert("Cant add more than " + this.MAX_WIDGETS + " widgets per survey!");
+            return;
+        }
+
+        this.widgets.push(widget);
+
+        if (widget.type == "Smiley") {
+            const control = <FormArray>this.form.controls['smileys'];
+            control.push(this.addSmileyForm());
+        }
+
+
     }
 
 
@@ -97,14 +132,14 @@ export class SurveyConfigService {
     }
 
     deploy() {
-        
-        this.general.ownerID = OwnerID ;
+
+        this.general.ownerID = OwnerID;
         this.general.updated = new Date();
 
         let survey = new SurveyModel(this.general, this.widgets, this.otherInfo);
 
         let payload = JSON.stringify(survey);
-        
+
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
 

@@ -15,7 +15,7 @@
                 <tbody>
                     <tr *ngFor="let m of model.answerList; let i = index; " width="100%">
                         <td width="60%" class="padding-right question-row">
-                            <input type="text" class="form-control" id="usr" [(ngModel)]="model.answerList[i].answerText" placeholder="Question {{i + 1}}">
+                            <input type="text" class="form-control" id="usr" [(ngModel)]="model.answerList[i].answerText" placeholder="Option {{i + 1}}">
                         </td>
                         <td width="30%" class="padding-right question-row">
                             <div class=" cp input-group colorpicker-component">

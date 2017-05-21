@@ -7,8 +7,7 @@ import { GeneralModel } from '../../../models/models';
 @Component({
     selector: 'editor-topbar',
     templateUrl: './editor-topbar.component.html',
-    styleUrls: ['./editor-topbar.component.css'],
-    providers:[SurveyConfigService]
+    styleUrls: ['./editor-topbar.component.css']
 })
 
 export class EditorTopbarComponent 

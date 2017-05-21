@@ -8,7 +8,7 @@ declare var $: any;
 @Component({
     selector: 'widget-smiley-editor',
     templateUrl: './widget-smiley.component.html',
-    styleUrls: ['./widget-smiley.component.css']
+    styleUrls: ['./widget-smiley.component.css', '../../styles/forms.styles.css']
 })
 
 export class WidgetSmileyEditor implements OnChanges

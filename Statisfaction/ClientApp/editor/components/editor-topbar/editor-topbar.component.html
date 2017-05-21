@@ -1,18 +1,26 @@
 <div id="topbar-container" class="col-md-12">
 
-    <div class="post-icon">
-        <img class="icon-img" src="/images/icons/icon_editor.png">
-    </div>
-
-    <div  class="post-content">
-        
-        <div *ngIf="general.title == ''">
-            <h5>Untitled survey</h5>
+    <div class="col-md-8">
+        <div class="post-icon">
+            <img class="icon-img" src="/images/icons/icon_editor.png">
         </div>
-        <h5>{{general.title}}</h5>
 
-        <h4>Survey Editor</h4>
+        <div class="post-content">
 
+            <div *ngIf="general.title == ''">
+                <h5>Untitled survey</h5>
+            </div>
+            <h5>{{general.title}}</h5>
+
+            <h4>Survey Editor</h4>
+
+        </div>
     </div>
+    <div class="col-md-4">
+        <button class="btn btn-primary" [disabled]="!sharedData.form.valid" (click)="deploySurvey()">Save Survey</button>
 
+        <div *ngIf="!sharedData.form.valid">
+            <p>The form is not valid!</p>
+        </div>
+    </div>
 </div>

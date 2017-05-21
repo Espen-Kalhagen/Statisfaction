@@ -1,33 +1,35 @@
+<form [formGroup]="sharedData.form">
+    <div class="col-md-6">
+        <h4>General information</h4>
 
-<div class="col-md-6">
-    <h4>General information</h4>
+        <div class="form-group">
+            <label for="general.title">Survey title</label>
+            <input formControlName="general.title" type="text" class="form-control" id="general.title" required [(ngModel)]="sharedData.general.title">
+        </div>
 
-    <div class="form-group">
-        <label for="usr">Survey title</label>
-        <input type="text" class="form-control" id="usr" required [(ngModel)]="sharedData.general.title">
-    </div>
-
-    <div class="form-group">
-        <label for="usr">Description</label>
-        <textarea class="form-control" rows="5" id="comment" required [(ngModel)]="sharedData.general.description"></textarea>
-    </div>
-</div>
-
-<div class="col-md-6">
-    <h4>Color and image</h4>
-
-    <div class="form-group">
-        <label for="color">Primary color</label>
-        <div id="cp1" class="input-group colorpicker-component">
-            <input id="color" type="text" [(ngModel)]="sharedData.general.color" class="form-control" />
-            <span class="input-group-addon"><i></i></span>
+        <div class="form-group">
+            <label for="general.description">Description</label>
+            <textarea formControlName="general.description" class="form-control" rows="5" id="general.description" required [(ngModel)]="sharedData.general.description"></textarea>
         </div>
     </div>
-    <div class="form-group">
-        <label for="url">Logo URL</label>
-        <div class="input-group">
-            <span class="input-group-addon" id="basic-addon3">https://</span>
-            <input type="text" class="form-control" id="url" [(ngModel)]="sharedData.general.logoUrl"aria-describedby="basic-addon3">
+
+    <div class="col-md-6">
+        <h4>Color and image</h4>
+
+        <div class="form-group">
+            <label for="color">Primary color</label>
+            <div id="cp1" class="input-group colorpicker-component">
+                <input formControlName="general.color" id="color" type="text" [(ngModel)]="sharedData.general.color" class="form-control" />
+                <span class="input-group-addon"><i></i></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="url">Logo URL</label>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon3">https://</span>
+                <input formControlName="general.logoUrl" type="text" class="form-control" id="url" [(ngModel)]="sharedData.general.logoUrl" aria-describedby="basic-addon3">
+            </div>
         </div>
     </div>
-</div>
+</form>
+
