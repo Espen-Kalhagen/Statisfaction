@@ -1,7 +1,7 @@
 import { ChartsModule } from 'ng2-charts';
 require("chart.js");
 import { DataHandlerService } from './data-handler.service';
-import { OnInit, Component, ComponentFactoryResolver, Type, ViewChild } from "@angular/core";
+import { OnInit, Component, ComponentFactoryResolver, Type, ViewChild, HostListener } from "@angular/core";
 import { ChartContentComponent } from "./chart-content/chart-content.component";
 import { ChartDirective } from "./chart.directive";
 
@@ -16,7 +16,8 @@ declare var $: any;
 })
   export class ChartComponent implements OnInit {
   @ViewChild(ChartDirective) chartHost: ChartDirective;
-  public dateToday:Date;
+  public dateTo:Date;
+  public dateFrom: Date;
   public unitData: any;
  
     constructor(
@@ -25,7 +26,8 @@ declare var $: any;
       ) { }
  
    ngOnInit(): void {
-    this.dateToday =new Date();
+    this.dateTo =new Date();
+    this.dateFrom = new Date();
     this.dataHandler.getUnitData().then(unitData => this.unitData = unitData);
 
     }
@@ -34,12 +36,23 @@ declare var $: any;
     }
 
     private loadComponent() {
+
+      let contentInfo = new ContentInfo($("#selectbasic").val(), this.dateFrom, this.dateTo );
       let componentFactory = this.componentFactoryResolver.resolveComponentFactory(ChartContentComponent);
       let viewContainerRef = this.chartHost.viewContainerRef;
       viewContainerRef.clear()
       let componentRef = viewContainerRef.createComponent(componentFactory);
+      componentRef.instance.contentInfo = contentInfo;
 
 
     }
 
+  }
+
+  export class ContentInfo{
+    constructor (
+      public unitID:any,
+      public startDate:any,
+      public endDate:any
+    ){}
   }

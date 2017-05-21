@@ -12,7 +12,7 @@
             <p>Look at and analyse customer feedback.</p>
             </div>
             <div class="col-md-1">
-                <label class="topbarLabel" >Date: </label>
+                <label class="topbarLabel" >Date range: </label>
             </div>
             <div class ="col-md-2">
             </div>
@@ -26,7 +26,8 @@
             <div class="col-md-3">
                 <div class="input-group">
                     
-                    <material-datepicker  [(date)]="dateToday"></material-datepicker>
+                    <material-datepicker  [(date)]="dateFrom"></material-datepicker>
+                    <material-datepicker  [(date)]="dateTo"></material-datepicker>
                 </div>
             </div>
             <div class="col-md-3">
