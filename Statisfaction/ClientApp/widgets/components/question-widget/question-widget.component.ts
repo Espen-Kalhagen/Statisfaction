@@ -43,16 +43,17 @@ export class QuestionWidgetComponent implements WidgetComponent {
         var cookieData = JSON.parse(this.CookieContent);
 
         // Creates a response-message with the required information
+        let resID:string = responseID+"";
         var resp =
             {
                 "widgetTypeID": "2",
                 "widgetID": widgetID,
-                "response": responseID
+                "responseID": resID
             };
 
 
         // Send the data to the RabbitMQ Queue system
-        this.sendingService.putRepsonse(cookieData["ownerID"], resp).then(result => console.log());
+        this.sendingService.putRepsonse(cookieData["surveyID"], cookieData["ownerID"], resp).then(result => console.log());
 
         //Move on to next widget if all questions answered
         this.onAnswered.emit(true);

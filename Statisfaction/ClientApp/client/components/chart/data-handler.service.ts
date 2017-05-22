@@ -20,8 +20,9 @@ export class DataHandlerService {
 
 
 getStatisticsResponces(date:string, unitID:string): Promise<any>{
-    console.log("getting surveyData");
-    return this.http.get('http://localhost:5000/api/statistics/unit/3?date=2017/04/19').toPromise().then(result => {
+    console.log('http://localhost:5000/api/statistics/unit/'+unitID+'?date=' +date);
+
+    return this.http.get('http://localhost:5000/api/statistics/unit/'+unitID+'?date=' +date).toPromise().then(result => {
             let response = result.json() as string;
             console.log(result.json() as string);
             return response;

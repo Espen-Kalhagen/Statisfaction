@@ -51,6 +51,7 @@ declare var $: any;
   
           let day = endDate.getDate() - nrOfDays;
           let dayMonth = day+"/"+month;
+          console.log(endDate.getFullYear()+"/"+month+"/"+day +" UnitID;"+ contentInfo.unitID)
           this.dataHandler.getStatisticsResponces(endDate.getFullYear()+"/"+month+"/"+day, contentInfo.unitID).then(
               data =>{
                 console.log(dayMonth);

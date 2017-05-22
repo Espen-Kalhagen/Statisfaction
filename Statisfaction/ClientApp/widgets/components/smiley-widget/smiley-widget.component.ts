@@ -51,15 +51,16 @@ export class SmileyWidgetComponent implements WidgetComponent
             var cookieData = JSON.parse(this.CookieContent);
 
             // Creates a response-message with the required information
+            let smNr:string = smileyNr+"";
             var resp = 
             {
                     "widgetTypeID" : "1", 
                     "widgetID": widgetID,
-                    "responseID" : smileyNr
+                    "responseID" : smNr
             };
 
             // Turn the respons into a string (in order to send it)
-            this.sendingService.putRepsonse( cookieData["ownerID"],resp).then();
+            this.sendingService.putRepsonse( cookieData["surveyID"], cookieData["ownerID"],resp).then();
             //Tells storeunit component to move on to next question in survey
             this.onAnswered.emit();
     }

@@ -14,8 +14,7 @@ export class SendingService {
 
     private timer:number;
     private owner:any;
-    private randNumber:number;
-
+    private SurveyID:any;
     constructor(){
     }
 
@@ -25,8 +24,8 @@ export class SendingService {
 
     }
 
-    public putRepsonse(owner:any, response:any): Promise<Boolean> {
-        this.randNumber = this.randNumber;
+    public putRepsonse(SurveyID:string,owner:any, response:any): Promise<Boolean> {
+        this.SurveyID = SurveyID;
         window.clearTimeout(this.timer);
         respList.push(response);
         console.log("Added response: " + JSON.stringify(response) + "RespListlooks like this: " + JSON.stringify(respList));
@@ -51,7 +50,7 @@ export class SendingService {
       
     var surveyResponse ={
         
-        "Owner":this.owner,
+        "SurveyID":this.SurveyID,
         "Hours": time.getHours(),
         "Minutes": time.getMinutes(),
         "Seconds": time.getSeconds(),
@@ -60,6 +59,7 @@ export class SendingService {
         "Year":time.getFullYear(),
         "responses":[]
     } 
+    console.log(surveyResponse);
     for (let entry of respList) {
         surveyResponse.responses.push(entry)
     }
