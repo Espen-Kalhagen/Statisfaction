@@ -23,12 +23,12 @@
                 <p>Completeness factor: </p>
             </div>
             <div class="col-md-4">
-                <p><b>{{summaryData.completnessFactor}}%</b></p>
+                <p><b>{{summaryData.completnessFactor}}</b></p>
             </div>
         </div>
     </div>
     <hr>
-    <div class="row" *ngFor="let resp of surveyData.questions; let i = index">
+    <div class="row" *ngFor="let resp of surveyData[0].statistics.questions; let i = index">
         <h2> {{resp.title}}</h2>
         <p> <b> X-Axsis </b> Time of day </p> 
         <p> <b> Y-Axsis </b> Number of responses </p> 

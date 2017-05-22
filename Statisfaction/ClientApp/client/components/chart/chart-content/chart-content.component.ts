@@ -13,8 +13,8 @@ import { ContentInfo } from "../chart.component";
 export class ChartContentComponent {
     
     @Input() contentInfo: ContentInfo;
+    @Input() surveyData: any[];
     public summaryData:any;
-    public surveyData: any;
     public chartType: string = 'doughnut';
     //public colors:string[] = ['#FFF','#111']
     public chartData: Array<any> = [];
@@ -57,19 +57,11 @@ export class ChartContentComponent {
     ngOnInit() {
         this.chartData = [];
         this.summaryData = { nrOfResponses:0 , completePersentage:-1, completnessFactor: -1};
-        let nrOfDays = this.daysBetween(this.contentInfo.startDate, this.contentInfo.endDate);
-        if(nrOfDays > 7){
-            alert("The chart data only supports viewing time periods less than a week")
-            nrOfDays = 7;
-        }
-        let endDate = this.contentInfo.endDate;
-        var month = ("0" + endDate.getMonth()).slice(-2);
-        while(nrOfDays >=0){
-    
-            let day = endDate.getDate() - nrOfDays;
-            let dayMonth = day+"/"+month
-            this.creatChartData(endDate.getFullYear()+"/"+month+"/"+day, this.contentInfo.unitID, dayMonth);
-            nrOfDays--;
+                    console.log("creating chart with " );
+            console.log(this.surveyData);
+        for(let surveyData of this.surveyData){
+
+            this.creatChartData(this.contentInfo.unitID, surveyData.dayMonth, surveyData.statistics);
         }
        
 
@@ -77,69 +69,70 @@ export class ChartContentComponent {
 
     }
 
-    creatChartData(date:string, unitID:string, dayMonth:string){
-        this.surveyData = this.dataHandler.getStatisticsResponces();
+    creatChartData( unitID:string, dayMonth:string, surveyData:any){
         console.log("creating chart data");
-        this.summaryData.nrOfResponses += this.surveyData.summary.nrOfResponses;
-        if(this.summaryData.completePersentage == -1){
-            this.summaryData.completePersentage = this.surveyData.summary.completePersentage;
-            this.summaryData.completnessFactor = this.surveyData.summary.completnessFactor;
-        }else{
-            this.summaryData.completePersentage = (this.surveyData.summary.completePersentage+this.summaryData.completePersentage)/2;
-            this.summaryData.completnessFactor = (this.surveyData.summary.completnessFactor+ this.summaryData.completnessFactor)/2;
-        }
-        
 
-        let j =0;
-        
-        for (let question of this.surveyData.questions) {
-
-            if(this.chartData[j]===undefined){
-                this.chartData[j] = []
-            }
-
-            let donutLabels = [];
-            let donutResponses = [];
-            let i =0;
-            for (let answer of question.answers) {
-                let line = []
-                let donutCount = 0;
-                for (let countPerHour of answer.countPerHour) {
-                    line.push(countPerHour.count)
-                    donutCount += countPerHour.count;
-                }
-                if (this.chartData[j][i] === undefined) {
-                    this.chartData[j][i] = { data: line, label: answer.text }
-                }
-                else {
-                    this.chartData[j][i].data = this.chartData[j][i].data.concat(line);
-                    
-                }
-                donutLabels.push(answer.text);
-                donutResponses.push(donutCount);
-                i++;
-            }
-
-
-            this.donutChartlabels.push(donutLabels);
-            if(this.donutChartResponceCount[j] === undefined){
-                this.donutChartResponceCount[j] = donutResponses;
+            
+            this.summaryData.nrOfResponses += surveyData.summary.nrOfResponses;
+            if(this.summaryData.completePersentage == -1){
+                this.summaryData.completePersentage = surveyData.summary.completePercentage;
+                this.summaryData.completnessFactor = surveyData.summary.completenessFactor;
             }else{
-                for(let i =0; i < donutResponses.length; i++){
-                    this.donutChartResponceCount[j][i] += donutResponses[i];
-                }
+                this.summaryData.completePersentage = (surveyData.summary.completePercentage+this.summaryData.completePersentage)/2;
+                this.summaryData.completnessFactor = (surveyData.summary.completenessFactor+ this.summaryData.completnessFactor)/2;
             }
             
-            j++;
-        }
-        console.log("Chart data:");
-        console.log(this.chartData);
-        let i = this.surveyData.summary.timeStart +1;
-        this.lineChartLabels.push( dayMonth + " "+ this.surveyData.summary.timeStart);
-        while (i <= this.surveyData.summary.timeEnd) {
-            this.lineChartLabels.push(i);
-            i++;
-        }
+
+            let j =0;
+            
+            for (let question of surveyData.questions) {
+
+                if(this.chartData[j]===undefined){
+                    this.chartData[j] = []
+                }
+
+                let donutLabels = [];
+                let donutResponses = [];
+                let i =0;
+                for (let answer of question.answerList) {
+                    let line = []
+                    let donutCount = 0;
+                    for (let countPerHour of answer.countPerHour) {
+                        line.push(countPerHour.count)
+                        donutCount += countPerHour.count;
+                    }
+                    if (this.chartData[j][i] === undefined) {
+                        this.chartData[j][i] = { data: line, label: answer.text }
+                    }
+                    else {
+                        this.chartData[j][i].data = this.chartData[j][i].data.concat(line);
+                        
+                    }
+                    donutLabels.push(answer.text);
+                    donutResponses.push(donutCount);
+                    i++;
+                }
+
+
+                this.donutChartlabels.push(donutLabels);
+                if(this.donutChartResponceCount[j] === undefined){
+                    this.donutChartResponceCount[j] = donutResponses;
+                }else{
+                    for(let i =0; i < donutResponses.length; i++){
+                        this.donutChartResponceCount[j][i] += donutResponses[i];
+                    }
+                }
+                
+                j++;
+            }
+            console.log("Chart data:");
+            console.log(this.chartData);
+            let i = 1;
+            this.lineChartLabels.push( dayMonth + " "+ 0);
+            while (i <= 23) {
+                this.lineChartLabels.push(i);
+                i++;
+            }
     }
     public chartClicked(e: any): void {
         console.log(e);
@@ -147,21 +140,5 @@ export class ChartContentComponent {
 
     public chartHovered(e: any): void {
         console.log(e);
-    }
-    daysBetween(date1, date2) {
-
-        // The number of milliseconds in one day
-        var ONE_DAY = 1000 * 60 * 60 * 24
-
-        // Convert both dates to milliseconds
-        var date1_ms = date1.getTime()
-        var date2_ms = date2.getTime()
-
-        // Calculate the difference in milliseconds
-        var difference_ms = Math.abs(date1_ms - date2_ms)
-
-        // Convert back to days and return
-        return Math.round(difference_ms / ONE_DAY)
-
     }
 }

@@ -188,8 +188,8 @@ public class StatisticsController : Controller
                 "questions", widgetArray
             }
         };
-
-        return Json(result.ToJson());
+        var jsonWriterSettings = new JsonWriterSettings { OutputMode = JsonOutputMode.Strict };
+        return Ok(result.ToJson(jsonWriterSettings));
     }
 
     // Gets an array that describes how many answers there are for a specific survey, widget and option per hour
@@ -205,14 +205,22 @@ public class StatisticsController : Controller
         
         // Add the hours that does not have any responses
         List<int> hours = Enumerable.Range(0, 24).ToList();
+        var countList = new List<BsonDocument>();
+        foreach(var hour in hours){
+            countList.Add(new BsonDocument{{"hour", hour}, {"count", 0}});
+        }
+        foreach( var item in countsPerHour){
+            countList[item["hour"].AsInt32] = item;
+        }
+        /* 
         foreach (var items in countsPerHour) {
             hours.Remove(items["hour"].AsInt32);
         }
         foreach (var hour in hours) {
             countsPerHour.Add(new BsonDocument{{"hour", hour}, {"count", 0}});
         }
-
-        return new BsonArray(countsPerHour);
+        */
+        return new BsonArray(countList);
     }
 
     [HttpGet]
