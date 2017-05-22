@@ -24,8 +24,11 @@ namespace Controllers
         [Authorize]
         public IActionResult Index()
         {
-           var currentUser = um.FindByNameAsync(User.Identity.Name).Result;
-           ViewBag.ID = currentUser.Id;
+            var currentUser = um.FindByNameAsync(User.Identity.Name).Result;
+            if (currentUser == null) {
+                return View("~/Views/Home/Index.cshtml");
+            }
+            ViewBag.ID = currentUser.Id;
             return View();
         }
 

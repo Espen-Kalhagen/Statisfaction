@@ -9,8 +9,26 @@ namespace Models
         [BsonId]
         public ObjectId Id { get; set; }
 
-        [BsonElement("Owner")]
-        public string Owner { get; set; }
+        [BsonElement("SurveyID")]
+        public string SurveyID { get; set; }
+
+        [BsonElement("Hours")]
+        public int Hours { get; set; }
+
+        [BsonElement("Minutes")]
+        public int Minutes { get; set; }
+
+        [BsonElement("Seconds")]
+        public int Seconds { get; set; }
+
+        [BsonElement("Day")]
+        public int Day { get; set; }
+
+        [BsonElement("Month")]
+        public int Month { get; set; }
+
+        [BsonElement("Year")]
+        public int Year { get; set; }
 
         [BsonElement("responses")]
         public List<WidgetResponse> Responses { get; set; }
@@ -18,16 +36,13 @@ namespace Models
 
     public class WidgetResponse
     {
-        [BsonElement("widgetID")]
-        public int WidgetId { get; set; }
+        [BsonElement("widgetTypeID")]
+        public string WidgetTypeId { get; set; }
 
-        [BsonElement("QuestionID")]
-        public int QuestionId { get; set; }
+        [BsonElement("widgetID")]
+        public string WidgetId { get; set; }
 
         [BsonElement("responseID")]
-        public int ResponseId { get; set; }
-
-        [BsonElement("response")]
-        public string Response { get; set; }
+        public string ResponseId { get; set; }
     }
 }
