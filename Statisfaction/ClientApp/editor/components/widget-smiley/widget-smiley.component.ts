@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { WSmileyModel } from '../../../models/models';
 import { SurveyConfigService } from '../survey-config.service';
@@ -11,42 +11,41 @@ declare var $: any;
     styleUrls: ['./widget-smiley.component.css', '../../styles/forms.styles.css']
 })
 
-export class WidgetSmileyEditor implements OnChanges
-{
+export class WidgetSmileyEditor implements OnChanges {
 
-    widgetID:string = "1234";
-    
+    widgetID: string = "1234";
+
     // ---------------------------
 
-    @Input() selectedIndex:number ;
+    @Input() selectedIndex: number;
 
-    model:WSmileyModel = null;
+    model: WSmileyModel = null;
 
-    data:SurveyConfigService = null ;
+    data: SurveyConfigService = null;
 
-    constructor(private config: SurveyConfigService)
-    {
+    constructor(private config: SurveyConfigService) {
         this.data = config;
-    
-        this.model = config.getCurrentWidget() as WSmileyModel ;
+
+        this.model = config.getCurrentWidget() as WSmileyModel;
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        this.model = this.data.getCurrentWidget() as WSmileyModel ;
+
+        this.model = this.data.getCurrentWidget() as WSmileyModel;
+        this.checkSubtitles();
     }
 
-    useSubtitles()
-    {
-        if(this.model.useSubtitles)
-        {
-            $('#subtitles-list').hide();
-            this.model.useSubtitles = false ;
-        }
-        else
-        {
+    useSubtitles() {
+        this.model.useSubtitles = !this.model.useSubtitles;
+        console.log(this.model.useSubtitles);
+        this.checkSubtitles();
+    }
+
+    checkSubtitles() {
+        if (this.model.useSubtitles)
             $('#subtitles-list').show();
-            this.model.useSubtitles = true ;
-        }
+        else
+            $('#subtitles-list').hide();
     }
 
 }

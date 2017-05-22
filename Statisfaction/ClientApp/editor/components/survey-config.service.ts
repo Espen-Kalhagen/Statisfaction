@@ -24,23 +24,23 @@ export class SurveyConfigService {
     // The maximum amount of widgets allowed in one survey
     private MAX_WIDGETS = 20;
 
-    surveyID: string = '';
+    public surveyID: string = '';
 
     // General parameters
-    general: GeneralModel = new GeneralModel();
+    public general: GeneralModel = new GeneralModel();
 
     // An array that holds all of he widgets
-    widgets: WidgetBaseModel[] = [];
+    public widgets: WidgetBaseModel[] = [];
 
     // Other info about the survey (Thankyou and timers)
-    otherInfo: WThankYouModel = new WThankYouModel();
+    public otherInfo: WThankYouModel = new WThankYouModel();
 
     // Used to detect changes in data model
-    selectedIndex: number = -1;
-    selectedType: string = null;
-    selectedID: string = null;
+    public selectedIndex: number = -1;
+    public selectedType: string = null;
+    public selectedID: string = null;
 
-    form: FormGroup;
+    public form: FormGroup;
 
     /*
      * Constructs a new SurveyConfigService 
@@ -70,22 +70,8 @@ export class SurveyConfigService {
             'general.logoUrl': [''],
             'otherInfo.thankyou': ['', Validators.compose([Validators.required, Validators.minLength(8)])],
             'otherInfo.delay': ['4', Validators.compose([Validators.required])],
-            'general.timeout': ['7', Validators.compose([Validators.required])],
-            'smileys': this.fbuilder.array(
-                [
-
-                ])
+            'general.timeout': ['7', Validators.compose([Validators.required])]
         });
-    }
-
-    addSmileyForm() {
-        return this.fbuilder.group({
-            'title': ['', Validators.compose([Validators.required, Validators.minLength(8)])]
-        });
-    }
-
-    addQuestionForm() {
-
     }
 
     getCurrentWidget() {
@@ -107,12 +93,6 @@ export class SurveyConfigService {
         }
 
         this.widgets.push(widget);
-
-        if (widget.type == "Smiley") {
-            const control = <FormArray>this.form.controls['smileys'];
-            control.push(this.addSmileyForm());
-        }
-
 
     }
 

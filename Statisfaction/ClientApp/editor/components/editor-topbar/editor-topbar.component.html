@@ -20,7 +20,7 @@
         <button class="btn btn-primary" [disabled]="!sharedData.form.valid" (click)="deploySurvey()">Save Survey</button>
 
         <div *ngIf="!sharedData.form.valid">
-            <p>The form is not valid!</p>
+            <p>There are errors in the form!</p>
         </div>
     </div>
 </div>

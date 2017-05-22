@@ -22,7 +22,17 @@ export class GeneralComponent{
     }
 
     ngAfterViewInit() {
+
+        var self = this;
+
         $('#cp1').colorpicker();
+
+         $('#cp1').on('changeColor', function(event)
+        {
+            var element = $(this).find('#color');
+            var color = element.val();
+            self.sharedData.general.color = color;
+        });
     }
 
 }

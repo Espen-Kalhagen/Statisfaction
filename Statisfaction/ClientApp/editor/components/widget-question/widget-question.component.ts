@@ -30,6 +30,11 @@ export class WidgetQuestionEditorComponent implements AfterViewInit, OnChanges {
 
     }
 
+    colorChanged(color:string, index:number)
+    {
+        this.model.answerList[index].buttonColor = color;
+    }
+
     addOption() {
         if (this.model.answerList.length >= this.MAX_OPTIONS) {
             alert("Maksimalt antall svaralternativer nådd!");
@@ -49,9 +54,17 @@ export class WidgetQuestionEditorComponent implements AfterViewInit, OnChanges {
 
 
     ngAfterViewInit() {
+        var self = this;
+
         $('.cp').colorpicker();
-        //$('.cpinput').val("#5f37db");
-        //$('.cpinput').keyup();
+
+        $('.cp').on('changeColor', function(event)
+        {
+            var element = $(this).find('.cpinput');
+            var index = element.attr('id');
+            var color = element.val();
+            self.colorChanged(color, index);
+        });
     }
 
     ngOnChanges(changes: SimpleChanges) {
