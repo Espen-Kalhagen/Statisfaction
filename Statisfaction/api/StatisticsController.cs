@@ -117,9 +117,9 @@ public class StatisticsController : Controller
         // Survey summary variables
         int numberOfResponses = responses.Count();
         double completePercentage = (numberOfCompleted/(double)numberOfResponses)*100.0;
-        if (completePercentage == Double.NaN) completePercentage = 0.0;
+        if (numberOfResponses < 1) completePercentage = 0.0;
         double completenessFactor = totalQuestionsAnswered/(double)(numberOfResponses*questionCount);
-        if (completenessFactor == Double.NaN) completenessFactor = 0.0;
+        if (numberOfResponses < 1 || questionCount < 1) completenessFactor = 0.0;
 
         // Building up the array of documents containing the information about the questions
         BsonArray widgetArray = new BsonArray();
