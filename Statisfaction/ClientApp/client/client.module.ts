@@ -66,7 +66,7 @@ const routes: Routes =
         SelectSurveyComponent,  
         RegisterUnitViewComponent,
         ChartDirective,
-        ChartContentComponent     
+        ChartContentComponent,     
         RegisterUnitViewComponent, 
         SurveyFilterPipe    
     ],
