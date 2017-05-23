@@ -17,7 +17,7 @@
         </div>
     </div>
     <div class="col-md-4">
-        <button class="btn btn-primary" [disabled]="!sharedData.form.valid" (click)="deploySurvey()">Save Survey</button>
+        <button class="btn btn-primary" [disabled]="!sharedData.form.valid" (click)="sharedData.deploy()">Save Survey</button>
 
         <div *ngIf="!sharedData.form.valid">
             <p>There are errors in the form!</p>
