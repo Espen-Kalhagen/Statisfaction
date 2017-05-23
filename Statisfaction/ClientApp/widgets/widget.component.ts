@@ -5,6 +5,7 @@ export interface WidgetComponent {
     CookieContent: string;
     surveyPart:any;
     onAnswered:EventEmitter<boolean>;
+    SurveyID:string;
 
 
 }

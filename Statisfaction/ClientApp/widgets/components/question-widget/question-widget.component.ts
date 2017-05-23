@@ -18,8 +18,9 @@ export class QuestionWidgetComponent implements WidgetComponent {
     selection: string;
     surveyPart: any;
     onAnswered: EventEmitter<boolean>;
-
+    SurveyID: string;
     @Input() model: WQuestionModel;
+    
 
     constructor(private sendingService: SendingService) 
     {
@@ -53,7 +54,7 @@ export class QuestionWidgetComponent implements WidgetComponent {
 
 
         // Send the data to the RabbitMQ Queue system
-        this.sendingService.putRepsonse(cookieData["surveyID"], cookieData["ownerID"], resp).then(result => console.log());
+        this.sendingService.putRepsonse(this.SurveyID, cookieData["ownerID"], resp).then(result => console.log());
 
         //Move on to next widget if all questions answered
         this.onAnswered.emit(true);

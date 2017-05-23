@@ -1,6 +1,6 @@
 
 
-<img id="logo" src="{{model.logoUrl}}" alt="Logo" width="500" height="200" onerror="this.style.display='none'" >
+<img id="logo" src="{{model.logoUrl}}" alt="Logo"  onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Community_Noun_project_2280_white.svg/100px-Community_Noun_project_2280_white.svg.png'" >
 <div class="container" [ngStyle]="{ 'background-color': model.color }">
 
     <template widget-host (onAnswered)="onAnswered($event)" ></template>

@@ -24,8 +24,9 @@ export class SmileyWidgetComponent implements WidgetComponent
     selection:string; 
     surveyPart:any;
     onAnswered:EventEmitter<boolean>;
-    
+    SurveyID: string;
     @Input() model: WSmileyModel;
+    
 
     constructor(private sendingService: SendingService ) { 
     }
@@ -60,7 +61,7 @@ export class SmileyWidgetComponent implements WidgetComponent
             };
 
             // Turn the respons into a string (in order to send it)
-            this.sendingService.putRepsonse( cookieData["surveyID"], cookieData["ownerID"],resp).then();
+            this.sendingService.putRepsonse( this.SurveyID, cookieData["ownerID"],resp).then();
             //Tells storeunit component to move on to next question in survey
             this.onAnswered.emit();
     }

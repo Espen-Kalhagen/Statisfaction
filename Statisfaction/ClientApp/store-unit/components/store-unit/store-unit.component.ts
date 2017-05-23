@@ -128,7 +128,7 @@ export class StoreUnitComponent {
         (<WidgetComponent>componentRef.instance).CookieContent = this.cookieContent;
         (<WidgetComponent>componentRef.instance).surveyPart = nextWidgetData.WidgetData;
         (<WidgetComponent>componentRef.instance).onAnswered = this.widgetHost.onAnswered;
-
+        (<WidgetComponent>componentRef.instance).SurveyID = this.currentSurveyID;
         //Reset view if idle
 
         this.timer = window.setTimeout(() => {

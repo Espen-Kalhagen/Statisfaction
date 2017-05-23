@@ -28,6 +28,7 @@ export class ThanksWidgetComponent implements WidgetComponent
     surveyPart:any;
     onAnswered:EventEmitter<boolean>;
     model: WThankYouModel;
+    SurveyID: string;
 
     constructor(private sendingService: SendingService ) { 
 
