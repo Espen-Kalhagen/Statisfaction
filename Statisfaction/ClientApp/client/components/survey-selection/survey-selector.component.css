@@ -31,6 +31,9 @@
     height: 60px;
     float: left;
 }
+img{
+    height: 110px;
+}
 
 #topbar-info{
         width: 100%;
