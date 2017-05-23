@@ -7,8 +7,9 @@ import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { StatisticsComponent } from './components/statistics/statistics.component';
 import { NavMenuComponent} from './components/navmenu/navmenu.component';
 import { ChartComponent} from './components/chart/chart.component';
-import { FormsModule }   from '@angular/forms';
-import { DatepickerModule } from 'angular2-material-datepicker'
+import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
+import { MyDateRangePickerModule } from 'mydaterangepicker';
+import { DateTimePickerModule } from 'ng2-date-time-picker';
 
 import { EditorModule } from '../editor/editor.module';
 
@@ -77,7 +78,8 @@ const routes: Routes =
         EditorModule,
         FormsModule,
         RouterModule.forRoot(routes),
-        DatepickerModule 
+        ReactiveFormsModule,
+        DateTimePickerModule 
     ],
     providers: [
         DataHandlerService

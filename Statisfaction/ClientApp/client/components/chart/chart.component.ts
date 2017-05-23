@@ -4,6 +4,7 @@ import { DataHandlerService } from './data-handler.service';
 import { OnInit, Component, ComponentFactoryResolver, Type, ViewChild, HostListener } from "@angular/core";
 import { ChartContentComponent } from "./chart-content/chart-content.component";
 import { ChartDirective } from "./chart.directive";
+import { FormGroup, ReactiveFormsModule,FormBuilder, Validators } from '@angular/forms';
 
 
 
@@ -16,29 +17,48 @@ declare var $: any;
 })
   export class ChartComponent implements OnInit {
   @ViewChild(ChartDirective) chartHost: ChartDirective;
-  public dateTo:Date;
-  public dateFrom: Date;
+  
+  //Time models
+  public fromDate;
+  public toDate;
+  public fromTime;
+  public toTime;
+
   public unitData: any;
+  
+  private dateForm: FormGroup;
+
+    private datePickerModel;
+
  
     constructor(
       private dataHandler: DataHandlerService,
-      private componentFactoryResolver: ComponentFactoryResolver
+      private componentFactoryResolver: ComponentFactoryResolver,
       ) { }
  
    ngOnInit(): void {
-    this.dateTo =new Date();
-    this.dateFrom = new Date();
     this.dataHandler.getUnitData().then(unitData => this.unitData = unitData);
+    let date = new Date();
+    this.fromDate = date;
+    this.toDate = date;
+    date.setHours(0);
+    date.setMinutes(0);
+    this.fromTime = date;
+    let date2 = new Date();
+    date2.setHours(23);
+    date2.setMinutes(0);
+    this.toTime = date2;
+  }
 
-    }
     fetch(){
       this.loadComponent();
     }
 
     private loadComponent() {
 
+
       let surveyData = [];
-      let contentInfo = new ContentInfo($("#selectbasic").val(), this.dateFrom, this.dateTo );
+      let contentInfo = new ContentInfo($("#selectbasic").val(), this.fromDate, this.toDate);
 
       let nrOfDays = this.daysBetween(contentInfo.startDate, contentInfo.endDate);
       if(nrOfDays > 7){
@@ -74,7 +94,7 @@ declare var $: any;
 
     }
 
-          daysBetween(date1, date2) {
+    daysBetween(date1, date2) {
 
         // The number of milliseconds in one day
         var ONE_DAY = 1000 * 60 * 60 * 24
@@ -92,6 +112,7 @@ declare var $: any;
     }
 
   }
+
 
   export class ContentInfo{
     constructor (

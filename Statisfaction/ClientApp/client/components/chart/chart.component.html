@@ -26,11 +26,14 @@
             <div class="col-md-3">
                 <div class="input-group">
                     
-                    <material-datepicker  [(date)]="dateFrom"></material-datepicker>
-                    <material-datepicker  [(date)]="dateTo"></material-datepicker>
+                    <input class="form-control" [ngModel]="fromDate | date: 'y-M-d'" [(dateTimePicker)]="fromDate" [pickerType]=" 'date' " [mode]=" 'dropdown' " [returnObject]=" 'js' " [hourTime]=" '24' " [viewFormat]=" 'L' " readonly />
+                    <input class="form-control" [ngModel]="toDate | date: 'y-M-d'" [(dateTimePicker)]="toDate" [pickerType]=" 'date' " [mode]=" 'dropdown' " [returnObject]=" 'js' " [hourTime]=" '24' " readonly />
+                    <input class="form-control" [ngModel]="fromTime | date: 'H:m'" [(dateTimePicker)]="fromTime" [pickerType]=" 'time' " [mode]=" 'dropdown' " [returnObject]=" 'js' " [hourTime]=" '24' " readonly />
+                    <input class="form-control" [ngModel]="toTime | date: 'H:m'" [(dateTimePicker)]="toTime" [pickerType]=" 'time' " [mode]=" 'dropdown' " [returnObject]=" 'js' " [hourTime]=" '24' " readonly />
+                
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3">  
                 
                 <select name="unit" id="selectbasic" name="selectbasic" class="form-control">
                     <option *ngFor="let unit of unitData" [value]="unit.id">{{unit.unitName}}</option>
