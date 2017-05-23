@@ -13,6 +13,17 @@ using Models;
 using Models.AccountViewModels;
 using Services;
 
+using Services;
+using MongoDB.Driver;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.IO;
+using Newtonsoft.Json.Serialization;
+using System.Collections.Generic;
+using RabbitMQ.Client;
+using System.Text;
+using Newtonsoft.Json.Linq;
+
 namespace Controllers
 {
     [Authorize]
@@ -106,31 +117,27 @@ namespace Controllers
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
+        public async Task<IActionResult> Register([FromBody] JObject data)
         {
-            ViewData["ReturnUrl"] = returnUrl;
-            if (ModelState.IsValid)
+            var email = data["email"].ToString();
+            var password = data["password"].ToString();
+
+            var user = new ApplicationUser { UserName = email, Email = email };
+            var result = await _userManager.CreateAsync(user, password);
+
+            if (result.Succeeded)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await _userManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=532713
-                    // Send an email with this link
-                    //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    //var callbackUrl = Url.Action(nameof(ConfirmEmail), "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
-                    //await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
-                    //    $"Please confirm your account by clicking this link: <a href='{callbackUrl}'>link</a>");
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    _logger.LogInformation(3, "User created a new account with password.");
-                    return RedirectToLocal(returnUrl);
-                }
-                AddErrors(result);
+                _logger.LogInformation("UserID " + user.Id) ;
+                await _signInManager.SignInAsync(user, isPersistent: false);
+                _logger.LogInformation(3, "User created a new account with password.");
+
+                return Content(user.ToJson());
             }
 
+            AddErrors(result);
+
             // If we got this far, something failed, redisplay form
-            return View(model);
+            return Content(result.ToJson());
         }
 
         //

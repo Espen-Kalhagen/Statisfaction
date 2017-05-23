@@ -4,6 +4,7 @@ import { UniversalModule } from 'angular2-universal';
 
 import { StoreUnitModule } from '../store-unit/store-unit.module';
 import { ClientModule } from '../client/client.module'
+import { AuthModule } from '../auth/auth.module';
 
 import { AppComponent } from './components/app/app.component';
 import { StatisticsComponent } from '../client/components/statistics/statistics.component';
@@ -15,7 +16,8 @@ const routes: Routes =
         { path: '', redirectTo: 'console', pathMatch: 'full' },
         { path: '**', redirectTo: 'console' },
         { path: 'store-unit', component: StoreUnitModule },
-        { path: 'console', component: ClientModule }
+        { path: 'console', component: ClientModule },
+        { path: 'auth', component: AuthModule }
     ]
 
 @NgModule({
@@ -27,7 +29,8 @@ const routes: Routes =
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.
         RouterModule.forRoot(routes),
         StoreUnitModule,
-        ClientModule
+        AuthModule,
+        ClientModule,
     ],
     providers: [EditorSharedDataService]
 })

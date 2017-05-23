@@ -1,0 +1,40 @@
+<h1>This is the register component!</h1>
+
+<div>
+
+    <div>
+
+        <div>
+            <form id="payment-form">
+
+                <div class="form-group">
+                    <label for="usr">Email</label>
+                    <input type="text" [(ngModel)]="model.email" name="firstName" class="form-control" id="usr">
+                </div>
+
+                <div class="form-group">
+                    <label for="usr">Password</label>
+                    <input type="password" [(ngModel)]="model.password" name="password" class="form-control" id="usr">
+                </div>
+
+                <div class="form-group">
+                    <label for="usr">Confirm password</label>
+                    <input type="password" [(ngModel)]="model.confirmPassword" name="confirmPassword" class="form-control" id="usr">
+                </div>
+
+                <div class="form-row">
+                    <label for="card-element"> Credit or debit card</label>
+                    <div id="card-element" class="form-control"></div>
+
+                    <!-- Used to display form errors -->
+                    <div id="card-errors" role="alert"></div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+</div>
+
+
+<button id="customButton" (click)="onSubmit()" class="btn btn-primary">Purchase</button>

@@ -85,7 +85,6 @@ namespace WebApplicationBasic
 
             }
 
-            
             app.UseDeveloperExceptionPage();
             app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
             {
@@ -122,6 +121,11 @@ namespace WebApplicationBasic
                 routes.MapSpaFallbackRoute(
                     name: "spa-fallback",
                     defaults: new { controller = "Console", action = "Index" });
+
+                routes.MapRoute(
+                    name: "spa-auth",
+                    template: "auth",
+                    defaults: new { controller = "Auth", action = "Register" });
 
             });
         }

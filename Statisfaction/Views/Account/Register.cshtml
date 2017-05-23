@@ -37,6 +37,21 @@
     </div>
 </form>
 
+<form action="/your-server-side-code" method="POST">
+  <script
+    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+    data-key="pk_test_2aY90aBzzGZfKoN07qECdHvB"
+    data-amount="999"
+    data-name="Statisfaction"
+    data-description="Widget"
+    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+    data-locale="auto"
+    data-zip-code="true">
+  </script>
+</form>
+
 @section Scripts {
+
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+
 }
