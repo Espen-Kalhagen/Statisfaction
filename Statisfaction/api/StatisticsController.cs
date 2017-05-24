@@ -66,8 +66,8 @@ public class StatisticsController : Controller
 
     [HttpGet]
     [Route("unit/{unitId}")]
-    // URI: api/statistics/unit/1?date=1993/01/01
-    public ActionResult QuestionStatistics(int unitId, string date)
+    // URI: api/statistics/unit/1?date=1993/01/01&from=0&to=23
+    public ActionResult QuestionStatistics(int unitId, string date, int from=0, int to=23)
     {
         if (date == null) return BadRequest();
 
@@ -145,7 +145,7 @@ public class StatisticsController : Controller
                         {"id", i},
                         {"text", widget["subtitle" + (i + 1).ToString()].AsString},
                         {"color", color},
-                        {"countPerHour", CountsPerHour(surveyId, widget["widgetID"].AsString, i.ToString(), year, month, day)
+                        {"countPerHour", CountsPerHour(surveyId, widget["widgetID"].AsString, (i + 1).ToString(), year, month, day, from, to)
                     }});
                 }
                 break;
@@ -157,7 +157,7 @@ public class StatisticsController : Controller
                         {"id", id},
                         {"text", answer["answerText"].AsString},
                         {"color", answer["buttonColor"].AsString},
-                        {"countPerHour", CountsPerHour(surveyId, widget["widgetID"].AsString, id.ToString(), year, month, day)
+                        {"countPerHour", CountsPerHour(surveyId, widget["widgetID"].AsString, id.ToString(), year, month, day, from, to)
                     }});
                 }
                 break;
@@ -193,7 +193,7 @@ public class StatisticsController : Controller
     }
 
     // Gets an array that describes how many answers there are for a specific survey, widget and option per hour
-    private BsonArray CountsPerHour(string surveyId, string widgetId, string responseId, int year, int month, int day) {
+    private BsonArray CountsPerHour(string surveyId, string widgetId, string responseId, int year, int month, int day, int from, int to) {
         
         var responseCollection = mdb.GetCollection<Response>("responses");
         var countsPerHour = responseCollection.Aggregate()
@@ -203,23 +203,18 @@ public class StatisticsController : Controller
         .Group(new BsonDocument{{"_id", new BsonDocument{{"hour", "$Hours"}} }, {"count", new BsonDocument{{"$sum", 1}} }})
         .Project(new BsonDocument{{"hour", "$_id.hour"}, {"count", 1}, {"_id", 0}}).ToList();
         
-        // Add the hours that does not have any responses
-        List<int> hours = Enumerable.Range(0, 24).ToList();
+        // Compiles a list of hour/count pairs between the specified interval
+        List<int> hours = Enumerable.Range(from, to - from + 1).ToList();
         var countList = new List<BsonDocument>();
-        foreach(var hour in hours){
-            countList.Add(new BsonDocument{{"hour", hour}, {"count", 0}});
+        for (int i = from; i <= to; i++) {
+            var element = countsPerHour.SingleOrDefault(c => c["hour"].AsInt32 == i);
+            if (element == null) {
+                countList.Add(new BsonDocument{{"hour", i}, {"count", 0}});
+            } else {
+                countList.Add(new BsonDocument{{"hour", element["hour"].AsInt32}, {"count", element["count"].AsInt32}});
+            }
         }
-        foreach( var item in countsPerHour){
-            countList[item["hour"].AsInt32] = item;
-        }
-        /* 
-        foreach (var items in countsPerHour) {
-            hours.Remove(items["hour"].AsInt32);
-        }
-        foreach (var hour in hours) {
-            countsPerHour.Add(new BsonDocument{{"hour", hour}, {"count", 0}});
-        }
-        */
+        
         return new BsonArray(countList);
     }
 
