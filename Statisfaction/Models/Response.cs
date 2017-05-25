@@ -9,6 +9,9 @@ namespace Models
         [BsonId]
         public ObjectId Id { get; set; }
 
+        [BsonElement("UnitID")]
+        public int UnitID { get; set; }
+
         [BsonElement("SurveyID")]
         public string SurveyID { get; set; }
 

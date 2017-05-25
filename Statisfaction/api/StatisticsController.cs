@@ -85,93 +85,100 @@ public class StatisticsController : Controller
         }
         if (!success) return BadRequest();
 
-        // Finds the survey id for the selected unit
-        var unit = rdb.StoreUnits.FirstOrDefault(c => c.id == unitId);
-        if (unit == null) return BadRequest();
-        var surveyId = unit.SurveyID;
+        // Finds the survey ids that have responses for the selected day
+        List<string> surveyIds = mdb.GetCollection<Response>("responses")
+        .Distinct<string>("SurveyID", new BsonDocument{{"UnitID", unitId}, {"Day", day}, {"Month", month}, {"Year", year}}).ToList();
 
-        // Gets information about the survey
-        var surveyCollection = mdb.GetCollection<BsonDocument>("surveys");
-        var filter = BsonDocument.Parse("{'general.surveyID': '" + surveyId + "'}");
-        var survey = surveyCollection.Find(filter).FirstOrDefault();
-        if (survey == null) return StatusCode(409);
-
-        // The number of questions in the survey
-        int questionCount = survey["widgets"].AsBsonArray.Count;
-
-        // Gets all the responses for the survey
-        var responseCollection = mdb.GetCollection<Response>("responses");
-        var responses = responseCollection.Aggregate()
-        .Match(new BsonDocument {{ "SurveyID", surveyId }, {"Year", year}, {"Month", month}, {"Day", day}}).ToList();
-
-        // Calculates scores used in the survey summary
+        // Summary variables that are updated for each survey
         int numberOfCompleted = 0;
         int totalQuestionsAnswered = 0;
-        foreach (var response in responses) {
-            totalQuestionsAnswered += response.Responses.Count;
-            if (response.Responses.Count == questionCount) {
-                numberOfCompleted++;
-            }
-        }
-
-        // Survey summary variables
-        int numberOfResponses = responses.Count();
-        double completePercentage = (numberOfCompleted/(double)numberOfResponses)*100.0;
-        if (numberOfResponses < 1) completePercentage = 0.0;
-        double completenessFactor = totalQuestionsAnswered/(double)(numberOfResponses*questionCount);
-        if (numberOfResponses < 1 || questionCount < 1) completenessFactor = 0.0;
+        int totalNumberOfResponses = 0;
+        int totalQuestionCount = 0;
 
         // Building up the array of documents containing the information about the questions
         BsonArray widgetArray = new BsonArray();
-        var widgets = survey["widgets"].AsBsonArray;
-        foreach (var widget in widgets)
+        foreach (var surveyId in surveyIds)
         {
-            BsonArray answerList = new BsonArray();
-            switch (widget["type"].AsString)
-            {
-                case "Smiley":
-                for (int i = 0; i < 4; i++) {
+            // Gets information about the survey
+            var surveyCollection = mdb.GetCollection<BsonDocument>("surveys");
+            var filter = BsonDocument.Parse("{'general.surveyID': '" + surveyId + "'}");
+            var survey = surveyCollection.Find(filter).FirstOrDefault();
+            if (survey == null) return StatusCode(409);
 
-                    // Generates colors for the smiley widget graph
-                    string color = "#000000";
-                    switch (i) {
-                        case 0: color = "#FF0000"; break;
-                        case 1: color = "#00FF00"; break;
-                        case 2: color = "#0000FF"; break;
-                        case 3: color = "#FFFF00"; break;
-                    }
+            // Gets all the responses for the survey
+            var responseCollection = mdb.GetCollection<Response>("responses");
+            var responses = responseCollection.Aggregate()
+            .Match(new BsonDocument {{ "UnitID", unitId }, { "SurveyID", surveyId }, {"Year", year}, {"Month", month}, {"Day", day}}).ToList();
 
-                    answerList.Add(new BsonDocument{
-                        {"id", i},
-                        {"text", widget["subtitle" + (i + 1).ToString()].AsString},
-                        {"color", color},
-                        {"countPerHour", CountsPerHour(surveyId, widget["widgetID"].AsString, (i + 1).ToString(), year, month, day, from, to)
-                    }});
+            // Updates summary variables with data from this survey
+            int questionCount = survey["widgets"].AsBsonArray.Count;
+            int numberOfResponses = responses.Count();
+            totalNumberOfResponses += numberOfResponses;
+            totalQuestionCount += questionCount*responses.Count();
+            foreach (var response in responses) {
+                totalQuestionsAnswered += response.Responses.Count;
+                if (response.Responses.Count == questionCount) {
+                    numberOfCompleted++;
                 }
-                break;
-                case "Question":
-                foreach (var answer in widget["answerList"].AsBsonArray) {
-
-                    int id = answer["responseID"].AsInt32;
-                    answerList.Add(new BsonDocument{
-                        {"id", id},
-                        {"text", answer["answerText"].AsString},
-                        {"color", answer["buttonColor"].AsString},
-                        {"countPerHour", CountsPerHour(surveyId, widget["widgetID"].AsString, id.ToString(), year, month, day, from, to)
-                    }});
-                }
-                break;
             }
-            
-            BsonDocument widgetDocument = new BsonDocument{
-                {"widgetId", widget["widgetID"]},
-                {"title", widget["title"]},
-                {"type", widget["type"]},
-                {"answerList", answerList}
-            };
-            widgetArray.Add(widgetDocument);
-            
+
+            // Loops through the widgets in the survey
+            var widgets = survey["widgets"].AsBsonArray;
+            foreach (var widget in widgets)
+            {
+                BsonArray answerList = new BsonArray();
+                switch (widget["type"].AsString)
+                {
+                    case "Smiley":
+                    for (int i = 0; i < 4; i++) {
+
+                        // Generates colors for the smiley widget graph
+                        string color = "#000000";
+                        switch (i) {
+                            case 0: color = "#FF0000"; break;
+                            case 1: color = "#00FF00"; break;
+                            case 2: color = "#0000FF"; break;
+                            case 3: color = "#FFFF00"; break;
+                        }
+
+                        answerList.Add(new BsonDocument{
+                            {"id", i.ToString()},
+                            {"text", widget["subtitle" + (i + 1).ToString()].AsString},
+                            {"color", color},
+                            {"countPerHour", CountsPerHour(unitId, surveyId, widget["widgetID"].AsString, (i + 1).ToString(), year, month, day, from, to)
+                        }});
+                    }
+                    break;
+                    case "Question":
+                    foreach (var answer in widget["answerList"].AsBsonArray) {
+
+                        string id = answer["responseID"].AsString;
+                        answerList.Add(new BsonDocument{
+                            {"id", id},
+                            {"text", answer["answerText"].AsString},
+                            {"color", answer["buttonColor"].AsString},
+                            {"countPerHour", CountsPerHour(unitId, surveyId, widget["widgetID"].AsString, id.ToString(), year, month, day, from, to)
+                        }});
+                    }
+                    break;
+                }
+                
+                BsonDocument widgetDocument = new BsonDocument{
+                    {"widgetId", widget["widgetID"]},
+                    {"title", widget["title"]},
+                    {"type", widget["type"]},
+                    {"answerList", answerList}
+                };
+                widgetArray.Add(widgetDocument);
+                
+            }
         }
+        
+        // Calculate summary results
+        double completePercentage = (numberOfCompleted/(double)totalNumberOfResponses)*100.0;
+        if (totalNumberOfResponses < 1) completePercentage = 0.0;
+        double completenessFactor = totalQuestionsAnswered/(double)totalQuestionCount;
+        if (totalNumberOfResponses < 1 || totalQuestionCount < 1) completenessFactor = 0.0;
 
         // Building up the final result to return to the client
         BsonDocument result = new BsonDocument
@@ -179,7 +186,7 @@ public class StatisticsController : Controller
             {
                 "summary", new BsonDocument
                 {
-                    {"nrOfResponses", numberOfResponses},
+                    {"nrOfResponses", totalNumberOfResponses},
                     {"completePercentage", completePercentage},
                     {"completenessFactor", completenessFactor}
                 }
@@ -193,11 +200,11 @@ public class StatisticsController : Controller
     }
 
     // Gets an array that describes how many answers there are for a specific survey, widget and option per hour
-    private BsonArray CountsPerHour(string surveyId, string widgetId, string responseId, int year, int month, int day, int from, int to) {
+    private BsonArray CountsPerHour(int unitId, string surveyId, string widgetId, string responseId, int year, int month, int day, int from, int to) {
         
         var responseCollection = mdb.GetCollection<Response>("responses");
         var countsPerHour = responseCollection.Aggregate()
-        .Match(new BsonDocument {{"SurveyID", surveyId}, {"Year", year}, {"Month", month}, {"Day", day}})
+        .Match(new BsonDocument {{"UnitID", unitId}, {"SurveyID", surveyId}, {"Year", year}, {"Month", month}, {"Day", day}})
         .Unwind(x => x.Responses)
         .Match(new BsonDocument {{"responses.widgetID", widgetId}, {"responses.responseID", responseId}})
         .Group(new BsonDocument{{"_id", new BsonDocument{{"hour", "$Hours"}} }, {"count", new BsonDocument{{"$sum", 1}} }})
