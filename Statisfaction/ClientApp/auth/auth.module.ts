@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
-import { FormsModule }   from '@angular/forms';
+import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { UniversalModule } from 'angular2-universal';
 import { AuthRegisterComponent } from './components/auth-register/auth-register.component';
-
 
 const routes: Routes =
     [
@@ -16,7 +15,8 @@ const routes: Routes =
     ],
     imports: [
         UniversalModule,
-        FormsModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.
+        FormsModule,
+        ReactiveFormsModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.
         RouterModule.forRoot(routes),
     ]
 })

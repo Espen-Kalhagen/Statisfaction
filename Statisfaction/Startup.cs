@@ -14,6 +14,7 @@ using Data;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Services;
 using Microsoft.AspNetCore.Identity;
+using Stripe;
 
 namespace WebApplicationBasic
 {
@@ -66,7 +67,7 @@ namespace WebApplicationBasic
                 var db = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
                 var mongoService = serviceScope.ServiceProvider.GetService<IMongoService>();
 
-                //db.Database.EnsureDeleted();
+                db.Database.EnsureDeleted();
                 db.Database.EnsureCreated();
 
                 var userManager = serviceScope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
@@ -84,6 +85,10 @@ namespace WebApplicationBasic
                 myThread.Start();
 
             }
+
+            // Initialize stripe
+            StripeConfiguration.SetApiKey("sk_test_eQr4p9hfcoToDBtJoL7rXisg");
+
 
             app.UseDeveloperExceptionPage();
             app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions

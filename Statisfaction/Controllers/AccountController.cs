@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.Options;
 using Models;
 using Models.AccountViewModels;
 using Services;
+using System.Net.Http;
 
 using Services;
 using MongoDB.Driver;
@@ -109,8 +111,8 @@ namespace Controllers
         [AllowAnonymous]
         public IActionResult Register(string returnUrl = null)
         {
-            ViewData["ReturnUrl"] = returnUrl;
-            return View();
+
+            return Redirect("auth");
         }
 
         //
@@ -127,7 +129,7 @@ namespace Controllers
 
             if (result.Succeeded)
             {
-                _logger.LogInformation("UserID " + user.Id) ;
+                _logger.LogInformation("UserID " + user.Id);
                 await _signInManager.SignInAsync(user, isPersistent: false);
                 _logger.LogInformation(3, "User created a new account with password.");
 
@@ -139,6 +141,7 @@ namespace Controllers
             // If we got this far, something failed, redisplay form
             return Content(result.ToJson());
         }
+
 
         //
         // POST: /Account/Logout
