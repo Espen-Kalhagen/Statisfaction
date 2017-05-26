@@ -1,35 +1,45 @@
 <div id="StyleContainer">
 
     <div id="top-bar">
-        <div class="row">
+        <div class="row ">
             <div class="col-md-2 row-image">
-                <!--TODO: CHANGE -->
                 <img class="icon-img" src="/images/icons/icon_chart.png">
             </div>
-            <div class="col-md-3" id="top-title">
+            <div class="col-md-5" id="top-title">
             <h1>
                 Statistics</h1>
             <p>Look at and analyse customer feedback.</p>
             </div>
-            <div class="col-md-1">
+        </div>
+        <div class="row" >
+            <div class="col-md-2">
                 <label class="topbarLabel" >Date range: </label>
             </div>
+            <div class ="col-md-1">
+            </div>
             <div class ="col-md-2">
+                <label class="topbarLabel">Time range: </label>
             </div>
             <div class ="col-md-1">
+            </div>
+            <div class ="col-md-2">
                 <label class="topbarLabel">Unit: </label>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-3">
+                <div class="input-group">
+                    
+                    <input class="form-control" [ngModel]="fromDate | date: 'y-M-d'" [(dateTimePicker)]="fromDate" [pickerType]=" 'date' " [mode]=" 'dropdown' " [returnObject]=" 'js' " [hourTime]=" '24' " [viewFormat]=" 'L' " [theme]="'#0F8AD3'" readonly />
+                    <input class="form-control" [ngModel]="toDate | date: 'y-M-d'" [(dateTimePicker)]="toDate" [pickerType]=" 'date' " [mode]=" 'dropdown' " [returnObject]=" 'js' " [hourTime]=" '24' " [theme]="'#0F8AD3'" readonly />            
+                
+                </div>
             </div>
             <div class="col-md-3">
                 <div class="input-group">
                     
-                    <input class="form-control" [ngModel]="fromDate | date: 'y-M-d'" [(dateTimePicker)]="fromDate" [pickerType]=" 'date' " [mode]=" 'dropdown' " [returnObject]=" 'js' " [hourTime]=" '24' " [viewFormat]=" 'L' " readonly />
-                    <input class="form-control" [ngModel]="toDate | date: 'y-M-d'" [(dateTimePicker)]="toDate" [pickerType]=" 'date' " [mode]=" 'dropdown' " [returnObject]=" 'js' " [hourTime]=" '24' " readonly />
-                    <input class="form-control" [ngModel]="fromTime | date: 'H:m'" [(dateTimePicker)]="fromTime" [pickerType]=" 'time' " [mode]=" 'dropdown' " [returnObject]=" 'js' " [hourTime]=" '24' " readonly />
-                    <input class="form-control" [ngModel]="toTime | date: 'H:m'" [(dateTimePicker)]="toTime" [pickerType]=" 'time' " [mode]=" 'dropdown' " [returnObject]=" 'js' " [hourTime]=" '24' " readonly />
+                    <input class="form-control" [ngModel]="fromTime | date: 'H:mm'" [(dateTimePicker)]="fromTime" [pickerType]=" 'time' " [mode]=" 'dropdown' " [returnObject]=" 'js' " [hourTime]=" '24' " [theme]="'#0F8AD3'" readonly />
+                    <input class="form-control" [ngModel]="toTime | date: 'H:mm'" [(dateTimePicker)]="toTime" [pickerType]=" 'time' " [mode]=" 'dropdown' " [returnObject]=" 'js' " [hourTime]=" '24' " [theme]="'#0F8AD3'" readonly />
                 
                 </div>
             </div>

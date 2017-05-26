@@ -28,6 +28,7 @@ export class StoreUnitComponent {
     @ViewChild(WidgetDirective) widgetHost: WidgetDirective;
     timer:number;
     currentSurveyID:string;
+    currentUnitID:any;
     cookieObject: any;
     model:GeneralModel ;
 
@@ -76,7 +77,7 @@ export class StoreUnitComponent {
             this.router.navigate(['/register-unit'], { skipLocationChange: true })
         }
         this.currentSurveyID = checkResult.surveyID;
-
+        this.currentUnitID = checkResult.id;
         //Default survey
         if (this.currentSurveyID==null){
             this.currentSurveyID = "c2c841d0-9257-495c-832e-0adc424b17ec"; 
@@ -143,7 +144,7 @@ export class StoreUnitComponent {
 
         if (this.nextWidgetIndex >= this.widgets.length) {
             this.nextWidgetIndex = 0;
-            this.sendingService.sendNow();
+            this.sendingService.sendNow(this.currentSurveyID,this.currentUnitID);
         }
         console.log("Going to next widget of type: " + this.widgets[this.nextWidgetIndex].WidgetData.type);
         this.loadComponent(this.widgets[this.nextWidgetIndex]);

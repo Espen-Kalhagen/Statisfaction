@@ -2,6 +2,7 @@
 import { Component, Input } from "@angular/core";
 import { DataHandlerService } from "../data-handler.service";
 import { ContentInfo } from "../chart.component";
+import { Color } from "ng2-charts";
 
 @Component({
     selector: 'chart-content',
@@ -19,58 +20,39 @@ export class ChartContentComponent {
     //public colors:string[] = ['#FFF','#111']
     public chartData: Array<any> = [];
     public lineChartLabels: any[] = [];
-    public lineChartColors: Array<any> = [
-        { // grey
-            backgroundColor: 'rgba(148,159,177,0.2)',
-            borderColor: 'rgba(148,159,177,1)',
-            pointBackgroundColor: 'rgba(148,159,177,1)',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-        },
-        { // dark grey
-            backgroundColor: 'rgba(77,83,96,0.2)',
-            borderColor: 'rgba(77,83,96,1)',
-            pointBackgroundColor: 'rgba(77,83,96,1)',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgba(77,83,96,1)'
-        },
-        { // grey
-            backgroundColor: 'rgba(148,159,177,0.2)',
-            borderColor: 'rgba(148,159,177,1)',
-            pointBackgroundColor: 'rgba(148,159,177,1)',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-        }
-    ];
+    public lineChartColors: Array<any> = [];
     public lineChartLegend: boolean = true;
     public lineChartType: string = 'line';
     public donutChartlabels: any[] = [];
     public donutChartResponceCount: any[] = [];
-
+    public donutChartDataSet:any[]=[];
+    private lineChartColorsSimple: any[];
+    public donutVartColots:any[] = [{ backgroundColor: ["#b8436d", "#00d9f9", "#a4c73c", "#a4add3"] }];
+    public colors: Array<Color> = [{}];
+    private colorIndex:number =0;
     constructor(
         private dataHandler: DataHandlerService
     ) { }
 
     ngOnInit() {
-        this.chartData = [];
+       this.chartData = [];
+        this.lineChartColors = [];
+        this.lineChartColorsSimple = [];
+        this.donutChartDataSet = [];
         this.summaryData = { nrOfResponses:0 , completePersentage:-1, completnessFactor: -1};
-                    console.log("creating chart with " );
-            console.log(this.surveyData);
+        console.log("creating chart with " );
+        console.log(this.surveyData);
         for(let surveyData of this.surveyData){
 
             this.creatChartData(this.contentInfo.unitID, surveyData.dayMonth, surveyData.statistics);
         }
-       
+       console.log("Finished setup");
 
 
 
     }
 
     creatChartData( unitID:string, dayMonth:string, surveyData:any){
-        console.log("creating chart data");
 
             
             this.summaryData.nrOfResponses += surveyData.summary.nrOfResponses;
@@ -89,12 +71,14 @@ export class ChartContentComponent {
 
                 if(this.chartData[j]===undefined){
                     this.chartData[j] = []
+                    
                 }
-
+                this.lineChartColorsSimple.push(<Color>[]);
                 let donutLabels = [];
                 let donutResponses = [];
                 let i =0;
                 for (let answer of question.answerList) {
+                    this.lineChartColorsSimple[j].push(answer.color);
                     let line = []
                     let donutCount = 0;
                     for (let countPerHour of answer.countPerHour) {
@@ -113,7 +97,6 @@ export class ChartContentComponent {
                     i++;
                 }
 
-
                 this.donutChartlabels.push(donutLabels);
                 if(this.donutChartResponceCount[j] === undefined){
                     this.donutChartResponceCount[j] = donutResponses;
@@ -125,6 +108,7 @@ export class ChartContentComponent {
                 
                 j++;
             }
+            this.generateColors();
             console.log("Chart data:");
             console.log(this.chartData);
             let i = this.contentInfo.fromTime.getHours() +1;
@@ -134,11 +118,29 @@ export class ChartContentComponent {
                 i++;
             }
     }
-    public chartClicked(e: any): void {
-        console.log(e);
+    public generateColors(){
+        let i = 0;
+        for(let question of this.lineChartColorsSimple){
+            this.lineChartColors.push(<Color>[]);
+            for(let answer of question){
+                this.lineChartColors[i].push( 
+                        {
+                            backgroundColor: answer,
+                            pointBackgroundColor: answer,
+                            pointBorderColor: '#fff',
+                            pointHoverBackgroundColor: '#fff',
+                        });
+        }
+        this.donutChartDataSet.push([{
+            data: this.donutChartResponceCount[i],
+            backgroundColor: question,
+            hoverBackgroundColor:question
+        }])
+        i++;
+    }        
+        console.log("donu data");
+        console.log(this.donutChartDataSet);
+        this.lineChartColorsSimple = [];
     }
-
-    public chartHovered(e: any): void {
-        console.log(e);
-    }
+    
 }

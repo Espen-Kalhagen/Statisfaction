@@ -34,16 +34,16 @@ export class SendingService {
         this.owner = owner;
 
         return new Promise(resolve => {
-        this.timer = window.setTimeout(() => resolve(this.sendData()), delay*1000);
+        this.timer = window.setTimeout(() => resolve(this.sendData(UnitID,SurveyID)), delay*1000);
         });
   }
     //Only use on the last or only widget
-  public sendNow(){
+  public sendNow(SurveyID:any, UnitID:any){
       window.clearTimeout(this.timer);
-      this.sendData()
+      this.sendData(SurveyID,UnitID)
   }
 
-  private sendData( ): Promise<Boolean>{
+  private sendData(UnitID:any, SurveyID:any ): Promise<Boolean>{
 
       if ("undefined" === typeof respList[0]){
         return Promise.resolve(true);

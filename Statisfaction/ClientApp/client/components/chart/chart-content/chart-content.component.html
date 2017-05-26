@@ -28,18 +28,24 @@
         </div>
     </div>
     <hr>
+    <canvas baseChart
+    [chartType]="type"
+    [datasets]="datasets"
+    [labels]="labels"
+    [colors]="colors"></canvas>
     <div class="row" *ngFor="let resp of surveyData[0].statistics.questions; let i = index">
         <h2> {{resp.title}}</h2>
         <p> <b> X-Axsis </b> Time of day </p> 
         <p> <b> Y-Axsis </b> Number of responses </p> 
+        <p> {{lineChartColors[i][0].backgroundColor}}</p>
         <div class="col-md-9">
-            <canvas class="lineChart" baseChart (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)" width="400" height="130" [datasets]="chartData[i]" [labels]="lineChartLabels"
+            <canvas class="lineChart" baseChart [colors]="lineChartColors[i]" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)" width="400" height="130" [datasets]="chartData[i]" [labels]="lineChartLabels"
                 [legend]="lineChartLegend" [chartType]="lineChartType">
             </canvas>
         </div>
 
         <div class="col-md-3">
-            <canvas baseChart baseChart width="100" height="100" [data]="donutChartResponceCount[i]" [chartType]="chartType" [labels]="donutChartlabels[i]"
+            <canvas baseChart baseChart width="100" height="100"  [data]="donutChartResponceCount[i]" [chartType]="chartType" [labels]="donutChartlabels[i]" [datasets]="donutChartDataSet[i]" [colors]="colors"
                 ></canvas>
 
         </div>
