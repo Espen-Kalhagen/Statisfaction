@@ -1,9 +1,10 @@
+
 <div id="StyleContainer">
 
     <div id="top-bar">
         <div class="row ">
             <div class="col-md-2 row-image">
-                <img class="icon-img" src="/images/icons/icon_chart.png">
+                <img class="icon-img" src="/images/icons/icon_chart.png"> 
             </div>
             <div class="col-md-5" id="top-title">
             <h1>
@@ -45,12 +46,12 @@
             </div>
             <div class="col-md-3">  
                 
-                <select name="unit" id="selectbasic" name="selectbasic" class="form-control">
+                <select name="unit" id="selectbasic"  class="form-control">
                     <option *ngFor="let unit of unitData" [value]="unit.id">{{unit.unitName}}</option>
                 </select>
             </div>
             <div class="col-md-1">
-                <button class="btn btn-primary" (click)="fetch()"> Fetch </button>
+                <button type="button" class="btn btn-primary" (click)="fetch()"> Fetch </button>
             </div>
         </div>
     </div>

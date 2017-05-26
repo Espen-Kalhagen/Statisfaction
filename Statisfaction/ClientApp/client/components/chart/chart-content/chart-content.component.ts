@@ -46,7 +46,10 @@ export class ChartContentComponent {
 
             this.creatChartData(this.contentInfo.unitID, surveyData.dayMonth, surveyData.statistics);
         }
-       console.log("Finished setup");
+
+       
+              console.log("Finished setup");
+       console.log(this.surveyData[0].statistics.questions)
 
 
 
@@ -54,7 +57,9 @@ export class ChartContentComponent {
 
     creatChartData( unitID:string, dayMonth:string, surveyData:any){
 
-            
+            if(surveyData.questions.length==0){
+                return;
+            }
             this.summaryData.nrOfResponses += surveyData.summary.nrOfResponses;
             if(this.summaryData.completePersentage == -1){
                 this.summaryData.completePersentage = surveyData.summary.completePercentage;
@@ -66,7 +71,6 @@ export class ChartContentComponent {
             
 
             let j =0;
-            
             for (let question of surveyData.questions) {
 
                 if(this.chartData[j]===undefined){
@@ -108,7 +112,6 @@ export class ChartContentComponent {
                 
                 j++;
             }
-            this.generateColors();
             console.log("Chart data:");
             console.log(this.chartData);
             let i = this.contentInfo.fromTime.getHours() +1;
@@ -117,6 +120,7 @@ export class ChartContentComponent {
                 this.lineChartLabels.push(i);
                 i++;
             }
+            this.generateColors();
     }
     public generateColors(){
         let i = 0;

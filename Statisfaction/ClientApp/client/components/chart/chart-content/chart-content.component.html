@@ -33,7 +33,7 @@
     [datasets]="datasets"
     [labels]="labels"
     [colors]="colors"></canvas>
-    <div class="row" *ngFor="let resp of surveyData[0].statistics.questions; let i = index">
+    <div class="row" *ngFor="let resp of chartData; let i = index">
         <h2> {{resp.title}}</h2>
         <p> <b> X-Axsis </b> Time of day </p> 
         <p> <b> Y-Axsis </b> Number of responses </p> 

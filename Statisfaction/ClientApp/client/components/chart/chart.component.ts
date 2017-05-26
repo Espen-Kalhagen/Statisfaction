@@ -23,6 +23,7 @@ declare var $: any;
   public toDate;
   public fromTime;
   public toTime;
+  public nrOfResponses;
 
   public unitData: any;
   
@@ -37,6 +38,7 @@ declare var $: any;
       ) { }
  
    ngOnInit(): void {
+     console.log("CompINIT");
     this.dataHandler.getUnitData().then(unitData => this.unitData = unitData);
     let date = new Date();
     this.fromDate = date;
@@ -55,7 +57,7 @@ declare var $: any;
     }
 
     private loadComponent() {
-
+      console.log("loadCoponent");
 
       let surveyData = [];
       let contentInfo = new ContentInfo($("#selectbasic").val(), this.fromDate, this.toDate,this.fromTime,this.toTime);
@@ -65,6 +67,7 @@ declare var $: any;
           alert("The chart data only supports viewing time periods less than a week")
           nrOfDays = 7;
       }
+      this.nrOfResponses = nrOfDays;
       let endDate = contentInfo.endDate;
       var month = ("0" + endDate.getMonth()).slice(-2);
       while(nrOfDays >=0){
@@ -77,8 +80,8 @@ declare var $: any;
               data =>{
                 console.log(dayMonth);
                 surveyData.push({statistics:data,dayMonth:dayMonth});
-
-                if(nrOfDays==-1){
+                this.nrOfResponses--;
+                if(this.nrOfResponses===-1){
                         let componentFactory = this.componentFactoryResolver.resolveComponentFactory(ChartContentComponent);
                         let viewContainerRef = this.chartHost.viewContainerRef;
                         viewContainerRef.clear()
