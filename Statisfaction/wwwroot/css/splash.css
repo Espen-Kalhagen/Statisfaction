@@ -1,0 +1,96 @@
+h1, h2, h3, h4, h5, h5, p, a, li
+{
+    font-family: 'Roboto', sans-serif;
+}
+
+h4
+{
+    color: #4A5960;
+    font-weight: bold;
+}
+
+p
+{
+    font-size: medium;
+}
+
+.accent-header
+{
+    color: #77909C;
+}
+
+.primary-header
+{
+    color: #0F8AD3;
+}
+
+.landing-page-box
+{
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-right: 50px;
+}
+
+#landing-top-img
+{
+    max-width: 300px;
+    clip-path: rect(110px, 160px, 170px, 60px);
+}
+
+#landing-page-reasons
+{
+    margin-top: 80px;
+    margin-bottom: 100px;
+}
+
+#button-panel
+{
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+#button-panel>a
+{
+    margin-right: 10px;
+}
+
+
+#landing-page-top
+{
+    padding-top: 30px;
+    padding-bottom: 40px;
+}
+
+#landing-page-featues
+{
+    background-color: #F9F9FB;
+}
+
+
+.bullet-container {
+    margin: 0px 0px 0 0;  
+    overflow: auto;
+    display: flex;         
+    align-items: center;  
+}
+
+.bullet-thumb {
+    float: center;
+}
+
+.bullet-thumb img {
+    padding: 20px;
+    display: block;
+    max-width: 200px;
+    max-height: 200px;
+}
+
+.bullet-content {
+  
+    padding: 30px;
+}
+
+.bullet-title {
+    font-weight: bold;
+    font-size: 200%;
+}

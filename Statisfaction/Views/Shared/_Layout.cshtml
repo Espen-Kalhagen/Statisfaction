@@ -1,3 +1,8 @@
+@using Microsoft.AspNetCore.Identity
+@using Models
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,8 +16,10 @@
         <base href="/" />
         <link rel="stylesheet" href="~/dist/vendor.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/lib/colorpicker/dist/css/bootstrap-colorpicker.css" asp-append-version="true" />
-        <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400" rel="stylesheet">
+
         <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/css/splash.css" />
     </environment>
     
     <environment names="Staging,Production">
@@ -20,12 +27,16 @@
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/lib/colorpicker/dist/css/bootstrap-colorpicker.css" asp-append-version="true" />
-        <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400" rel="stylesheet">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.min.css" rel="stylesheet">
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/splash.css" />
     </environment>
     <base href="/">
 </head>
 <body>
+
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -37,23 +48,36 @@
                 </button>
                 <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Statisfaction</a>
             </div>
+
+
             <div class="navbar-collapse collapse">
+                @if (SignInManager.IsSignedIn(User))
+                {
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a href="/client/statistics">Tools</a></li>
-                    <li><a href="/store-unit">Store Unit site</a></li>
+                    <li><a href="/store-unit">Store Unit</a></li>
                 </ul>
+                }
+                else
+                {
+                <ul class="nav navbar-nav">
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a href="/docs">Docs</a></li>
+                </ul>
+                }
               <!-- Login partila view -->
             @await Html.PartialAsync("_LoginPartial")
             </div>
         </div>
     </div>
 
-    <div class="container body-content">
-        @RenderBody()
-        <footer>
-        </footer>
-    </div>
+<div id="body" class="container body-content">
+    @RenderBody()
+</div>
+
+
+
     <environment names="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>

@@ -1,15 +1,79 @@
+<div id="landing-page" class="page-container">
+        <div class="container" id="landing-page-top">
+            <div class="col-md-7">
+                <h1 class="accent-header">Take your business to the next level</h1>
+                <h1 class="primary-header">Start collecting customer feedbak now!</h1>
+                <div id="button-panel">
+                    <a class="btn btn-default" href="auth">Get started</a>
+                    <a class="btn btn-default" href="docs">Read the documentation</a>
+                </div>
+            </div>
+            <div class="col-md-5 col-sm-0">
+                <img id="landing-top-img" src="images/icons/icon_grey.svg">
+            </div>
+        </div>
 
-<h1> Statisfaction </h1>
-Checklist for starting av server:
-<ul>
-    <li>Alle filer ledige?</li>
-    <li>npm/node kommandoer kjørt? 
-        <ol> 
-            <li>npm install</li>
-            <li>node --max_old_space_size=4096 node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js --env.prod</li>
-	        <li>node -max_old_space_size=4096 node_modules/webpack/bin/webpack.js --env.prod</li>
-           
-        </ol>
-    </li>
+        <div id="landing-page-featues">
+        <div class="container">
+            <div class="landing-page-box col-md-4">
+                <h4>One pricing tier, unlimited access.</h4>
+                <p>With the Statisfaction Basic pricing tier, you get unlimited access for a afordable amount of money.</p>
+            </div>
+            <div class="landing-page-box col-md-4">
+                <h4>Configure and create surveys</h4>
+                <p>Create surveys that looks like you want them to. Deploy a survey in seconds.</p>
+            </div>
+            <div class="landing-page-box col-md-4">
+                <h4>Analytics</h4>
+                <p>Easy analyze data from your customers. Data is graphical presented to you.</p>
+            </div>
+        </div>
+        </div>
 
+        <div class="container" id="landing-page-reasons">
 
+            <div class="bullet-container row">
+                <div class="col-xs-12 col-md-3  bullet-thumb"><img src="images/images/home/image_create.png"></div>
+                <div class="col-xs-12 col-md-9  bullet-content">
+                    <h4 class="bullet-title">Create & Customize</h4>
+                    <p>Create surveys that engage your customer in the process of becoming a better business. Customize widgets and content to your needs.</p>
+                </div>
+            </div>
+
+            <div class="bullet-container col-md-12">
+                <div class="col-md-9 bullet-content">
+                    <h4 class="bullet-title">Deploy</h4>
+                    <p>Place your device in a location where customer can interact with it. Data is sendt right to you, so you can monitor the result live.</p>
+                </div>
+                <div class="col-md-3 bullet-thumb"><img src="images/images/home/image_deploy.png"></div>
+            </div>
+
+            <div class="bullet-container col-md-12">
+                <div class="col-md-3 bullet-thumb"><img src="images/images/home/image_bind.png"></div>
+                <div class="col-md-9 bullet-content">
+                    <h4 class="bullet-title">Bind</h4>
+                   <p>Bind your survey to any tablet, phone or computer, either via a browser or the Android app.</p>
+                </div>
+            </div>
+
+            <div class="bullet-container col-md-12">
+                <div class="col-md-9 bullet-content">
+                    <h4 class="bullet-title">Analyze</h4>
+                   <p>Analyze the data via the Analytics-tool. View charts and graphs and export tha data for further use.</p>
+                </div>
+                <div class="col-md-3 bullet-thumb"><img src="images/images/home/image_analyze.png"></div>
+            </div>
+
+            <div class="bullet-container col-md-12">
+                <div class="col-md-3 bullet-thumb"><img src="images/images/home/image_improve.png"></div>
+                <div class="col-md-9 bullet-content">
+                    <h4 class="bullet-title">Improve</h4>
+                     <p>Use the collected data to improve your business and to make customers happy!</p>
+                </div>
+            </div>
+        </div>
+</div>
+
+<footer class="col-md-12">
+    @{Html.RenderPartial("_Footer");}
+</footer>
