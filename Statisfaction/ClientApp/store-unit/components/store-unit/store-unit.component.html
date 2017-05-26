@@ -1,9 +1,11 @@
+<div id="topbar" class="col-md-12" [ngStyle]="{ 'background-color': model.color }">
+    <img id="logo" src="{{model.logoUrl}}" alt="Logo" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Community_Noun_project_2280_white.svg/100px-Community_Noun_project_2280_white.svg.png'">
+</div>
 
+<div id="main-container">
+    <div class="container">
 
-<img id="logo" src="{{model.logoUrl}}" alt="Logo"  onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Community_Noun_project_2280_white.svg/100px-Community_Noun_project_2280_white.svg.png'" >
-<div class="container" [ngStyle]="{ 'background-color': model.color }">
-    <h3>{{surveyIdError}}</h3>
+        <template widget-host (onAnswered)="onAnswered($event)"></template>
 
-    <template widget-host (onAnswered)="onAnswered($event)" ></template>
-
+    </div>
 </div>
