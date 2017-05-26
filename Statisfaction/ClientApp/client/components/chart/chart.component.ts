@@ -58,7 +58,7 @@ declare var $: any;
 
 
       let surveyData = [];
-      let contentInfo = new ContentInfo($("#selectbasic").val(), this.fromDate, this.toDate);
+      let contentInfo = new ContentInfo($("#selectbasic").val(), this.fromDate, this.toDate,this.fromTime,this.toTime);
 
       let nrOfDays = this.daysBetween(contentInfo.startDate, contentInfo.endDate);
       if(nrOfDays > 7){
@@ -72,7 +72,8 @@ declare var $: any;
           let day = endDate.getDate() - nrOfDays;
           let dayMonth = day+"/"+month;
           console.log(endDate.getFullYear()+"/"+month+"/"+day +" UnitID;"+ contentInfo.unitID)
-          this.dataHandler.getStatisticsResponces(endDate.getFullYear()+"/"+month+"/"+day, contentInfo.unitID).then(
+          this.dataHandler.getStatisticsResponces(endDate.getFullYear()+"/"+month+"/"+day+"&from="+this.fromTime.getHours()+"&to="+this.toTime.getHours()
+          , contentInfo.unitID).then(
               data =>{
                 console.log(dayMonth);
                 surveyData.push({statistics:data,dayMonth:dayMonth});
@@ -118,7 +119,9 @@ declare var $: any;
     constructor (
       public unitID:any,
       public startDate:any,
-      public endDate:any
+      public endDate:any,
+      public fromTime:Date,
+      public toTime:Date
     ){}
   }
 

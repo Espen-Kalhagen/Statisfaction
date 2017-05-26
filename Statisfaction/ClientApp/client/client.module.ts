@@ -79,7 +79,8 @@ const routes: Routes =
         FormsModule,
         RouterModule.forRoot(routes),
         ReactiveFormsModule,
-        DateTimePickerModule 
+        DateTimePickerModule
+        
     ],
     providers: [
         DataHandlerService

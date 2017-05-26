@@ -54,7 +54,7 @@ export class QuestionWidgetComponent implements WidgetComponent {
 
 
         // Send the data to the RabbitMQ Queue system
-        this.sendingService.putRepsonse(this.SurveyID, cookieData["ownerID"], resp).then(result => console.log());
+        this.sendingService.putRepsonse(this.SurveyID, cookieData["ownerID"], resp, cookieData["id"]).then(result => console.log());
 
         //Move on to next widget if all questions answered
         this.onAnswered.emit(true);

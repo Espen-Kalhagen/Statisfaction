@@ -127,9 +127,9 @@ export class ChartContentComponent {
             }
             console.log("Chart data:");
             console.log(this.chartData);
-            let i = 1;
-            this.lineChartLabels.push( dayMonth + " "+ 0);
-            while (i <= 23) {
+            let i = this.contentInfo.fromTime.getHours() +1;
+            this.lineChartLabels.push( dayMonth + " "+ this.contentInfo.fromTime.getHours());
+            while (i <= this.contentInfo.toTime.getHours()) {
                 this.lineChartLabels.push(i);
                 i++;
             }

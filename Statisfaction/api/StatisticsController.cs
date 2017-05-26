@@ -152,7 +152,7 @@ public class StatisticsController : Controller
                     case "Question":
                     foreach (var answer in widget["answerList"].AsBsonArray) {
 
-                        string id = answer["responseID"].AsString;
+                        string id = answer["responseID"].AsInt32.ToString();
                         answerList.Add(new BsonDocument{
                             {"id", id},
                             {"text", answer["answerText"].AsString},
