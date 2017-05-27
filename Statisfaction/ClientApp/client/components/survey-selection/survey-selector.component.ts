@@ -16,8 +16,9 @@ declare var Clipboard: any;
 export class SelectSurveyComponent 
 {
     public responses: any;
+    public hasUnits:boolean = false;
     private http:Http;
-    private availableSurveys: SurveyData[] = []; //TODO:Load these form server
+    private availableSurveys: SurveyData[] = []; 
     public unitModel: RegisterStoreUnitModel;
     constructor(http: Http) {
         this.http = http;
@@ -39,6 +40,9 @@ export class SelectSurveyComponent
         //Load units
         this.http.get('http://localhost:5000/api/UnitSetup/units/' + OwnerID).subscribe(result => {
             this.responses = result.json() as string;
+            if(this.responses.length>0){
+                this.hasUnits = true;
+            }
             console.log(result.json() as string);
         });
 
@@ -76,17 +80,20 @@ export class SelectSurveyComponent
 
     delete(unitID,index){
         if (confirm('WARNING! Are you sure you want to delete this store unit? It will also delete information collected by it!')) {
+             
             let options = new RequestOptions();
             this.http.delete('http://localhost:5000/api/UnitSetup/unit/' + unitID, options).catch(err => {
                 alert("Failed to delete");
                 return Observable.throw(err); // observable needs to be returned or exception raised
             }).subscribe(res => {
                 this.responses.splice(index,1);
+                this.hasUnits = false;
             });
         }
     }
     
     register(){
+        this.hasUnits = true;
         this.unitModel.OwnerID = OwnerID
         let body = JSON.stringify(this.unitModel);
         let options = new RequestOptions();

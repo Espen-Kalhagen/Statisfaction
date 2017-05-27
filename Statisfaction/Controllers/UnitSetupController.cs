@@ -210,6 +210,14 @@ namespace api.UnitSetup
             unit.SurveyID = data.surveyID;
             unit.SurveyName = data.surveyName;
             db.SaveChanges();
+            
+            // The collection containing surveys
+            var collection = mongodb.GetCollection<BsonDocument>("surveys");
+            // Update in production to stop editing
+            var filter = Builders<BsonDocument>.Filter.Eq("general.surveyID", data.surveyID);
+            var update = Builders<BsonDocument>.Update.Set("general.inProduction", true);
+            collection.UpdateOne(filter, update);
+
 
             //Publish a rabbit message telling the store unit to refresh
             refreshStoreUnit(data.Unitid);

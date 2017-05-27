@@ -62,7 +62,7 @@
 
         <div class="row">
             <div class="col-md-8">
-                <h2>Your registred store units:</h2>
+                <h2  class="add-animation" *ngIf="hasUnits">Your registred store units:</h2>
                 <div *ngFor="let resp of responses; let i = index" class="add-animation">
 
                     <ul class="list-group">

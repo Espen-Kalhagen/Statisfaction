@@ -31,6 +31,7 @@ export class StoreUnitComponent {
     currentUnitID:any;
     cookieObject: any;
     model:GeneralModel ;
+    surveyIdError:string;
 
 
 
@@ -80,8 +81,11 @@ export class StoreUnitComponent {
         this.currentUnitID = checkResult.id;
         //Default survey
         if (this.currentSurveyID==null){
-            this.currentSurveyID = "c2c841d0-9257-495c-832e-0adc424b17ec"; 
-        } 
+            this.surveyIdError="Please select a suvey on tools->bind survey";
+            return;
+        } else{
+            this.surveyIdError="";
+        }
 
         //Get survey data:
         //From the server
