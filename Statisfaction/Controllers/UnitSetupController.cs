@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using RabbitMQ.Client;
 using System.Text;
 using Newtonsoft.Json.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace api.UnitSetup
 {
@@ -41,6 +42,7 @@ namespace api.UnitSetup
         /**
         After a unit has been created, it needs to be bound to a physical store unit, this is done here
          */
+        [Authorize]
         [Route("register")]
         [HttpPost]
         public IActionResult Post([FromBody]RegistrationData data)
@@ -73,6 +75,7 @@ namespace api.UnitSetup
         /**
         Unbind a physical store unit from a unit
          */
+        [Authorize]
         [Route("unregister")]
         [HttpPost]
         public IActionResult unbind([FromBody]RegistrationData data)
@@ -108,6 +111,7 @@ namespace api.UnitSetup
         /**
         Each time a physical store unit loads the site, it needs to check that it is registered with this device
          */
+        [Authorize]
         [Route("checkRegistration")]
         [HttpPost]
         public IActionResult Post([FromBody]ActivationData data)
@@ -137,6 +141,7 @@ namespace api.UnitSetup
         /**
         Get all unis registered to OwnerID (id)
          */
+        [Authorize]
         [Route("units/{id}")]
         [HttpGet("{id}")]
         public IActionResult Get(string id)
@@ -161,6 +166,7 @@ namespace api.UnitSetup
         /**
         Delete store unit by unitID
         */
+        [Authorize]
         [Route("unit/{id}")]
         [HttpDelete("{id}")]
         public IActionResult deleteUnit(int id)
@@ -190,6 +196,7 @@ namespace api.UnitSetup
         Example:
         http://localhost:5000/api/UnitSetup/bindSurvey
          */
+        [Authorize]
         [Route("bindSurvey")]
         public IActionResult post([FromBody]SurveyUnitData data)
         {
@@ -231,6 +238,7 @@ namespace api.UnitSetup
 
         See survey-selector for more detailed example
         */
+        [Authorize]
         [Route("surveys/{id}")]
         [HttpGet("{id}")]
         public string get(string id)
@@ -256,7 +264,7 @@ namespace api.UnitSetup
             return result.ToJson(jsonWriterSettings);
 
         }
-
+        [Authorize]
         [Route("getSurveys/{id}")]
         [HttpGet("{id}")]
         public string getSurveys(string id)
@@ -270,7 +278,7 @@ namespace api.UnitSetup
             var jsonWriterSettings = new JsonWriterSettings { OutputMode = JsonOutputMode.Strict };
             return result.ToJson(jsonWriterSettings);
         }
-
+        [Authorize]
         [Route("getTemplates")]
         [HttpGet]
         public string getTemplates()
@@ -290,6 +298,7 @@ namespace api.UnitSetup
          * Get survey by SurveyID
          * Example: http://localhost:5000/api/UnitSetup/survey/a3a841d0-9257-495c-832e-0adc424b17wq
          */
+        [Authorize]
         [Route("survey/{id}")]
         [HttpGet("{id}")]
         public string getSurvey(string id)
@@ -307,7 +316,7 @@ namespace api.UnitSetup
             return result.ToJson(jsonWriterSettings);
         }
 
-
+        [Authorize]
         [Route("survey")]
         [HttpPost]
         public IActionResult postSurvey([FromBody] JObject survey)
@@ -327,6 +336,7 @@ namespace api.UnitSetup
          * If the given survey does not exist, it will save a new one.
          * Used to both edit existing surveys and save new ones
          */
+        [Authorize]
         [Route("saveSurvey")]
         [HttpPost]
         public IActionResult saveSurvey([FromBody] JObject survey)
@@ -369,6 +379,7 @@ namespace api.UnitSetup
         http://localhost:5000/api/UnitSetup/deleteSurvey/a3a841d0-9257-495c-832e-0adc424b17ea
         */
         //will fail at routing if this is called survey/{id} which is weird since it is HttpDelete and the other is HttpGet...
+        [Authorize]
         [Route("deleteSurvey/{id}")]
         [HttpDelete("{id}")]
         public IActionResult deleteSurvey(string id)
@@ -403,6 +414,7 @@ namespace api.UnitSetup
 
             return Ok();
         }
+        [Authorize]
         [Route("addUnit")]
         [HttpPost]
         public IActionResult addUnit([FromBody]Models.StoreUnit newUnit){

@@ -11,6 +11,7 @@ using MathNet.Numerics.Statistics;
 using MathNet.Numerics.Distributions;
 using MongoDB.Bson.Serialization;
 using Data;
+using Microsoft.AspNetCore.Authorization;
 
 [Route("api/statistics")]
 public class StatisticsController : Controller
@@ -23,7 +24,7 @@ public class StatisticsController : Controller
         this.mdb = mongoService.GetMongo();
         this.rdb = rdb;
     }
-
+    [Authorize]
     [HttpGet]
     [Route("satisfaction")]
     public ActionResult Satisfaction()
@@ -37,7 +38,7 @@ public class StatisticsController : Controller
         var list = aggregate.ToList();
         return Content(list.ToJson());
     }
-
+    [Authorize]
     [HttpGet]
     [Route("summary")]
     public ActionResult Summary()
@@ -63,7 +64,7 @@ public class StatisticsController : Controller
         summary.Add(data.Kurtosis);
         return Content(summary.ToJson());
     }
-
+    [Authorize]
     [HttpGet]
     [Route("unit/{unitId}")]
     // URI: api/statistics/unit/1?date=1993/01/01&from=0&to=23
@@ -225,10 +226,4 @@ public class StatisticsController : Controller
         return new BsonArray(countList);
     }
 
-    [HttpGet]
-    [Route("test")]
-    public ActionResult Test()
-    {
-        return new EmptyResult();
-    }
 }
