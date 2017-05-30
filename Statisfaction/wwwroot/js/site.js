@@ -5,6 +5,8 @@
 var client;
 var respList = [];
 var delay= 10;
+var GSurveyID;
+var GUnitID;
 
 function start_rabbit(destQueueName) {
 

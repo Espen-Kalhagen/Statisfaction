@@ -80,8 +80,9 @@ export class StoreUnitComponent {
         this.currentSurveyID = checkResult.surveyID;
         this.currentUnitID = checkResult.id;
         //Default survey
-        if (this.currentSurveyID==null){
+        if (this.currentSurveyID===null){
             this.surveyIdError="Please select a suvey on tools->bind survey";
+            this.sendingService.init(this.cookieObject.id);
             return;
         } else{
             this.surveyIdError="";

@@ -6,6 +6,8 @@ declare var send_wrapper: any;
 declare var $:any;
 declare var respList:any;
 declare var delay: any;
+declare var GSurveyID:any;
+declare var GUnitID:any;
 
 
 @Injectable()
@@ -14,8 +16,7 @@ export class SendingService {
 
     private timer:number;
     private owner:any;
-    private SurveyID:any;
-    private UnitID:any;
+
     constructor(){
     }
 
@@ -26,8 +27,8 @@ export class SendingService {
     }
 
     public putRepsonse(SurveyID:string,owner:any, response:any,UnitID:any): Promise<Boolean> {
-        this.SurveyID = SurveyID;
-        this.UnitID = UnitID;
+        GSurveyID = SurveyID;
+        GUnitID = UnitID;
         window.clearTimeout(this.timer);
         respList.push(response);
         console.log("Added response: " + JSON.stringify(response) + "RespListlooks like this: " + JSON.stringify(respList));
@@ -52,8 +53,8 @@ export class SendingService {
       
     var surveyResponse ={
         
-        "UnitID": this.UnitID,
-        "SurveyID":this.SurveyID,
+        "UnitID": GUnitID,
+        "SurveyID":GSurveyID,
         "Hours": time.getHours(),
         "Minutes": time.getMinutes(),
         "Seconds": time.getSeconds(),

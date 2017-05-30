@@ -37,7 +37,6 @@
         <h2> {{resp.title}}</h2>
         <p> <b> X-Axsis </b> Time of day </p> 
         <p> <b> Y-Axsis </b> Number of responses </p> 
-        <p> {{lineChartColors[i][0].backgroundColor}}</p>
         <div class="col-md-9">
             <canvas class="lineChart" baseChart [colors]="lineChartColors[i]" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)" width="400" height="130" [datasets]="chartData[i]" [labels]="lineChartLabels"
                 [legend]="lineChartLegend" [chartType]="lineChartType">
