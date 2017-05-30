@@ -62,7 +62,7 @@ export class StoreUnitComponent {
         let options = new RequestOptions();
         options.headers = new Headers({ 'Content-Type': 'application/json' });
         this.http.post('api/UnitSetup/checkRegistration', body, options).catch(err => {
-            alert("There was an error in the registration, please log out and in and restart the process");
+            alert("There was an error in the registration, pleas go to tools->survey binding and unbind this store unit, then add it agien.");
             this.router.navigate(['/register-unit'], { skipLocationChange: true });
             this.cookie.delete('StoreUnitCookie');
             return Observable.throw(err); // observable needs to be returned or exception raised

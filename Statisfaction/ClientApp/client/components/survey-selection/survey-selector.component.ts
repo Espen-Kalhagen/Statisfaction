@@ -59,7 +59,7 @@ export class SelectSurveyComponent
         
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
-        this.http.post('http://localhost:5000/api/UnitSetup/bindSurvey', JSON.stringify({ Unitid, surveyID, surveyName }), { headers: headers }).toPromise().then(servResp => $("#applied" + unitID).text("Done!")).catch(error => $("#applied" + unitID).text("Error! Please try later"));
+        this.http.post('http://localhost:5000/api/UnitSetup/bindSurvey', JSON.stringify({ Unitid, surveyID, surveyName }), { headers: headers }).toPromise().then(servResp => alert("Applied! Store unit refreshed")).catch(error => $("#applied" + unitID).text("Error! Please try later"));
     
 }
     unbind(unitID,index) {
@@ -79,7 +79,7 @@ export class SelectSurveyComponent
     }
 
     delete(unitID,index){
-        if (confirm('WARNING! Are you sure you want to delete this store unit? It will also delete information collected by it!')) {
+        if (confirm('WARNING! Are you sure you want to delete this store unit? It will also delete all information collected by it!')) {
              
             let options = new RequestOptions();
             this.http.delete('http://localhost:5000/api/UnitSetup/unit/' + unitID, options).catch(err => {

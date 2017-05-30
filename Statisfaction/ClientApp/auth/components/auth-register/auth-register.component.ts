@@ -169,7 +169,7 @@ export class AuthRegisterComponent implements OnInit {
     }
 
     private onSuccess() {
-        this.router.navigate(["client/statistics"]);
+        window.location.href = "https://statisfaction.tech/client/statistics";
     }
 
     private onServerError()

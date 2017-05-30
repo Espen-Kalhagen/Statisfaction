@@ -116,7 +116,6 @@
                                     <option *ngFor="let sur of availableSurveys" [selected]="sur.surveyName == resp.surveyName" [value]="sur.surveyID">{{sur.surveyName}}</option>
                                 </select>
                                     <span class="input-group-addon" (click)="apply(resp.id)">Apply</span></div>
-                                <p id="applied{{resp.id}}"> </p>
                             </div>
                         </div>
 

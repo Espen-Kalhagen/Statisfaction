@@ -72,10 +72,7 @@ namespace WebApplicationBasic
 
                 var userManager = serviceScope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
 
-                var UserUser = new ApplicationUser { Email = "user@uia.no", UserName = "user@uia.no" };
-                userManager.CreateAsync(UserUser, "Password1.").Wait();
 
-                db.SaveChanges();
 
                 var worker = new RabbitMQTasks.Worker(mongoService);
                 System.Threading.Thread myThread;
