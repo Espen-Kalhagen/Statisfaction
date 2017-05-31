@@ -4,7 +4,7 @@ import { UniversalModule } from 'angular2-universal';
 import { ClientComponent } from './components/client/client.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
-import { StatisticsComponent } from './components/statistics/statistics.component';
+import { QuickstartComponent } from './components/quickstart/quickstart.component';
 import { NavMenuComponent} from './components/navmenu/navmenu.component';
 import { ChartComponent} from './components/chart/chart.component';
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
@@ -36,7 +36,7 @@ const routes: Routes =
     { path: '', redirectTo: 'client', pathMatch: 'full' },
     { path: 'client', component:ClientComponent, children:
     [
-        {path: 'statistics', component: StatisticsComponent},
+        {path: 'quickstart', component: QuickstartComponent},
         {path: 'fetch-data', component: FetchDataComponent},
         {path: 'register-unit-view', component: RegisterUnitViewComponent},
         {path: 'chart', component: ChartComponent},
@@ -60,7 +60,7 @@ const routes: Routes =
         NavMenuComponent,
         CounterComponent,
         FetchDataComponent,
-        StatisticsComponent,   
+        QuickstartComponent,   
         ChartComponent,     
         SurveyOverviewComponent,
         SurveySummaryComponent,

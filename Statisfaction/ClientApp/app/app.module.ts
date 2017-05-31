@@ -7,7 +7,7 @@ import { ClientModule } from '../client/client.module'
 import { AuthModule } from '../auth/auth.module';
 
 import { AppComponent } from './components/app/app.component';
-import { StatisticsComponent } from '../client/components/statistics/statistics.component';
+import { QuickstartComponent } from '../client/components/quickstart/quickstart.component';
 
 import { EditorSharedDataService } from '../editor/editor-shared-data.service';
 
