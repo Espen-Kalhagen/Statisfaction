@@ -6,14 +6,11 @@
 }
 
 #StyleContainer{
-    padding-left:15px;
+    padding-left:0px;
 }
-#topbar-info  {
-    padding-left: 80px;
-    padding-bottom: 20px
-}
+
 .main-body{
-    padding-left:80px;
+    padding-left: 40px;
 }
 
 #registrationPin{
@@ -53,3 +50,32 @@ img{
 .add-animation {
   animation: AddUnitAnimation 0.5s;
 }
+
+
+/* Top bar styling */
+#topbar-container
+{
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px #CCCCCC solid;
+    margin-bottom: 30px;
+}
+
+.post-icon {
+    float: left;
+}
+
+.post-content 
+{
+    float: left;
+    text-align: left;
+    padding-left: 30px;
+}
+
+.icon-img
+{
+    width: 60px;
+    height: 60px;
+}
+ 

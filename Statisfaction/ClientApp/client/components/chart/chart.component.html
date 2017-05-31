@@ -1,52 +1,54 @@
-
 <div id="StyleContainer">
 
-    <div id="top-bar">
-        <div class="row ">
-            <div class="col-md-2 row-image">
-                <img class="icon-img" src="/images/icons/icon_chart.png"> 
-            </div>
-            <div class="col-md-5" id="top-title">
-            <h1>
-                Statistics</h1>
-            <p>Look at and analyse customer feedback.</p>
-            </div>
+    <div id="topbar-container" class="col-md-12">
+        <div class="post-icon">
+            <img class="icon-img" src="/images/icons/icon_chart.png">
         </div>
-        <div class="row" >
+        <div class="post-content">
+            <h3>Statistics</h3>
+            <p>Analyze customer feedback</p>
+        </div>
+    </div>
+
+
+    <div id="content-container">
+        <div class="row">
             <div class="col-md-2">
-                <label class="topbarLabel" >Date range: </label>
+                <label class="topbarLabel">Date range </label>
             </div>
-            <div class ="col-md-1">
+            <div class="col-md-1">
             </div>
-            <div class ="col-md-2">
-                <label class="topbarLabel">Time range: </label>
+            <div class="col-md-2">
+                <label class="topbarLabel">Time range </label>
             </div>
-            <div class ="col-md-1">
+            <div class="col-md-1">
             </div>
-            <div class ="col-md-2">
-                <label class="topbarLabel">Unit: </label>
+            <div class="col-md-2">
+                <label class="topbarLabel">Unit </label>
             </div>
         </div>
         <div class="row">
             <div class="col-md-3">
                 <div class="input-group">
-                    
-                    <input class="form-control" [ngModel]="fromDate | date: 'y-M-d'" [(dateTimePicker)]="fromDate" [pickerType]=" 'date' " [mode]=" 'dropdown' " [returnObject]=" 'js' " [hourTime]=" '24' " [viewFormat]=" 'L' " [theme]="'#0F8AD3'" readonly />
-                    <input class="form-control" [ngModel]="toDate | date: 'y-M-d'" [(dateTimePicker)]="toDate" [pickerType]=" 'date' " [mode]=" 'dropdown' " [returnObject]=" 'js' " [hourTime]=" '24' " [theme]="'#0F8AD3'" readonly />            
-                
+                    <input id="fromDate" class="form-control" [ngModel]="fromDate | date: 'y-M-d'" [(dateTimePicker)]="fromDate" [pickerType]=" 'date' " [mode]=" 'dropdown' "
+                        [returnObject]=" 'js' " [hourTime]=" '24' " [viewFormat]=" 'L' " [theme]="'#0F8AD3'" readonly />
+                    <input id="toDate" class="form-control" [ngModel]="toDate | date: 'y-M-d'" [(dateTimePicker)]="toDate" [pickerType]=" 'date' " [mode]=" 'dropdown' "
+                        [returnObject]=" 'js' " [hourTime]=" '24' " [theme]="'#0F8AD3'" readonly />
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="input-group">
-                    
-                    <input class="form-control" [ngModel]="fromTime | date: 'H:mm'" [(dateTimePicker)]="fromTime" [pickerType]=" 'time' " [mode]=" 'dropdown' " [returnObject]=" 'js' " [hourTime]=" '24' " [theme]="'#0F8AD3'" readonly />
-                    <input class="form-control" [ngModel]="toTime | date: 'H:mm'" [(dateTimePicker)]="toTime" [pickerType]=" 'time' " [mode]=" 'dropdown' " [returnObject]=" 'js' " [hourTime]=" '24' " [theme]="'#0F8AD3'" readonly />
-                
+
+                    <input class="form-control" [ngModel]="fromTime | date: 'H:mm'" [(dateTimePicker)]="fromTime" [pickerType]=" 'time' " [mode]=" 'dropdown' "
+                        [returnObject]=" 'js' " [hourTime]=" '24' " [theme]="'#0F8AD3'" readonly />
+                    <input class="form-control" [ngModel]="toTime | date: 'H:mm'" [(dateTimePicker)]="toTime" [pickerType]=" 'time' " [mode]=" 'dropdown' "
+                        [returnObject]=" 'js' " [hourTime]=" '24' " [theme]="'#0F8AD3'" readonly />
+
                 </div>
             </div>
-            <div class="col-md-3">  
-                
-                <select name="unit" id="selectbasic"  class="form-control">
+            <div class="col-md-3">
+
+                <select name="unit" id="selectbasic" class="form-control">
                     <option *ngFor="let unit of unitData" [value]="unit.id">{{unit.unitName}}</option>
                 </select>
             </div>
@@ -57,6 +59,6 @@
     </div>
 
     <div class="main-body">
-    <template chart-host></template>
+        <template chart-host></template>
     </div>
 </div>

@@ -25,8 +25,8 @@ export class SurveyOverviewComponent {
 
     }
 
-    onSurveyClicked(survey: object, index: number) {
-        this.surveyService.survey = this.surveyService.surveys[index];
+    onSurveyClicked(survey: SurveyModel, index: number) {
+        this.surveyService.survey = survey;
     }
 
     onSortByName() {

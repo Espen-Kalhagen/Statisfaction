@@ -21,7 +21,6 @@ export class SurveySummaryComponent implements AfterViewInit {
 
 
     constructor(private surveyService: SurveyDataService, private editorData: EditorSharedDataService, private http: Http, private router: Router) {
-
     }
 
     /*

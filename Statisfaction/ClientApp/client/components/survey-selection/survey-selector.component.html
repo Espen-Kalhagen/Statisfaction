@@ -1,28 +1,25 @@
 <div id="StyleContainer">
-    <div class="row" id="topbar-info">
 
-        <div class="col-md-2 row-image">
-            <img class="icon-img"  src="/images/icons/icon_survey_settings.png">
+    <div class="col-md-12" id="topbar-container">
+        <div class="post-icon">
+            <img class="icon-img" src="/images/icons/icon_survey_settings.png">
         </div>
-        <div class="col-md-8">
-
-            <h1>Survey binding</h1>
-            <h4> Manage your store units </h4>
-            <p>
-                After you have registered your store unit and created a survey to run on it
-                <a href="client/editor"> here </a> you can bind a survey to each device. You need to select a survey to start collecting feedback.
-            </p>
+        <div class="post-content">
+            <h3>Survey binding</h3>
+            <p> Manage your store units </p>
         </div>
     </div>
 
 
     <div class="row main-body">
-        <div class="row">
-            <h2>Register new store unit</h2>
+
+        <div class="row col-md-12">
+            <h4>Register new store unit</h4>
         </div>
+
         <div class="row">
             <div class="col-md-3">
-                <label> Name:</label>
+                <label> Name</label>
             </div>
             <div class="col-md-3">
                 <label> Placement </label>
@@ -31,24 +28,14 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-3">
-                <p> Example: "Clothing"</p>
-            </div>
-            <div class="col-md-3">
-                <p> Example: "Exit clothing department"</p>
-            </div>
-            <div class="col-md-6">
-            </div>
-        </div>
-        <div class="row">
             <form #regUnitForm="ngForm">
                 <div class="col-md-3">
                     <span class="text-danger"></span>
-                    <input class="form-control" required type="text" [(ngModel)]="unitModel.UnitName" name="UnitName">
+                    <input class="form-control" required type="text" [(ngModel)]="unitModel.UnitName" name="UnitName" placeholder="Example: Clothing">
                 </div>
                 <div class="col-md-3">
                     <span class="text-danger"></span>
-                    <input class="form-control" required type="text" [(ngModel)]="unitModel.Placement" name="Placement">
+                    <input class="form-control" required type="text" [(ngModel)]="unitModel.Placement" name="Placement" placeholder="Example: Exit clothing department">
                 </div>
                 <div class="col-md-3">
                     <button [disabled]="!regUnitForm.form.valid" type="submit" (click)=" register();" class="btn btn-primary">Submit</button>
@@ -58,11 +45,12 @@
             </form>
         </div>
 
-        <hr>
+        <hr class="col-md-10">
 
         <div class="row">
             <div class="col-md-8">
-                <h2  class="add-animation" *ngIf="hasUnits">Your registred store units:</h2>
+                <h4 class="add-animation" *ngIf="hasUnits">Your registred store units:</h4>
+
                 <div *ngFor="let resp of responses; let i = index" class="add-animation">
 
                     <ul class="list-group">
