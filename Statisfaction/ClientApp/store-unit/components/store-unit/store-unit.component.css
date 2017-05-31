@@ -10,8 +10,8 @@
     text-align: center;
 }
 #logo{
-    max-height: 100;
-     max-width: 500;
+    max-height: 100px;
+    max-width: 500px;
 }
 
 body
@@ -22,7 +22,6 @@ body
 
 #topbar
 {
-    margin-top: -50px;
+    padding: 20px;
     box-shadow: 2px 2px 15px  #888888;
-    margin-bottom: -20px;
 }
