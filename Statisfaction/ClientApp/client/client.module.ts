@@ -29,6 +29,7 @@ import { ChartContentComponent } from "./components/chart/chart-content/chart-co
 import { ChartDirective } from "./components/chart/chart.directive";
 
 import { SurveyFilterPipe } from './components/overview/survey-filter.pipe'
+import { ProductionStatePipe, DraftStatePipe } from './components/overview/state-filter.pipe'
 
 const routes: Routes =
 [
@@ -69,7 +70,9 @@ const routes: Routes =
         ChartDirective,
         ChartContentComponent,     
         RegisterUnitViewComponent, 
-        SurveyFilterPipe    
+        SurveyFilterPipe,
+        ProductionStatePipe,
+        DraftStatePipe
     ],
     imports: [  
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.

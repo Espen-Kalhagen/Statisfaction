@@ -62,7 +62,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let survey of surveyService.surveys | surveyfilter:keyword ; let i = index;" (click)="onSurveyClicked(survey, i)">
+            <tr *ngFor="let survey of surveyService.surveys | surveyfilter:keyword | production; let i = index;" (click)="onSurveyClicked(survey, i)">
                 <td width="20%">{{survey.general.title}}</td>
                 <td width="60%">{{survey.general.description}}</td>
                 <td width="20%">{{survey.general.updated | date}}</td>
@@ -78,11 +78,18 @@
     </div>
 
     <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Updated</th>
+            </tr>
+        </thead>
         <tbody>
-            <tr *ngFor="let survey of surveyService.surveys | surveyfilter:keyword ; let i = index;" (click)="onSurveyClicked(survey, i)">
+            <tr *ngFor="let survey of surveyService.surveys | surveyfilter:keyword | draft ; let i = index;" (click)="onSurveyClicked(survey, i)">
                 <td width="20%">{{survey.general.title}}</td>
                 <td width="60%">{{survey.general.description}}</td>
-                <td width="20%">TODO:Add timestamp</td>
+                <td width="20%">{{survey.general.updated | date}}</td>
             </tr>
         </tbody>
     </table>
