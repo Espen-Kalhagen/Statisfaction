@@ -163,16 +163,33 @@ public class StatisticsController : Controller
 
                         // Generates colors for the smiley widget graph
                         string color = "#000000";
+                        string subtitle = "";
                         switch (i) {
-                            case 0: color = "#62D13D"; break;
-                            case 1: color = "#E2EF62"; break;
-                            case 2: color = "#FFCE80"; break;
-                            case 3: color = "#FC5959"; break;
+                            case 0: 
+                                color = "#62D13D";
+                                subtitle ="Big smile";
+                                break;
+                            case 1: 
+                                color = "#E2EF62";
+                                subtitle ="Smile"; 
+                                break;
+                            case 2: 
+                                color = "#FFCE80"; 
+                                subtitle ="Frown"; 
+                                break;
+                            case 3: 
+                                color = "#FC5959"; 
+                                subtitle ="Big frown"; 
+                                break;
                         }
+                        //TODO: change to allways have this field
+                        try{
+                            subtitle = widget["subtitle" + (i + 1).ToString()].AsString;
+                        }catch (KeyNotFoundException e){}
 
                         answerList.Add(new BsonDocument{
                             {"id", i.ToString()},
-                            {"text", widget["subtitle" + (i + 1).ToString()].AsString},
+                            {"text", subtitle},
                             {"color", color},
                             {"countPerHour", CountsPerHour(unitId, surveyId, widget["widgetID"].AsString, (i + 1).ToString(), year, month, day, from, to)
                         }});

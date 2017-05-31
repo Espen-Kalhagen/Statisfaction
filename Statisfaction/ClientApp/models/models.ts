@@ -11,10 +11,10 @@ export class WSmileyModel extends WidgetBaseModel {
 
     public title: string = "";
 
-    public subtitle1: string = "";
-    public subtitle2: string = "";
-    public subtitle3: string = "";
-    public subtitle4: string = "";
+    public subtitle1: string = "Big smile";
+    public subtitle2: string = "Smile";
+    public subtitle3: string = "Frown";
+    public subtitle4: string = "Big frown";
 
     public useSubtitles: boolean = false;
 
