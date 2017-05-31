@@ -42,7 +42,7 @@ namespace api.UnitSetup
         /**
         After a unit has been created, it needs to be bound to a physical store unit, this is done here
          */
-        [Authorize]
+        [AllowAnonymous]
         [Route("register")]
         [HttpPost]
         public IActionResult Post([FromBody]RegistrationData data)
@@ -111,7 +111,7 @@ namespace api.UnitSetup
         /**
         Each time a physical store unit loads the site, it needs to check that it is registered with this device
          */
-        [Authorize]
+        [AllowAnonymous]
         [Route("checkRegistration")]
         [HttpPost]
         public IActionResult Post([FromBody]ActivationData data)

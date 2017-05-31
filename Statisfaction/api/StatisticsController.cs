@@ -12,17 +12,20 @@ using MathNet.Numerics.Distributions;
 using MongoDB.Bson.Serialization;
 using Data;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 [Route("api/statistics")]
 public class StatisticsController : Controller
 {
     private IMongoDatabase mdb;
     private ApplicationDbContext rdb;
+    private UserManager<ApplicationUser> um;
 
-    public StatisticsController(IMongoService mongoService, ApplicationDbContext rdb)
+    public StatisticsController(IMongoService mongoService, ApplicationDbContext rdb, UserManager<ApplicationUser> userManager)
     {
         this.mdb = mongoService.GetMongo();
         this.rdb = rdb;
+        this.um = userManager;
     }
     [Authorize]
     [HttpGet]
@@ -70,6 +73,29 @@ public class StatisticsController : Controller
     // URI: api/statistics/unit/1?date=1993/01/01&from=0&to=23
     public ActionResult QuestionStatistics(int unitId, string date, int from=0, int to=23)
     {
+        //Check that current user owns this unit
+        var currentUser = um.FindByNameAsync(User.Identity.Name).Result;
+        var unitQ = from i in rdb.StoreUnits
+            where i.Owner.Id == currentUser.Id
+            select i;
+            List<StoreUnit> units;
+            try
+            {
+                units = unitQ.ToList();
+            }
+            catch
+            {
+                return StatusCode(403); //Forbidden
+            }
+        bool found = false;
+        foreach(var unit in units){
+            if(unitId == unit.id)
+                found = true;
+        }
+        if(!found){
+            return StatusCode(403); //Forbidden
+        }
+
         if (date == null) return BadRequest();
 
         // Get the date from the uri and do error handlign
@@ -100,6 +126,8 @@ public class StatisticsController : Controller
         BsonArray widgetArray = new BsonArray();
         foreach (var surveyId in surveyIds)
         {
+
+
             // Gets information about the survey
             var surveyCollection = mdb.GetCollection<BsonDocument>("surveys");
             var filter = BsonDocument.Parse("{'general.surveyID': '" + surveyId + "'}");
@@ -136,10 +164,10 @@ public class StatisticsController : Controller
                         // Generates colors for the smiley widget graph
                         string color = "#000000";
                         switch (i) {
-                            case 0: color = "#FF0000"; break;
-                            case 1: color = "#00FF00"; break;
-                            case 2: color = "#0000FF"; break;
-                            case 3: color = "#FFFF00"; break;
+                            case 0: color = "#62D13D"; break;
+                            case 1: color = "#E2EF62"; break;
+                            case 2: color = "#FFCE80"; break;
+                            case 3: color = "#FC5959"; break;
                         }
 
                         answerList.Add(new BsonDocument{
