@@ -30,11 +30,13 @@ export class ChartContentComponent {
     public donutVartColots:any[] = [{ backgroundColor: ["#b8436d", "#00d9f9", "#a4c73c", "#a4add3"] }];
     public colors: Array<Color> = [{}];
     private colorIndex:number =0;
+    private titles:any[];
     constructor(
         private dataHandler: DataHandlerService
     ) { }
 
     ngOnInit() {
+        this.titles = [];
        this.chartData = [];
         this.lineChartColors = [];
         this.lineChartColorsSimple = [];
@@ -49,7 +51,7 @@ export class ChartContentComponent {
 
        
               console.log("Finished setup");
-       console.log(this.surveyData[0].statistics.questions)
+       console.log(this.surveyData)
 
 
 
@@ -75,6 +77,7 @@ export class ChartContentComponent {
 
                 if(this.chartData[j]===undefined){
                     this.chartData[j] = []
+                    this.titles[j]=question.title;
                     
                 }
                 this.lineChartColorsSimple.push(<Color>[]);

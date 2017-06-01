@@ -298,7 +298,7 @@ namespace api.UnitSetup
          * Get survey by SurveyID
          * Example: http://localhost:5000/api/UnitSetup/survey/a3a841d0-9257-495c-832e-0adc424b17wq
          */
-        [Authorize]
+        [AllowAnonymous]
         [Route("survey/{id}")]
         [HttpGet("{id}")]
         public string getSurvey(string id)
