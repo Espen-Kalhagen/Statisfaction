@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Services;
 using Microsoft.AspNetCore.Identity;
 using Stripe;
+using Microsoft.AspNetCore.Rewrite;
 
 namespace WebApplicationBasic
 {
@@ -35,6 +36,7 @@ namespace WebApplicationBasic
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             // Add framework services.
 
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Filename=./Statisfaction.db"));
@@ -67,7 +69,7 @@ namespace WebApplicationBasic
                 var db = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
                 var mongoService = serviceScope.ServiceProvider.GetService<IMongoService>();
 
-                db.Database.EnsureDeleted();
+               // db.Database.EnsureDeleted();
                 db.Database.EnsureCreated();
 
                 var userManager = serviceScope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
@@ -99,6 +101,8 @@ namespace WebApplicationBasic
             //  {
             //app.UseExceptionHandler("/Home/Error");
             //   }
+
+            app.UseRewriter(new RewriteOptions().Add(new RedirectRules()));
 
             app.UseStaticFiles();
 
