@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "WebView";
 
     // URL pointing to the desired login-page
-    private final String URL_STARTUP = "http://statisfaction3.azurewebsites.net/store-unit";
+    private final String URL_STARTUP = "http://statisfaction.tech/store-unit";
 
     // Reference to the container-webview
     private WebView container;
@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         // Configure app
         this.configureContainer();
 
+        this.configureApp();
     }
 
     /**
