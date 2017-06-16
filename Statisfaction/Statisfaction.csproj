@@ -43,7 +43,7 @@
     <Content Remove="ClientApp\**" />
   </ItemGroup>
   <Target Name="RunWebpack" BeforeTargets="Build">
-    <ItemGroup>
+  <ItemGroup>
       <DistFiles Include="wwwroot\dist\**; ClientApp\dist\**" />
       <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
         <RelativePath>%(DistFiles.Identity)</RelativePath>

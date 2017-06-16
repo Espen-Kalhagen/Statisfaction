@@ -29,7 +29,7 @@ namespace RabbitMQTasks
             using (var connection = factory.CreateConnection())
             using (var channel = connection.CreateModel())
             {
-                channel.QueueDeclare(queue: "testqueue",
+                channel.QueueDeclare(queue: "productionqueue",
                                      durable: true,
                                      exclusive: false,
                                      autoDelete: false,
@@ -62,7 +62,7 @@ namespace RabbitMQTasks
                     channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
                 };
 
-                channel.BasicConsume(queue: "testqueue",
+                channel.BasicConsume(queue: "productionqueue",
                                      noAck: false,
                                      consumer: consumer);
 

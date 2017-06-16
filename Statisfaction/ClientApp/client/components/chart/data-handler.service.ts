@@ -20,9 +20,9 @@ export class DataHandlerService {
 
 
 getStatisticsResponces(date:string, unitID:string): Promise<any>{
-    console.log('http://localhost:5000/api/statistics/unit/'+unitID+'?date=' +date);
+    console.log('/api/statistics/unit/'+unitID+'?date=' +date);
 
-    return this.http.get('http://localhost:5000/api/statistics/unit/'+unitID+'?date=' +date).toPromise().then(result => {
+    return this.http.get('/api/statistics/unit/'+unitID+'?date=' +date).toPromise().then(result => {
             let response = result.json() as string;
             console.log(result.json() as string);
             return response;
@@ -31,7 +31,7 @@ getStatisticsResponces(date:string, unitID:string): Promise<any>{
 getUnitData(): Promise < any > {
     //Load units
 
-    return this.http.get('http://localhost:5000/api/UnitSetup/units/' + OwnerID).toPromise().then(result => {
+    return this.http.get('/api/UnitSetup/units/' + OwnerID).toPromise().then(result => {
         let responses = result.json() as string;
         console.log(result.json() as string);
         return responses;

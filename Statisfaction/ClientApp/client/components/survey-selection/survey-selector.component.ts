@@ -29,7 +29,7 @@ export class SelectSurveyComponent
 
         this.unitModel = new RegisterStoreUnitModel();
         //Load surveys
-        this.http.get('http://localhost:5000/api/UnitSetup/surveys/' + OwnerID).subscribe(result => {
+        this.http.get('/api/UnitSetup/surveys/' + OwnerID).subscribe(result => {
             let surveyData = result.json();
             for(let survey of surveyData){
                 let generalData:SurveyData = new SurveyData(survey.general.title, survey.general.surveyID);
@@ -38,7 +38,7 @@ export class SelectSurveyComponent
             console.log(result.json() as string);
         });
         //Load units
-        this.http.get('http://localhost:5000/api/UnitSetup/units/' + OwnerID).subscribe(result => {
+        this.http.get('/api/UnitSetup/units/' + OwnerID).subscribe(result => {
             this.responses = result.json() as string;
             if(this.responses.length>0){
                 this.hasUnits = true;
@@ -59,7 +59,7 @@ export class SelectSurveyComponent
         
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
-        this.http.post('http://localhost:5000/api/UnitSetup/bindSurvey', JSON.stringify({ Unitid, surveyID, surveyName }), { headers: headers }).toPromise().then(servResp => alert("Applied! Store unit refreshed")).catch(error => $("#applied" + unitID).text("Error! Please try later"));
+        this.http.post('/api/UnitSetup/bindSurvey', JSON.stringify({ Unitid, surveyID, surveyName }), { headers: headers }).toPromise().then(servResp => alert("Applied! Store unit refreshed")).catch(error => $("#applied" + unitID).text("Error! Please try later"));
     
 }
     unbind(unitID,index) {
@@ -69,7 +69,7 @@ export class SelectSurveyComponent
         let options = new RequestOptions();
         options.headers = new Headers({ 'Content-Type': 'application/json' });
 
-        this.http.post('http://localhost:5000/api/UnitSetup/unregister', body, options).catch(err => {
+        this.http.post('/api/UnitSetup/unregister', body, options).catch(err => {
             alert("Failed to unbind");
             return Observable.throw(err); // observable needs to be returned or exception raised
         }).subscribe(res => 
@@ -82,7 +82,7 @@ export class SelectSurveyComponent
         if (confirm('WARNING! Are you sure you want to delete this store unit? It will also delete all information collected by it!')) {
              
             let options = new RequestOptions();
-            this.http.delete('http://localhost:5000/api/UnitSetup/unit/' + unitID, options).catch(err => {
+            this.http.delete('/api/UnitSetup/unit/' + unitID, options).catch(err => {
                 alert("Failed to delete");
                 return Observable.throw(err); // observable needs to be returned or exception raised
             }).subscribe(res => {
@@ -99,7 +99,7 @@ export class SelectSurveyComponent
         let options = new RequestOptions();
         options.headers = new Headers({ 'Content-Type': 'application/json' });
 
-        this.http.post('http://localhost:5000/api/UnitSetup/addUnit', body, options).catch(err => {
+        this.http.post('/api/UnitSetup/addUnit', body, options).catch(err => {
             alert("Failed to add new unit");
             return Observable.throw(err); // observable needs to be returned or exception raised
         }).subscribe(res => {

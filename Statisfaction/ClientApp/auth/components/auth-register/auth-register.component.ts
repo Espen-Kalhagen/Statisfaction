@@ -139,7 +139,7 @@ export class AuthRegisterComponent implements OnInit {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
 
-        let url = 'http://localhost:5000/Auth/Subscribe';
+        let url = '/Auth/Subscribe';
 
         this.http.post(url, payload, options).subscribe(
             (response) => {

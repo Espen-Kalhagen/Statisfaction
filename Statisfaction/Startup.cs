@@ -36,10 +36,9 @@ namespace WebApplicationBasic
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             // Add framework services.
 
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Filename=./Statisfaction.db"));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Filename=./database/Statisfaction.db"));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -62,15 +61,10 @@ namespace WebApplicationBasic
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            // if (env.IsDevelopment())
-            // {
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
                 var db = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
                 var mongoService = serviceScope.ServiceProvider.GetService<IMongoService>();
-
-               // db.Database.EnsureDeleted();
-                db.Database.EnsureCreated();
 
                 var userManager = serviceScope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
 
@@ -83,25 +77,25 @@ namespace WebApplicationBasic
 
                 myThread.Start();
 
-            }
-
             // Initialize stripe
             StripeConfiguration.SetApiKey("sk_test_eQr4p9hfcoToDBtJoL7rXisg");
 
-
-            app.UseDeveloperExceptionPage();
-           app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
+            if (env.IsDevelopment())
+             {
+                db.Database.EnsureDeleted();
+                app.UseDeveloperExceptionPage();
+                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
             {
                 HotModuleReplacement = true
             });
+             }else{
+                 app.UseExceptionHandler("/Home/Error");
+             }
 
-            //I allways debug!
-            //   }
-            //   else
-            //  {
-            //app.UseExceptionHandler("/Home/Error");
-            //   }
-
+             db.Database.EnsureCreated();
+            }
+            
+            //Https redirection rules
             app.UseRewriter(new RewriteOptions().Add(new RedirectRules()));
 
             app.UseStaticFiles();

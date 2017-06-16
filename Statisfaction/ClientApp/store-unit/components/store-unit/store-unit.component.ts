@@ -94,7 +94,7 @@ export class StoreUnitComponent {
         //load the data above, but from the server
         //TODO:change 100 to surveyID
         console.log("get surveydata");
-        this.http.get('http://localhost:5000/api/UnitSetup/survey/' + this.currentSurveyID).subscribe(result => {
+        this.http.get('/api/UnitSetup/survey/' + this.currentSurveyID).subscribe(result => {
 
             surveyData = result.json();
             this.model = surveyData.general as GeneralModel;
