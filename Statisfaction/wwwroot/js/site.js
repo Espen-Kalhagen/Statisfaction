@@ -40,6 +40,6 @@ function start_rabbit(destQueueName) {
 
 
 function send_wrapper(data) {
-    client.send('testqueue', { "content-type": "text/plain" }, data);
+    client.send('productionqueue', { "content-type": "text/plain" }, data);
 }
 

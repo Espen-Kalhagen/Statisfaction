@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Project ToolsVersion="15.0" Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>netcoreapp1.1</TargetFramework>
@@ -7,43 +7,44 @@
     <UserSecretsId>aspnet-Statisfaction-3e86df86-5970-46b1-961c-64ce21ec24cd</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
-    <None Update="Statisfaction.db" CopyToOutputDirectory="PreserveNewest"/>
+    <None Update="Statisfaction.db" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore" Version="1.1.1"/>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.1"/>
-    <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="1.1.0"/>
-    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.1.1"/>
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.1"/>
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="1.1.1"/>
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="1.1.1"/>
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="1.1.1"/>
-    <PackageReference Include="RabbitMQ.Client" Version="4.1.1"/>
-    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="1.1.1"/>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="1.1.1"/>
+    <PackageReference Include="Microsoft.AspNetCore" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Rewrite" Version="1.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="1.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="1.1.1" />
+    <PackageReference Include="RabbitMQ.Client" Version="4.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="1.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="1.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Design" Version="1.1.1">
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="1.0.0">
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="MongoDB.Driver" Version="2.4.3"/>
-    <PackageReference Include="Newtonsoft.Json" Version="10.0.2"/>
-    <PackageReference Include="MathNet.Numerics.Core" Version="3.17.0"/>
-    <PackageReference Include="Stripe.net" Version="9.0.0"/>
+    <PackageReference Include="MongoDB.Driver" Version="2.4.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.2" />
+    <PackageReference Include="MathNet.Numerics.Core" Version="3.17.0" />
+    <PackageReference Include="Stripe.net" Version="9.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="1.0.0-msbuild3-final"/>
-    <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="1.0.0-msbuild3-final"/>
-    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0-msbuild3-final"/>
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="1.0.0-msbuild3-final" />
+    <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="1.0.0-msbuild3-final" />
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0-msbuild3-final" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="yarn.lock"/>
-    <Content Remove="ClientApp\**"/>
+    <None Remove="yarn.lock" />
+    <Content Remove="ClientApp\**" />
   </ItemGroup>
   <Target Name="RunWebpack" BeforeTargets="Build">
-    <ItemGroup>
-      <DistFiles Include="wwwroot\dist\**; ClientApp\dist\**"/>
+  <ItemGroup>
+      <DistFiles Include="wwwroot\dist\**; ClientApp\dist\**" />
       <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
         <RelativePath>%(DistFiles.Identity)</RelativePath>
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>

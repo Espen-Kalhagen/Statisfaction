@@ -34,7 +34,7 @@ export class SurveySummaryComponent implements AfterViewInit {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
 
-        let url = 'http://localhost:5000/api/UnitSetup/deleteSurvey/' + this.surveyService.survey.general.surveyID;
+        let url = '/api/UnitSetup/deleteSurvey/' + this.surveyService.survey.general.surveyID;
 
         this.http.delete(url).subscribe(
             (response) => {
@@ -86,7 +86,7 @@ export class SurveySummaryComponent implements AfterViewInit {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
 
-        let url = 'http://localhost:5000/api/UnitSetup/saveSurvey';
+        let url = '/api/UnitSetup/saveSurvey';
 
         this.http.post(url, payload, options).subscribe(
             (err) => {

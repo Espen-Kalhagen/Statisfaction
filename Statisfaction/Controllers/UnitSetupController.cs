@@ -194,7 +194,7 @@ namespace api.UnitSetup
         /**
         Bind a new survey to a unit, also sends a message to the storeunit telling it to  change to the new survey
         Example:
-        http://localhost:5000/api/UnitSetup/bindSurvey
+        /api/UnitSetup/bindSurvey
          */
         [Authorize]
         [Route("bindSurvey")]
@@ -234,7 +234,7 @@ namespace api.UnitSetup
         /**
         Get available surveys for user id
         Example:
-        'http://localhost:5000/api/UnitSetup/surveys/' + OwnerID
+        '/api/UnitSetup/surveys/' + OwnerID
 
         See survey-selector for more detailed example
         */
@@ -296,7 +296,7 @@ namespace api.UnitSetup
 
         /**
          * Get survey by SurveyID
-         * Example: http://localhost:5000/api/UnitSetup/survey/a3a841d0-9257-495c-832e-0adc424b17wq
+         * Example: /api/UnitSetup/survey/a3a841d0-9257-495c-832e-0adc424b17wq
          */
         [AllowAnonymous]
         [Route("survey/{id}")]
@@ -376,7 +376,7 @@ namespace api.UnitSetup
         /**
         Delete survey with suveryID id
         Example:
-        http://localhost:5000/api/UnitSetup/deleteSurvey/a3a841d0-9257-495c-832e-0adc424b17ea
+        /api/UnitSetup/deleteSurvey/a3a841d0-9257-495c-832e-0adc424b17ea
         */
         //will fail at routing if this is called survey/{id} which is weird since it is HttpDelete and the other is HttpGet...
         [Authorize]

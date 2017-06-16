@@ -13,7 +13,7 @@ namespace RabbitMQTasks
             using (var connection = factory.CreateConnection())
             using (var channel = connection.CreateModel())
             {
-                channel.QueueDeclare(queue: "testqueue",
+                channel.QueueDeclare(queue: "productionqueue",
                                      durable: true,
                                      exclusive: false,
                                      autoDelete: false,
@@ -26,7 +26,7 @@ namespace RabbitMQTasks
                 properties.Persistent = true;
 
                 channel.BasicPublish(exchange: "",
-                                     routingKey: "testqueue",
+                                     routingKey: "productionqueue",
                                      basicProperties: properties,
                                      body: body);
                 Console.WriteLine(" [x] Sent {0}", message);
