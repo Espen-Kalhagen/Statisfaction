@@ -28,11 +28,6 @@
         </div>
     </div>
     <hr>
-    <canvas baseChart
-    [chartType]="type"
-    [datasets]="datasets"
-    [labels]="labels"
-    [colors]="colors"></canvas>
     <div class="row" *ngFor="let resp of chartData; let i = index">
         <h2> {{titles[i]}}</h2>
         <p> <b> X-Axsis </b> Time of day </p> 

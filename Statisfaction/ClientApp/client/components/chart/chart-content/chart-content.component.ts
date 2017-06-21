@@ -130,9 +130,16 @@ export class ChartContentComponent {
         for(let question of this.lineChartColorsSimple){
             this.lineChartColors.push(<Color>[]);
             for(let answer of question){
+
+                    var bigint = parseInt(answer.substring(1, 7), 16);
+                    var r = (bigint >> 16) & 255;
+                    var g = (bigint >> 8) & 255;
+                    var b = bigint & 255;
+                    var backgroundColor = "rgba(" + r + "," + g + "," + b + ",0.5)";
+
                 this.lineChartColors[i].push( 
                         {
-                            backgroundColor: answer,
+                            backgroundColor: backgroundColor,//"rgba("+r+","+g+","+b+",0.3)"
                             pointBackgroundColor: answer,
                             pointBorderColor: '#fff',
                             pointHoverBackgroundColor: '#fff',
@@ -145,7 +152,7 @@ export class ChartContentComponent {
         }])
         i++;
     }        
-        console.log("donu data");
+        console.log("donut data");
         console.log(this.donutChartDataSet);
         this.lineChartColorsSimple = [];
     }
