@@ -23,7 +23,7 @@ dotnet run
 * [ASP.NET core](https://www.microsoft.com/net/learn/get-started/windows) - Backend
 * [NodeJS](https://nodejs.org/en/download//) 
 * [RabbitMQ](https://www.rabbitmq.com/) - Async message broker
-* [MongoDb] (https://www.mongodb.com/) - Database
+* [MongoDb](https://www.mongodb.com/) - Database
 
 
 ## Authors
