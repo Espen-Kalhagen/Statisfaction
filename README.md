@@ -10,11 +10,11 @@ These instructions will get you a copy of the project up and running on your loc
 
 After cloning the repository run these commands inside the statisfaction folder
 Install NodeJS and ASP.NET Core 1.0.1
-'''
+```
 dotnet restore
 npm install
 dotnet run
-'''
+```
 
 
 ## Built With
