@@ -28,7 +28,9 @@ dotnet run
 
 ## Authors
 
-See the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+Kjell Håland
+Ørjan Langøy Olsen
+Espen Kalhagen
 
 ## Acknowledgments
 
