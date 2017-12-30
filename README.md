@@ -28,9 +28,9 @@ dotnet run
 
 ## Authors
 
-Kjell Håland
-Ørjan Langøy Olsen
-Espen Kalhagen
+* Kjell Håland
+* Ørjan Langøy Olsen
+* Espen Kalhagen
 
 ## Acknowledgments
 
